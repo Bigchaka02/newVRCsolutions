@@ -1,0 +1,100 @@
+<div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="/">Home</a><span>/</span><a href="/shop/">Shop</a><span>/</span>{{P_NAME}}
+  </nav>
+</div>
+
+<section class="wrap band-tight">
+  <div class="pdp">
+
+    <div class="pdp-media">
+        {{P_IMAGE}}
+      </div>
+
+    <div class="buybox">
+      <span class="badge badge-plain">{{P_CATEGORY_NAME}}</span>
+      <h1 style="font-size:var(--fs-2xl);margin-top:var(--s-3)">{{P_NAME}}</h1>
+      <p class="pdp-price">{{P_PRICE_FMT}}</p>
+
+      <p class="small muted">{{P_COMPOUND}} — research-grade reference material, independently verified.</p>
+
+      <p style="margin-top:var(--s-4)">
+        <span class="badge badge-stock"><span class="dot"></span>In stock</span>
+        <span class="badge badge-verify"><span class="dot"></span>Lot {{P_LOT}} verified</span>
+      </p>
+
+      <div class="buy-row">
+        <div class="qty">
+          <button type="button" data-step="-1" aria-label="Decrease quantity">&minus;</button>
+          <label class="sr-only" for="qty-{{P_SKU}}">Quantity</label>
+          <input id="qty-{{P_SKU}}" type="number" value="1" min="1" max="99" inputmode="numeric">
+          <button type="button" data-step="1" aria-label="Increase quantity">+</button>
+        </div>
+        <button class="btn btn-primary btn-lg" type="button"
+                data-add='{{P_JSON}}'
+                data-qty-from="qty-{{P_SKU}}">Add to cart</button>
+      </div>
+
+      <div class="coa-panel">
+        <h3>Certificate of Analysis</h3>
+        <p>Published before this batch went on sale. No account or email request required.</p>
+        <dl>
+          <dt>Lot</dt><dd class="mono">{{P_LOT}}</dd>
+          <dt>Purity</dt><dd class="mono">{{P_PURITY}}</dd>
+          <dt>Method</dt><dd>{{P_METHOD_TEXT}}</dd>
+          <dt>Tested</dt><dd>{{P_TESTED}}</dd>
+        </dl>
+        {{P_COA_BUTTON}}
+      </div>
+
+      <table class="spec">
+        <caption>Included with every order</caption>
+        <tbody>
+          <tr><th scope="row">Free bacteriostatic water</th><td>Included with peptide orders</td></tr>
+          <tr><th scope="row">Free shipping</th><td>On orders over $105</td></tr>
+          <tr><th scope="row">First order</th><td>15% off with code <span class="mono">FIRST15</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pdp-details">
+      <table class="spec">
+        <caption>Specifications</caption>
+        <tbody>
+          <tr><th scope="row">Compound</th><td>{{P_COMPOUND}}</td></tr>
+          <tr><th scope="row">SKU</th><td class="mono">{{P_SKU}}</td></tr>
+          <tr><th scope="row">Mass</th><td>{{P_MASS}}</td></tr>
+          <tr><th scope="row">Molecular weight</th><td>{{P_MW}}</td></tr>
+          <tr><th scope="row">Purity</th><td>{{P_PURITY_TEXT}}</td></tr>
+          <tr><th scope="row">Lot</th><td class="mono">{{P_LOT}}</td></tr>
+          <tr><th scope="row">Tested</th><td>{{P_TESTED}}</td></tr>
+          <tr><th scope="row">Storage</th><td>{{P_STORAGE}}</td></tr>
+        </tbody>
+      </table>
+
+      <div class="ruo" style="margin-top:var(--s-6)">
+        <h3>Research use only</h3>
+        <p>This product is sold exclusively for laboratory research use. It is not intended for human or animal consumption, clinical use or veterinary application, and is not intended to diagnose, treat, cure or prevent any disease. We do not supply dosing guidance or reconstitution protocols.</p>
+        <p><a href="/research-use-only-policy/">Full policy</a></p>
+      </div>
+
+      <table class="spec" style="margin-top:var(--s-5)">
+        <caption>Terms of sale</caption>
+        <tbody>
+          <tr><th scope="row">Shipping</th><td>Orders placed before 2pm ET ship the next business day, tracked, within the United States only.</td></tr>
+          <tr><th scope="row">Packaging</th><td>No brand markings on the outside. Return address is our mailing PMB.</td></tr>
+          <tr><th scope="row">Returns</th><td>All sales final. Refunds limited to shipments confirmed lost in transit or damaged on arrival, per our <a href="/refund-policy/">Refund Policy</a>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="band band-sunk">
+  <div class="wrap">
+    <div class="head-block"><h2>Related compounds</h2></div>
+    <div class="cards">
+{{P_RELATED}}
+    </div>
+  </div>
+</section>

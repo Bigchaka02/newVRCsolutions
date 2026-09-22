@@ -1,0 +1,35 @@
+---
+title: Order Status | VRC Solutions
+desc: Check the status of a VRC Solutions order with your order reference and email address. No account required.
+path: /order-status/
+ogtype: website
+robots: noindex
+---
+
+<div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>Order status</nav>
+</div>
+
+<section class="wrap band-tight">
+  <div class="head-block">
+    <h1>Check an order</h1>
+    <p class="lead">Enter the reference from your confirmation email and the address you ordered with. No account needed.</p>
+  </div>
+
+  <div class="split">
+    <form id="status-form" novalidate>
+      <label class="field">
+        <span>Order reference</span>
+        <input class="input mono" name="reference" required placeholder="VRC-XXXXXX" autocomplete="off" autocapitalize="characters">
+      </label>
+      <label class="field">
+        <span>Email used for the order</span>
+        <input class="input" type="email" name="email" required autocomplete="email">
+      </label>
+      <button class="btn btn-primary btn-lg" type="submit">Check status</button>
+      <p class="hint" data-status role="status" aria-live="polite"></p>
+    </form>
+
+    <div id="status-result" aria-live="polite"></div>
+  </div>
+</section>

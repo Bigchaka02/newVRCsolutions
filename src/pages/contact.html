@@ -1,0 +1,88 @@
+---
+title: Contact VRC Solutions — Order, Compliance & Privacy Support
+desc: Reach VRC Solutions by email for order support, compliance questions, COA verification or privacy requests. We reply within one business day.
+path: /contact/
+ogtype: article
+---
+
+<div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>Contact</nav>
+</div>
+
+<section class="wrap band-tight">
+  <div class="head-block">
+    <h1>Contact</h1>
+    <p class="lead">Email is our primary channel. Written records help with compliance and dispute resolution. We reply within one business day.</p>
+  </div>
+
+  <div class="split">
+    <div>
+      <form data-api="/api/contact" data-success="Message received. We reply within one business day." data-fallback="hello@vrcsolutions.co" novalidate>
+        <label class="field">
+          <span>Your name</span>
+          <input class="input" name="name" required autocomplete="name">
+        </label>
+        <label class="field">
+          <span>Email</span>
+          <input class="input" type="email" name="email" required autocomplete="email">
+        </label>
+        <label class="field">
+          <span>Topic</span>
+          <select class="select" name="topic">
+            <option value="general">General question</option>
+            <option value="order">Order support</option>
+            <option value="coa">COA or lot verification</option>
+            <option value="compliance">Compliance</option>
+            <option value="privacy">Privacy request</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Order reference <span class="muted">(optional)</span></span>
+          <input class="input mono" name="order_ref" placeholder="VRC-XXXXXX" autocomplete="off">
+        </label>
+        <label class="field">
+          <span>Message</span>
+          <textarea class="textarea" name="message" required minlength="10"></textarea>
+        </label>
+
+        <!-- Honeypot: hidden from people, visible to naive bots -->
+        <div class="hp" aria-hidden="true">
+          <label>Leave this field empty<input name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+
+        <button class="btn btn-primary btn-lg" type="submit">Send message</button>
+        <p class="hint" data-status role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <div>
+      <table class="spec">
+        <caption>Direct addresses</caption>
+        <tbody>
+          <tr><th scope="row">General</th><td><a href="mailto:hello@vrcsolutions.co">hello@vrcsolutions.co</a></td></tr>
+          <tr><th scope="row">Order support</th><td><a href="mailto:orders@vrcsolutions.co">orders@vrcsolutions.co</a></td></tr>
+          <tr><th scope="row">Compliance</th><td><a href="mailto:compliance@vrcsolutions.co">compliance@vrcsolutions.co</a></td></tr>
+          <tr><th scope="row">Privacy requests</th><td><a href="mailto:privacy@vrcsolutions.co">privacy@vrcsolutions.co</a></td></tr>
+          <tr><th scope="row">Legal</th><td><a href="mailto:legal@vrcsolutions.co">legal@vrcsolutions.co</a></td></tr>
+        </tbody>
+      </table>
+
+      <table class="spec" style="margin-top:var(--s-5)">
+        <caption>Mailing address</caption>
+        <tbody>
+          <tr><th scope="row">VRC Solutions LLC</th><td>9462 Brownsboro Rd, PMB 379<br>Louisville, KY 40241</td></tr>
+          <tr><th scope="row">Phone</th><td>No phone line. Email is the support channel.</td></tr>
+          <tr><th scope="row">In person</th><td>Online only. The address is a registered mailing address, not a retail location.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="placeholder" style="margin-top:var(--s-5)">
+        <strong>Placeholder — outbound email.</strong>
+        The form posts to <code>/api/contact</code>, which stores the message and
+        emails it through <code>send_email()</code> in <code>backend/app/services.py</code>.
+        Until SMTP settings are added to <code>backend/.env</code>, messages are
+        logged instead of sent.
+      </div>
+    </div>
+  </div>
+</section>

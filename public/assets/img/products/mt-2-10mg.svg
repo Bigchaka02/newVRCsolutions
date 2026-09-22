@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="MT-2 10mg vial">
+  <ellipse cx="200" cy="454" rx="92" ry="10" fill="#123D3C" fill-opacity=".10"/>
+  <rect x="146" y="116" width="108" height="42" rx="6" fill="#FFFFFF" fill-opacity=".55" stroke="#123D3C" stroke-opacity=".22" stroke-width="2"/>
+  <rect x="128" y="150" width="144" height="300" rx="22" fill="#FFFFFF" fill-opacity=".55" stroke="#123D3C" stroke-opacity=".22" stroke-width="2"/>
+  <path d="M137 406 Q200 388 263 406 L263 430 Q263 442 251 442 L149 442 Q137 442 137 430 Z" fill="#F3ECDC" stroke="#E2D7BF" stroke-width="1.5"/>
+  <rect x="140" y="162" width="8" height="268" rx="4" fill="#FFFFFF" fill-opacity=".7"/>
+  <rect x="138" y="94" width="124" height="30" rx="5" fill="#C9CECC"/>
+  <rect x="138" y="110" width="124" height="2" fill="#AEB4B2"/>
+  <rect x="146" y="68" width="108" height="30" rx="8" fill="#123D3C"/>
+  <rect x="128" y="220" width="144" height="152" fill="#F7F4ED" stroke="#123D3C" stroke-opacity=".18"/>
+  <rect x="128" y="220" width="144" height="26" fill="#123D3C"/>
+  <text x="200" y="238" text-anchor="middle" font-family="Menlo,Consolas,monospace" font-size="12" font-weight="700" fill="#F7F4ED" letter-spacing="2">VRC</text>
+  <text x="200" y="290" text-anchor="middle" font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-size="28" font-weight="700" fill="#0E2B2A">MT-2</text>
+  <text x="200" y="314" text-anchor="middle" font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-size="15" fill="#4A6664">10mg</text>
+  <line x1="148" y1="327" x2="252" y2="327" stroke="#B4802F" stroke-width="1.5"/>
+  <text x="200" y="344" text-anchor="middle" font-family="Menlo,Consolas,monospace" font-size="9.5" fill="#966922" letter-spacing=".4">LOT MPMT2002</text>
+  <text x="200" y="362" text-anchor="middle" font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-size="7.5" font-weight="700" fill="#8C2F26" letter-spacing="1.2">RESEARCH USE ONLY</text>
+</svg>

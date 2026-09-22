@@ -1,0 +1,100 @@
+---
+title: COA Library — Every Batch, Publicly Verifiable | VRC Solutions
+desc: Public Certificate of Analysis library for every VRC Solutions batch. Search by lot number, SKU or compound. No login or email request required.
+path: /coa-library/
+ogtype: website
+---
+
+<div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="/">Home</a><span>/</span>COA Library
+  </nav>
+</div>
+
+<section class="wrap band-tight" id="lookup">
+  <div class="head-block">
+    <span class="badge badge-verify"><span class="dot"></span>Public record</span>
+    <h1 style="margin-top:var(--s-4)">COA Library</h1>
+    <p class="lead">
+      Every Certificate of Analysis we hold, published before the batch was sold.
+      Search the lot number printed on your vial label to pull its report.
+    </p>
+  </div>
+
+  <div class="ledger">
+    <div class="ledger-top">
+      <div class="ledger-title">
+        Certificate index
+        <span id="ledger-count">{{PRODUCT_COUNT}} batches on file</span>
+      </div>
+      <div class="ledger-search">
+        <label class="sr-only" for="ledger-search">Search by lot number, SKU or compound</label>
+        <input id="ledger-search" type="search" placeholder="Enter lot number from your vial" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="ledger-scroll">
+      <table class="ledger-table" id="ledger-table">
+        <thead>
+          <tr>
+            <th scope="col">SKU</th>
+            <th scope="col">Compound</th>
+            <th scope="col">Lot</th>
+            <th scope="col">Purity</th>
+            <th scope="col">Method</th>
+            <th scope="col">Tested</th>
+            <th scope="col"><span class="sr-only">Certificate</span></th>
+          </tr>
+        </thead>
+        <tbody>
+{{COA_LIBRARY_ROWS}}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="ledger-empty" id="ledger-empty" hidden>
+      No record matches that lot. Lot codes are printed on the vial label and on
+      the outer carton. <a href="/contact/">Send us the code</a> and we will
+      locate it.
+    </p>
+
+    <div class="ledger-foot">
+      <span>Certificates open on the issuing laboratory's own domain wherever the lab publishes them.</span>
+      <a href="/contact/">Report a mismatch</a>
+    </div>
+  </div>
+</section>
+
+<section class="band band-sunk">
+  <div class="wrap split">
+    <div>
+      <h2>How to read a certificate</h2>
+      <p class="lead" style="margin-top:var(--s-4)">
+        Four things on the report should match four things on your vial. If any
+        one of them does not, tell us.
+      </p>
+    </div>
+    <div>
+      <table class="spec">
+        <caption>What to check</caption>
+        <tbody>
+          <tr><th scope="row">Lot number</th><td>The code on the report matches the code printed on your vial label, character for character.</td></tr>
+          <tr><th scope="row">Compound identity</th><td>Mass spectrometry confirms the molecular weight expected for that compound.</td></tr>
+          <tr><th scope="row">Purity</th><td>HPLC percentage at or above our 99% cutoff for peptides.</td></tr>
+          <tr><th scope="row">Test date</th><td>Dated before the batch entered inventory, not after.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="band band-tight">
+  <div class="wrap">
+    <div class="placeholder">
+      <strong>Placeholder — historical archive.</strong>
+      The table lists the current lot for each SKU. Retired lots appear as
+      Archived rows once their certificates are added to
+      <code>data/products.json</code> as a <code>coa_history</code> list on each product.
+    </div>
+  </div>
+</section>

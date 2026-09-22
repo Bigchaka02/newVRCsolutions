@@ -1,0 +1,42 @@
+# Publishes the static storefront to GitHub Pages on every push to main.
+# One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions.
+# Pages hosts only the static site; checkout, contact and order lookup need the
+# API (see README > Deploy).
+name: Deploy site to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - id: pages
+        uses: actions/configure-pages@v5
+      - name: Build site
+        run: python3 build.py --base-path "${{ steps.pages.outputs.base_path }}"
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,232 @@
+---
+title: VRC Solutions — Verified Research Compounds, Publicly Tested
+desc: US-based supplier of research peptides with independent third-party HPLC verification. Every batch tested, every Certificate of Analysis published before sale. Research use only.
+path: /
+ogtype: website
+---
+
+<!-- ── Hero: the batch ledger ────────────────────────────────────────────
+     The most characteristic artifact in this business is the certificate of
+     analysis, so the hero is one — live, searchable, real lot numbers. -->
+<section class="wrap hero">
+  <div class="hero-top">
+    <h1 class="reveal">Verified research compounds. Public COAs.</h1>
+    <div>
+      <p class="lead reveal reveal-1">
+        Every batch goes to an independent third-party laboratory before it
+        reaches inventory. Every Certificate of Analysis is published before the
+        product is sold. No login, no email request, no anonymous shell company.
+      </p>
+      <div class="btn-row reveal reveal-2">
+        <a class="btn btn-primary btn-lg" href="/shop/">Browse the catalog</a>
+        <a class="btn btn-verify btn-lg" href="/coa-library/">Look up a lot number</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="ledger reveal reveal-3">
+    <div class="ledger-top">
+      <div class="ledger-title">
+        Current batch record
+        <span id="ledger-count">{{PRODUCT_COUNT}} batches on file</span>
+      </div>
+      <div class="ledger-search">
+        <label class="sr-only" for="ledger-search">Search batches by lot, SKU or compound</label>
+        <input id="ledger-search" type="search" placeholder="Search lot, SKU or compound" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="ledger-scroll">
+      <table class="ledger-table" id="ledger-table">
+        <thead>
+          <tr>
+            <th scope="col">SKU</th>
+            <th scope="col">Compound</th>
+            <th scope="col">Lot</th>
+            <th scope="col">Purity</th>
+            <th scope="col">Method</th>
+            <th scope="col">Tested</th>
+            <th scope="col"><span class="sr-only">Certificate</span></th>
+          </tr>
+        </thead>
+        <tbody>
+{{LEDGER_ROWS}}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="ledger-empty" id="ledger-empty" hidden>
+      No batch matches that search. Check the lot number on your vial label, or
+      <a href="/contact/">send it to us</a> and we will locate the record.
+    </p>
+
+    <div class="ledger-foot">
+      <span>Open any certificate to see the full laboratory result for that lot.</span>
+      <a href="/coa-library/">Full COA library</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Proof tiles ─────────────────────────────────────────────────────── -->
+<section class="band band-tight">
+  <div class="wrap">
+    <div class="proof">
+      <div class="proof-item">
+        <h3>Independent testing</h3>
+        <p>Every batch goes to a third-party laboratory before it reaches inventory. Identity, purity and contamination are on file before anything is sold.</p>
+      </div>
+      <div class="proof-item">
+        <h3>US-based fulfillment</h3>
+        <p>Domestic quality control and packaging. Orders placed before 2pm ET ship the next business day, tracked from our facility.</p>
+      </div>
+      <div class="proof-item">
+        <h3>Discreet packaging</h3>
+        <p>No brand markings on the outside of the parcel. The return address is our mailing PMB.</p>
+      </div>
+      <div class="proof-item">
+        <h3>Purity at or above 99%</h3>
+        <p>A strict cutoff. Anything that comes back below specification is rejected before it enters inventory.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Featured catalog ────────────────────────────────────────────────── -->
+<section class="band band-sunk">
+  <div class="wrap">
+    <div class="head-block">
+      <h2>Catalog</h2>
+      <p class="lead">A deliberately narrow selection. Fewer compounds means each one gets verified properly.</p>
+    </div>
+
+    <div class="cards">
+{{FEATURED_CARDS}}
+    </div>
+
+    <div class="btn-row" style="margin-top:var(--s-7)">
+      <a class="btn btn-outline" href="/shop/">See all {{PRODUCT_COUNT}} products</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Positioning ─────────────────────────────────────────────────────── -->
+<section class="band">
+  <div class="wrap split">
+    <div>
+      <h2>Two patterns we wanted to break</h2>
+      <p class="lead" style="margin-top:var(--s-4)">
+        The research compound industry runs on anonymous shells and hidden lab
+        reports. Both are solvable problems.
+      </p>
+      <div class="btn-row" style="margin-top:var(--s-6)">
+        <a class="btn btn-outline" href="/about/">How we operate</a>
+      </div>
+    </div>
+    <div class="prose">
+      <h3>The anonymous LLC</h3>
+      <p class="small muted" style="margin-top:var(--s-2)">
+        Most vendors operate from offshore mailbox addresses behind companies
+        with no named officers. When one shuts down, accounts, COA records and
+        refund options vanish with it. VRC Solutions LLC is a registered US
+        limited liability company with a public address and state tax accounts
+        on file.
+      </p>
+      <h3 style="margin-top:var(--s-6)">The hidden Certificate of Analysis</h3>
+      <p class="small muted" style="margin-top:var(--s-2)">
+        Plenty of sellers claim third-party testing, then ask you to email for
+        the report, or hide it behind a login, or show one certificate from a
+        batch years old. Ours are published before sale and linked from every
+        product page. No email required. No account required.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Process: a real sequence, so it gets numbered ───────────────────── -->
+<section class="band band-sunk">
+  <div class="wrap">
+    <div class="head-block">
+      <h2>Source, test, publish, ship</h2>
+      <p class="lead">Every batch follows the same four steps, in the same order, with no shortcuts.</p>
+    </div>
+    <div class="seq">
+      <div class="seq-step">
+        <h3>Source</h3>
+        <p>Research-grade material sourced from suppliers with documented quality standards and traceable production records.</p>
+      </div>
+      <div class="seq-step">
+        <h3>Test</h3>
+        <p>A sample from every production batch goes to an independent third-party laboratory for HPLC and mass spectrometry verification.</p>
+      </div>
+      <div class="seq-step">
+        <h3>Publish</h3>
+        <p>The Certificate of Analysis is added to the public COA library and linked from the product page before any vial ships.</p>
+      </div>
+      <div class="seq-step">
+        <h3>Ship</h3>
+        <p>US-based fulfillment, discreet packaging, tracked next-business-day dispatch on orders placed before 2pm ET.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RUO ─────────────────────────────────────────────────────────────── -->
+<section class="band band-tight">
+  <div class="wrap">
+    <div class="ruo">
+      <h3>All products are sold for laboratory research use only</h3>
+      <p>
+        They are not sold for human or animal use, are not intended to diagnose,
+        treat, cure or prevent any condition, and have not been evaluated by the
+        US Food and Drug Administration. We do not provide dosing guidance,
+        reconstitution protocols or any human-use instruction.
+      </p>
+      <p><a href="/research-use-only-policy/">Read the full Research Use Only Policy</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ excerpt ─────────────────────────────────────────────────────── -->
+<section class="band">
+  <div class="wrap">
+    <div class="head-block">
+      <h2>What researchers ask before buying</h2>
+    </div>
+    <div class="acc" style="max-width:var(--measure)">
+      <details>
+        <summary>How do I verify what I am buying?</summary>
+        <div class="acc-body">Every batch's independent third-party COA is published and linked directly from the product page. You can check purity and identity before you place an order, without contacting us.</div>
+      </details>
+      <details>
+        <summary>What is the refund policy?</summary>
+        <div class="acc-body">Shipments confirmed lost in transit or that arrive damaged are refunded. We do not refund based on whether a product produced a particular research result.</div>
+      </details>
+      <details>
+        <summary>Why don't you sell GLP-1s, SARMs or syringes?</summary>
+        <div class="acc-body">Each category adds disproportionate compliance risk for customers and for the business. Keeping the catalog tight is a deliberate choice, not a supply limitation.</div>
+      </details>
+      <details>
+        <summary>Do you ship internationally?</summary>
+        <div class="acc-body">No. We ship within the United States only.</div>
+      </details>
+    </div>
+    <div class="btn-row" style="margin-top:var(--s-6)">
+      <a class="btn btn-outline" href="/faq/">Read the full FAQ</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Close ───────────────────────────────────────────────────────────── -->
+<section class="band band-deep">
+  <div class="wrap">
+    <h2 style="max-width:18ch">Verify before you buy</h2>
+    <p class="lead" style="color:rgba(247,244,237,.8);margin-top:var(--s-4)">
+      Every product is third-party verified. Every COA is public. Every order
+      ships from a registered US LLC the next business day.
+    </p>
+    <div class="btn-row" style="margin-top:var(--s-6)">
+      <a class="btn btn-lg" href="/shop/" style="background:var(--paper);color:var(--brand)">Shop the catalog</a>
+      <a class="btn btn-lg btn-outline" href="/coa-library/" style="border-color:var(--paper);color:var(--paper)">Browse COAs</a>
+    </div>
+  </div>
+</section>

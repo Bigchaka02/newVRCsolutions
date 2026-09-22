@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /checkout/
+Disallow: /order-status/
+Disallow: /api/
+
+Sitemap: https://vrcsolutions.co/sitemap.xml
