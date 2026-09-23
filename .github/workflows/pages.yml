@@ -1,4 +1,6 @@
 # Publishes the static storefront to GitHub Pages on every push to main.
+# The redesign branch, when it exists, is built alongside it at /v2/ so both
+# versions can be open side by side.
 # One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions.
 # Pages hosts only the static site; checkout, contact and order lookup need the
 # API (see README > Deploy).
@@ -27,6 +29,23 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Build site
         run: python3 build.py --base-path "${{ steps.pages.outputs.base_path }}"
+      - name: Look for the redesign branch
+        id: v2
+        run: |
+          if git ls-remote --exit-code --heads origin redesign > /dev/null; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v5
+        if: steps.v2.outputs.exists == 'true'
+        with:
+          ref: redesign
+          path: v2src
+      - name: Build the redesign at /v2/
+        if: steps.v2.outputs.exists == 'true'
+        run: |
+          cd v2src
+          python3 build.py --base-path "${{ steps.pages.outputs.base_path }}/v2"
+          cp -r public ../public/v2
       - uses: actions/upload-pages-artifact@v4
         with:
           path: public
