@@ -45,12 +45,12 @@ const REVEAL = [
   '.sec-head', '.why-copy', '.notice-card', '.qa', '.feature', '.photo-card',
   '.num-card', '.info-card', '.dont-card', '.principle', '.faq-item', '.faq-group > h2',
   '.numbered', '.coa-table-wrap', '.doc', '.reach > *', '.commit-list li',
-  '.pdp-details > *', '.split > *', '.bestsellers-grid .pcard', '.sec .pgrid:not(#catalog) .pcard',
+  '.pdp-details > *', '.split > *', '.sec .pgrid:not(#catalog) .pcard',
   '.cta-verify .inner-narrow > *', '.footer-grid > *',
 ];
 
 function initReveal() {
-  const els = [...new Set($$(REVEAL.join(',')))].filter((el) => !el.closest('.drawer, .gate, .hero-v2'));
+  const els = [...new Set($$(REVEAL.join(',')))].filter((el) => !el.closest('.drawer, .gate, .fx-glow'));
   if (!('IntersectionObserver' in window) || !els.length) return;
 
   // Stagger siblings that share a parent.
@@ -62,13 +62,21 @@ function initReveal() {
     if (!el.hasAttribute('data-reveal')) el.setAttribute('data-reveal', '');
   });
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('is-in');
-      io.unobserve(entry.target);
+  // A fast scroll or a jump to an anchor can carry elements past the
+  // viewport between two frames, so the observer never sees them. Whenever
+  // anything reveals (and when scrolling settles), reveal everything that is
+  // already at or above the viewport too, so nothing is left hidden.
+  const reveal = (el) => { el.classList.add('is-in'); io.unobserve(el); };
+  const revealPassed = () => {
+    $$('[data-reveal]:not(.is-in), .rule:not(.is-in)').forEach((el) => {
+      if (el.getBoundingClientRect().top < innerHeight) reveal(el);
     });
+  };
+  const io = new IntersectionObserver((entries) => {
+    if (entries.some((entry) => entry.isIntersecting)) revealPassed();
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  let settle;
+  addEventListener('scroll', () => { clearTimeout(settle); settle = setTimeout(revealPassed, 120); }, { passive: true });
 
   els.forEach((el) => io.observe(el));
   $$('.rule').forEach((el) => io.observe(el));
@@ -77,12 +85,7 @@ function initReveal() {
   // Belt and braces: nothing stays hidden if an observer never fires
   // (print, odd embeds, very fast jumps to an anchor).
   addEventListener('beforeprint', () => $$('[data-reveal], .rule').forEach((el) => el.classList.add('is-in')));
-  setTimeout(() => {
-    $$('[data-reveal]:not(.is-in)').forEach((el) => {
-      const r = el.getBoundingClientRect();
-      if (r.top < innerHeight && r.bottom > 0) el.classList.add('is-in');
-    });
-  }, 1800);
+  setTimeout(revealPassed, 1800);
 }
 
 /* ---------- headline: word-by-word entrance ------------------------------ */
@@ -107,12 +110,25 @@ function splitWords(el) {
   });
 }
 
-/* ---------- hero: particle field ---------------------------------------- */
+/* ---------- glow stages: flowing aurora + particle field ----------------
+   Every .fx-glow section (home hero, page headers, product photo stage)
+   gets the drifting lights and a particle canvas. Markup may already carry
+   them (the home hero does); otherwise they are added here. */
 
-function initParticles() {
-  const hero = document.querySelector('.hero-v2');
-  const canvas = hero?.querySelector('.hero-particles');
-  if (!canvas || !canvas.getContext) return;
+function initGlow(stage) {
+  if (!stage.querySelector(':scope > .aurora')) {
+    const a = document.createElement('div');
+    a.className = 'aurora'; a.setAttribute('aria-hidden', 'true');
+    a.innerHTML = '<span></span><span></span><span></span>';
+    stage.prepend(a);
+  }
+  let canvas = stage.querySelector(':scope > .hero-particles');
+  if (!canvas) {
+    canvas = document.createElement('canvas');
+    canvas.className = 'hero-particles'; canvas.setAttribute('aria-hidden', 'true');
+    stage.querySelector(':scope > .aurora').after(canvas);
+  }
+  if (!canvas.getContext) return;
   const ctx = canvas.getContext('2d');
   const dpr = Math.min(devicePixelRatio || 1, 2);
   const COLORS = ['143,217,174', '172,201,193', '226,184,145', '91,192,138'];
@@ -135,45 +151,45 @@ function initParticles() {
   });
 
   const resize = () => {
-    const r = hero.getBoundingClientRect();
+    const r = stage.getBoundingClientRect();
     w = r.width; h = r.height;
     canvas.width = w * dpr; canvas.height = h * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const n = Math.round(Math.min(110, (w * h) / 11000));
-    parts = Array.from({ length: n }, () => spawn(true));
+    parts = Array.from({ length: Math.round(Math.min(110, (w * h) / 11000)) }, () => spawn(true));
   };
 
-  const frame = (t) => {
+  const frame = () => {
     ctx.clearRect(0, 0, w, h);
     ctx.globalCompositeOperation = 'lighter';
     for (const p of parts) {
       p.sway += 0.01; p.tw += 0.03;
       p.x += Math.sin(p.sway) * 0.25 + p.vx; p.y += p.vy; p.vx *= 0.94;
       const dx = p.x - mouse.x, dy = p.y - mouse.y, d2 = dx * dx + dy * dy;
-      if (d2 < 14000) { const f = (1 - d2 / 14000) * 0.9; p.vx += (dx / Math.sqrt(d2 + 1)) * f; p.y += (dy / Math.sqrt(d2 + 1)) * f; }
+      if (d2 < 14000) { const f = (1 - d2 / 14000) * 0.9, d = Math.sqrt(d2 + 1); p.vx += (dx / d) * f; p.y += (dy / d) * f; }
       if (p.y < -20 || p.x < -30 || p.x > w + 30) Object.assign(p, spawn(false));
       ctx.globalAlpha = 0.35 + 0.35 * Math.sin(p.tw);
       ctx.drawImage(sprite[p.c], p.x - p.r, p.y - p.r, p.r * 2, p.r * 2);
     }
     // faint links between close particles: a "molecular" mesh
-    ctx.globalCompositeOperation = 'source-over'; ctx.lineWidth = 0.6;
+    ctx.globalCompositeOperation = 'source-over'; ctx.lineWidth = 0.6; ctx.strokeStyle = 'rgb(172,201,193)';
     for (let i = 0; i < parts.length; i++) for (let j = i + 1; j < parts.length; j++) {
       const a = parts[i], b = parts[j], dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy;
-      if (d2 < 9000) { ctx.globalAlpha = (1 - d2 / 9000) * 0.18; ctx.strokeStyle = 'rgb(172,201,193)';
+      if (d2 < 9000) { ctx.globalAlpha = (1 - d2 / 9000) * 0.18;
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
     }
     ctx.globalAlpha = 1;
     raf = requestAnimationFrame(frame);
   };
-  const start = () => { if (!running) { running = true; raf = requestAnimationFrame(frame); } };
+  let visible = false;
+  const start = () => { if (!running && visible && !document.hidden) { running = true; raf = requestAnimationFrame(frame); } };
   const stop = () => { running = false; cancelAnimationFrame(raf); };
 
   resize();
   addEventListener('resize', () => { clearTimeout(resize.t); resize.t = setTimeout(resize, 150); });
-  hero.addEventListener('pointermove', (e) => { const r = hero.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
-  hero.addEventListener('pointerleave', () => { mouse.x = mouse.y = -9999; });
-  // Only animate while the hero is on screen and the tab is visible.
-  new IntersectionObserver(([e]) => (e.isIntersecting ? start() : stop())).observe(hero);
+  stage.addEventListener('pointermove', (e) => { const r = stage.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
+  stage.addEventListener('pointerleave', () => { mouse.x = mouse.y = -9999; });
+  // Only animate while the stage is on screen and the tab is visible.
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? start() : stop(); }).observe(stage);
   document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
 }
 
@@ -297,7 +313,7 @@ export function initFx() {
   splitWords(document.querySelector('.hero-copy h1'));
   splitWords(document.querySelector('.page-hero h1'));
   initReveal();
-  initParticles();
+  $$('.fx-glow').forEach(initGlow);
   initVial();
   initButtons();
   initCartFx();

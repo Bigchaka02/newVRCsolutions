@@ -50,8 +50,11 @@
    HOME HERO
    ========================================================================== */
 
-.hero-v2 { position: relative; overflow: hidden; isolation: isolate;
-  background-color: #0B2B2A; animation: fx-waves 40s linear infinite; }
+.hero-v2 { animation: fx-waves 40s linear infinite; }
+/* Any dark stage with the flowing glow: the home hero, page headers and the
+   product photo stage. fx.js adds the aurora and particle canvas where the
+   markup does not already have them. */
+.fx-glow { position: relative; overflow: hidden; isolation: isolate; background-color: #0B2B2A; }
 
 /* Flowing glow: three blurred lights drifting under a teal veil. */
 .aurora { position: absolute; inset: -20%; z-index: -2; filter: blur(70px) saturate(1.2); pointer-events: none; }
@@ -62,12 +65,12 @@
   background: radial-gradient(circle, rgba(28,120,104,.7), transparent 65%); animation: fx-drift-b 23s ease-in-out infinite alternate; }
 .aurora span:nth-child(3) { width: 38%; height: 40%; left: 58%; top: 55%;
   background: radial-gradient(circle, rgba(208,160,122,.32), transparent 65%); animation: fx-drift-c 27s ease-in-out infinite alternate; }
-.hero-v2::after { /* vignette keeps the edges deep teal */
+.fx-glow::after { /* vignette keeps the edges deep teal */
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(6,24,23,.65) 100%);
 }
 .hero-particles { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
-.hero-v2 > .inner, .hero-v2 > .hero-bottom { position: relative; z-index: 1; }
+.hero-v2 > .inner, .hero-v2 > .hero-bottom, .page-hero > .inner-narrow { position: relative; z-index: 1; }
 
 .wordmark {
   background: linear-gradient(100deg, #F7F4ED 0%, #B9D1CA 30%, #F7F4ED 45%, #E2B891 55%, #F7F4ED 70%, #B9D1CA 100%);
@@ -249,3 +252,33 @@ main { overflow-x: clip; }
 .pcard-show .btn-coa { background: transparent; border-color: rgba(255,255,255,.25); color: var(--on-dark); }
 .pcard-show a.btn-coa:hover { background: rgba(255,255,255,.1); border-color: #8FD9AE; color: #8FD9AE; }
 .pcard-show .btn-coa.is-pending { color: rgba(247,244,237,.5); background: transparent; }
+
+
+/* ==========================================================================
+   REST OF THE SITE, IN THE HOME PAGE'S LANGUAGE
+   ========================================================================== */
+
+/* Page headers: same flowing glow, slightly calmer particles. */
+.page-hero .wordmark { filter: drop-shadow(0 8px 40px rgba(91,192,138,.2)); }
+.page-hero h1 em { font-style: normal; }
+
+/* Product photo stage: the cut-out vial levitates over the glow. */
+.pdp-stage { border-radius: var(--r-xl); display: grid; place-items: center; aspect-ratio: 4 / 5; }
+.pdp-stage .vial-halo { width: 110%; top: 48%; }
+.pdp-stage .vial-shadow { bottom: 9%; width: 34%; }
+.pdp-media.pdp-stage img.vial { position: relative; inset: auto; width: 33%; height: auto; object-fit: contain; z-index: 2; }
+.pdp-trust li { background: rgba(255,255,255,.7); backdrop-filter: blur(6px); }
+
+/* Product cards on light sections: cut-out vial floating in a soft well.
+   Cards are links, so hover lifts and straightens the vial. */
+.pcard-float .pcard-media { background:
+  radial-gradient(55% 45% at 50% 52%, rgba(91,192,138,.16), transparent 70%),
+  radial-gradient(38% 7% at 50% 91%, rgba(15,52,51,.22), transparent 70%),
+  linear-gradient(180deg, #F6F4EE, #ECE8DE); }
+.pcard-float .pcard-media img { object-fit: contain; inset: 8% 14% 10%; width: 72%; height: 82%;
+  transform: rotate(-6deg); filter: drop-shadow(0 16px 18px rgba(15,52,51,.22));
+  transition: transform 600ms var(--ease), filter 600ms var(--ease); }
+.pcard-float:hover .pcard-media img { transform: translateY(-10px) rotate(0deg) scale(1.04);
+  filter: drop-shadow(0 26px 24px rgba(15,52,51,.28)); }
+.fx-fly img { object-fit: contain; background: #F1EFE8; }
+.line-media img { object-fit: contain; padding: 4px; }

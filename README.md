@@ -112,6 +112,16 @@ components in `public/assets/css/vrc.css`: `.shell.sec` sections, `.page-hero`,
 photo cards use Unsplash images (free licence), self-hosted in
 `public/assets/img/why/`.
 
+### v2 visual layer (redesign branch)
+
+`public/assets/css/fx.css` and `public/assets/js/fx.js` sit on top of the
+base design. Sections with the `fx-glow` class (home hero, page headers, the
+product photo stage) get a drifting glow and a particle canvas that pauses
+off-screen. Product cards and product pages use background-free vials from
+`public/assets/img/cutouts/<slug>.webp` when one exists, else the photo.
+Hover effects are reserved for clickable things; everything else fades in
+once on scroll. All motion is off for visitors who prefer reduced motion.
+
 ## Backend and integrations — placeholders
 
 The old site had connections this rebuild can only infer. Each is an adapter

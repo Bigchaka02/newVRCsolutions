@@ -303,19 +303,26 @@ def ledger_row(p: dict, record: dict | None = None, archived: bool = False) -> s
 CUTOUT_DIR = OUT / "assets" / "img" / "cutouts"
 
 
+def cutout(p: dict) -> str:
+    """Site path of the product's cut-out vial, or '' if there is none."""
+    path = CUTOUT_DIR / f"{p['slug']}.webp"
+    return "/" + path.relative_to(OUT).as_posix() if path.exists() else ""
+
+
 def card(p: dict, order: int, showcase: bool = False) -> str:
-    """Product card. `showcase` (homepage best sellers) swaps the photo for a
-    background-free cut-out when one exists in assets/img/cutouts/."""
-    cutout = CUTOUT_DIR / f"{p['slug']}.webp"
-    showcase = showcase and cutout.exists()
-    img_src = "/" + cutout.relative_to(OUT).as_posix() if showcase else p["_img"]
+    """Product card. Uses the background-free cut-out from assets/img/cutouts/
+    when one exists: floating in a soft well on light sections, or on a glass
+    card when `showcase` is set (dark sections)."""
+    cut = cutout(p)
+    img_src = cut or p["_img"]
+    variant = (" pcard-show" if showcase else " pcard-float") if cut else ""
     payload = {"sku": p["sku"], "slug": p["slug"], "name": p["name"],
                "price": p["price"], "image": p["_img"]}
     coa = (f'<a class="btn btn-coa" href="{e(p["coa_url"])}" target="_blank" rel="noopener" '
            f'aria-label="View Certificate of Analysis for {e(p["name"])}">COA</a>'
            if p.get("coa_url") else
            '<span class="btn btn-coa is-pending" title="Certificate for the current lot not yet published">COA pending</span>')
-    return f"""      <article class="pcard{' pcard-show' if showcase else ''}" data-product
+    return f"""      <article class="pcard{variant}" data-product
                data-category="{e(p['category'])}"
                data-name="{e(p['name'])}"
                data-sku="{e(p['sku'])}"
@@ -536,8 +543,10 @@ def build_products() -> list[tuple[str, float]]:
 
         payload = {"sku": p["sku"], "slug": p["slug"], "name": p["name"],
                    "price": p["price"], "image": p["_img"]}
-        image = (f'<img src="{e(p["_img"])}" alt="{e(p.get("image_alt", p["name"]))}" '
-                 f'width="640" height="800">')
+        cut = cutout(p)
+        image = (f'<img class="vial" src="{e(cut)}" alt="{e(p.get("image_alt", p["name"]))}" width="320" height="740">'
+                 if cut else
+                 f'<img src="{e(p["_img"])}" alt="{e(p.get("image_alt", p["name"]))}" width="640" height="800">')
 
         lot = "Not published" if is_placeholder_lot(p.get("lot")) else p["lot"]
         if p.get("coa_url"):
@@ -576,7 +585,7 @@ def build_products() -> list[tuple[str, float]]:
                         else '<span class="muted">Out of stock</span>'),
             "P_IMAGE": image, "P_COA_BUTTON": coa_btn, "P_COA_PANEL": coa_panel,
             "P_COA_STATUS": coa_status, "P_SPECS": specs, "P_JSON": attr_json(payload),
-            "P_RELATED": cards_html(related),
+            "P_RELATED": "\n".join(card(q, i, showcase=True) for i, q in enumerate(related)),
         }.items():
             body = body.replace("{{" + key + "}}", value)
         body = substitute_tokens(body)
@@ -663,7 +672,7 @@ def build_meta_files(urls: list[tuple[str, float]]) -> None:
         title="Page not found | VRC Solutions", desc="That page does not exist.",
         path="/404.html", robots="noindex", gate="off",
         content="""
-<section class="shell sec sec-dark page-hero">
+<section class="shell sec sec-dark page-hero fx-glow">
   <div class="inner-narrow">
     <p class="tagline">Error 404</p>
     <h1>That page doesn't exist.</h1>

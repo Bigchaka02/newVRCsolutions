@@ -422,13 +422,6 @@ main { flex: 1 0 auto; }
   .hero-copy .btn-row { justify-content: center; }
 }
 
-.hero-visual { position: relative; }
-.hero-photo {
-  position: relative; width: min(100%, 320px); aspect-ratio: 4 / 5; margin: 0 auto;
-  border-radius: 6px; overflow: hidden; background: var(--well); box-shadow: var(--shadow-3);
-}
-.hero-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-
 .callouts { display: grid; gap: 22px; margin-top: 36px; }
 .callout {
   position: relative; background: #F7F4EE; border-radius: var(--r-lg);
@@ -440,15 +433,6 @@ main { flex: 1 0 auto; }
   position: absolute; top: -11px; left: -9px; width: 26px; height: 26px; border-radius: 50%;
   background: var(--copper); color: #fff; font-size: 0.75rem; font-weight: 700;
   display: grid; place-items: center; box-shadow: 0 0 0 3px rgba(15, 52, 51, 0.6);
-}
-@media (min-width: 960px) {
-  .hero-visual { min-height: 500px; }
-  .hero-photo { position: absolute; top: 40px; right: 24px; width: 320px; }
-  .callouts { display: block; margin: 0; }
-  .callout { position: absolute; width: 240px; text-align: left; z-index: 1; }
-  .callout-1 { top: 0; left: 20px; }
-  .callout-2 { top: 300px; left: 0; }
-  .callout-3 { top: 380px; right: -8px; }
 }
 .hero-bottom { height: clamp(48px, 6vw, 72px); }
 
