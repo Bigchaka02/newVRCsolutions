@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     smtp_port: int = 587
     smtp_user: str = ""
     smtp_password: str = ""
-    mail_from: str = "orders@vrcsolutions.co"
+    mail_from: str = "support@vrcsolutions.co"
 
     venmo_handle: str = ""
     cashapp_handle: str = ""

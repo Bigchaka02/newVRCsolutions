@@ -140,7 +140,7 @@ def create_card_intent(reference: str, total: float) -> dict:
         "status": "unavailable",
         "note": (
             "Card payment is enabled for select regions only. "
-            "Email orders@vrcsolutions.co and we will confirm whether yours is covered."
+            "Email support@vrcsolutions.co and we will confirm whether yours is covered."
         ),
     }
 

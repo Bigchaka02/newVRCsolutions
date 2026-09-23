@@ -81,7 +81,7 @@ async def unhandled(request: Request, exc: Exception):
         status_code=500,
         content={
             "detail": "Something went wrong on our end. "
-                      "Email orders@vrcsolutions.co if this keeps happening."
+                      "Email support@vrcsolutions.co if this keeps happening."
         },
     )
 

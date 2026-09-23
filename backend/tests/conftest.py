@@ -52,6 +52,6 @@ def order_payload():
         "email": "lab@example.com", "name": "A Researcher", "address1": "1 Lab St",
         "city": "Louisville", "state": "ky", "postal_code": "40241",
         "payment_method": "venmo", "ruo_confirmed": True,
-        "items": [{"sku": "BPC10", "qty": 2}, {"sku": "BW10", "qty": 1}],
+        "items": [{"sku": "BPC10", "qty": 2}, {"sku": "BA10", "qty": 1}],
         "promo_code": "FIRST15",
     }

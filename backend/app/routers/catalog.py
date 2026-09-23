@@ -16,7 +16,7 @@ router = APIRouter(tags=["catalog"])
 def list_products(
     response: Response,
     db: Session = Depends(get_db),
-    category: str | None = Query(None, description="peptides | blends | solvents"),
+    category: str | None = Query(None, description="peptides | solvents"),
     q: str | None = Query(None, max_length=80, description="Match name, SKU, compound or lot"),
     sort: str = Query("featured", pattern="^(featured|name|price_asc|price_desc)$"),
 ):

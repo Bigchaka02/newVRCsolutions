@@ -6,81 +6,78 @@ ogtype: website
 robots: noindex
 ---
 
-<div class="wrap">
-  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>Checkout</nav>
-</div>
+<section class="shell sec sec-tight sec-cream">
+  <div class="inner">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/shop/">Shop</a><span aria-hidden="true">/</span><span>Checkout</span></nav>
+    <h1 style="margin-top:14px;font-size:clamp(2rem,1.5rem + 2vw,2.75rem)">Checkout</h1>
+    <p class="lead" style="margin-top:10px">Guest checkout, no account required. Your order is confirmed once payment clears and ships the next business day.</p>
 
-<section class="wrap band-tight">
-  <div class="head-block">
-    <h1>Checkout</h1>
-    <p class="lead">Guest checkout. No account required. Your order is confirmed once payment clears, and ships the next business day.</p>
-  </div>
+    <noscript>
+      <div class="ruo-box">
+        <h3>Checkout needs JavaScript</h3>
+        <p>Enable JavaScript to place an order, or email your order to <a href="mailto:support@vrcsolutions.co">support@vrcsolutions.co</a>.</p>
+      </div>
+    </noscript>
 
-  <noscript>
-    <div class="ruo" style="margin-bottom:var(--s-6)">
-      <h3>Checkout needs JavaScript</h3>
-      <p>Enable JavaScript to place an order, or email your order to <a href="mailto:orders@vrcsolutions.co">orders@vrcsolutions.co</a>.</p>
-    </div>
-  </noscript>
+    <div class="checkout-grid" style="margin-top:28px">
+      <div class="panel" id="checkout-main">
+        <form id="checkout-form" novalidate>
+          <div class="form-section">
+            <h3>Contact</h3>
+            <label class="field"><span>Email</span><input class="input" type="email" name="email" required autocomplete="email"></label>
+          </div>
 
-  <div class="split">
-    <div id="checkout-main">
-      <form id="checkout-form" novalidate>
-        <h3 style="margin-bottom:var(--s-4)">Contact</h3>
-        <label class="field"><span>Email</span><input class="input" type="email" name="email" required autocomplete="email"></label>
+          <div class="form-section">
+            <h3>Shipping address</h3>
+            <label class="field"><span>Full name</span><input class="input" name="name" required autocomplete="name"></label>
+            <label class="field"><span>Street address</span><input class="input" name="address1" required autocomplete="address-line1"></label>
+            <label class="field"><span>Apartment, suite <span class="muted">(optional)</span></span><input class="input" name="address2" autocomplete="address-line2"></label>
+            <div class="row-3">
+              <label class="field"><span>City</span><input class="input" name="city" required autocomplete="address-level2"></label>
+              <label class="field"><span>State</span><input class="input" name="state" required maxlength="2" placeholder="KY" autocomplete="address-level1"></label>
+              <label class="field"><span>ZIP</span><input class="input mono" name="postal_code" required inputmode="numeric" autocomplete="postal-code"></label>
+            </div>
+            <p class="note">We ship within the United States only.</p>
+          </div>
 
-        <h3 style="margin:var(--s-6) 0 var(--s-4)">Shipping address</h3>
-        <label class="field"><span>Full name</span><input class="input" name="name" required autocomplete="name"></label>
-        <label class="field"><span>Street address</span><input class="input" name="address1" required autocomplete="address-line1"></label>
-        <label class="field"><span>Apartment, suite <span class="muted">(optional)</span></span><input class="input" name="address2" autocomplete="address-line2"></label>
-        <div class="grid g-3">
-          <label class="field"><span>City</span><input class="input" name="city" required autocomplete="address-level2"></label>
-          <label class="field"><span>State</span><input class="input" name="state" required maxlength="2" placeholder="KY" autocomplete="address-level1"></label>
-          <label class="field"><span>ZIP</span><input class="input mono" name="postal_code" required inputmode="numeric" autocomplete="postal-code"></label>
-        </div>
-        <p class="note">We ship within the United States only.</p>
+          <div class="form-section">
+            <h3>Payment method</h3>
+            <div class="checks">
+              <label class="check"><input type="radio" name="payment_method" value="venmo" required><span><strong>Venmo</strong><br><span class="muted xsmall">Payment instructions shown and emailed after you place the order.</span></span></label>
+              <label class="check"><input type="radio" name="payment_method" value="cashapp"><span><strong>Cash App</strong><br><span class="muted xsmall">Payment instructions shown and emailed after you place the order.</span></span></label>
+              <label class="check"><input type="radio" name="payment_method" value="crypto"><span><strong>Crypto</strong> (BTC, ETH, USDC)<br><span class="muted xsmall">Wallet addresses shown with your order reference.</span></span></label>
+            </div>
+          </div>
 
-        <h3 style="margin:var(--s-6) 0 var(--s-4)">Payment method</h3>
-        <div class="gate-checks">
-          <label class="check"><input type="radio" name="payment_method" value="venmo" required><span><strong>Venmo</strong><br><span class="muted xsmall">Payment instructions emailed after you place the order.</span></span></label>
-          <label class="check"><input type="radio" name="payment_method" value="cashapp"><span><strong>Cash App</strong><br><span class="muted xsmall">Payment instructions emailed after you place the order.</span></span></label>
-          <label class="check"><input type="radio" name="payment_method" value="crypto"><span><strong>Crypto</strong> (BTC, ETH, USDC)<br><span class="muted xsmall">A payment address is generated with your order reference.</span></span></label>
-        </div>
+          <div class="ruo-box">
+            <h3>Confirm before ordering</h3>
+            <label class="check">
+              <input type="checkbox" name="ruo_confirmed" required value="true">
+              <span>I am 21 or over and I am purchasing for laboratory research use only — not for human or veterinary use, and not for diagnostic or therapeutic purposes. I have read the <a href="/research-use-only-policy/">Research Use Only Policy</a> and <a href="/terms-conditions/">Terms</a>.</span>
+            </label>
+          </div>
 
-        <div class="ruo" style="margin:var(--s-6) 0">
-          <h3>Confirm before ordering</h3>
-          <label class="check" style="margin-top:var(--s-3);background:transparent">
-            <input type="checkbox" name="ruo_confirmed" required value="true">
-            <span>I am 21 or over and I am purchasing for laboratory research use only — not for human or veterinary use, and not for diagnostic or therapeutic purposes.</span>
-          </label>
-        </div>
+          <div class="hp" aria-hidden="true"><label>Leave empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
 
-        <div class="hp" aria-hidden="true"><label>Leave empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
+          <button class="btn btn-copper btn-lg btn-block btn-square" type="submit">Place order</button>
+          <p class="hint" data-status role="status" aria-live="polite"></p>
+        </form>
+      </div>
 
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Place order</button>
-        <p class="hint" data-status role="status" aria-live="polite"></p>
-      </form>
-    </div>
-
-    <div>
-      <div style="border:var(--hair-firm);border-radius:var(--r-card);padding:var(--s-5);background:var(--paper-pure)">
-        <h3 style="margin-bottom:var(--s-4)">Order summary</h3>
+      <aside class="panel summary-card" aria-label="Order summary">
+        <h3>Order summary</h3>
         <div id="checkout-summary"><p class="note">Loading your cart…</p></div>
-        <p class="note" style="margin-top:var(--s-4)">
+        <p class="note" style="margin-top:16px">
           Totals are recalculated on our server from the live catalog before the
-          order is accepted. Open the <button class="btn btn-ghost btn-sm" type="button" data-cart-open>cart</button>
+          order is accepted. Open the <button class="btn-link" type="button" data-cart-open>cart</button>
           to change quantities.
         </p>
-      </div>
-
-      <div class="placeholder" style="margin-top:var(--s-5)">
-        <strong>Placeholder — payment rails.</strong>
-        Venmo, Cash App and crypto are manual flows: the API creates the order
-        with status <code>awaiting_payment</code> and a reference code, then
-        emails payment instructions. Handles and wallet addresses are set in
-        <code>backend/.env</code>. Card payments are stubbed in
-        <code>backend/app/integrations/payments.py</code>.
-      </div>
+      </aside>
     </div>
+    <!-- PLACEHOLDER (payment rails): Venmo, Cash App and crypto are manual flows.
+         The API creates the order with status awaiting_payment and a reference
+         code, then emails payment instructions. Handles and wallet addresses are
+         set in backend/.env. Card payments are stubbed in
+         backend/app/integrations/payments.py. -->
   </div>
 </section>

@@ -18,7 +18,7 @@
       "tested": "",
       "coa_url": "https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_BPC10_AS-BPC10-0426.jpg",
       "coa_type": "image",
-      "image": "/assets/img/products/bpc-157-10mg.png",
+      "image": "/assets/img/products/bpc-157-10mg.webp",
       "image_alt": "VRC Solutions BPC-157 10mg lyophilized vial",
       "review": [
         "test date"
@@ -35,21 +35,20 @@
       "featured": true,
       "mass": "10mg lyophilized",
       "molecular_weight": "~4,963 Da",
-      "purity": "\u226599%",
+      "purity": "\u226598%",
       "purity_method": "See COA",
       "lot": "PLACEHOLDER-TB10-LOT",
       "storage": "-20\u00b0C lyophilized; 4\u00b0C after dilution with appropriate solvent",
       "tested": "",
       "coa_url": "",
       "coa_type": "missing",
-      "image": "/assets/img/products/tb-500-10mg.png",
+      "image": "/assets/img/products/tb-500-10mg.webp",
       "image_alt": "VRC Solutions TB-500 10mg lyophilized vial",
       "review": [
         "lot",
         "purity",
         "method",
         "test date",
-        "sku",
         "molecular weight",
         "coa"
       ]
@@ -57,13 +56,13 @@
     {
       "sku": "BB10",
       "slug": "bpc-tb500",
-      "name": "BPC+TB500 Blend",
-      "compound": "BPC-157 10mg / TB-500 10mg blend",
-      "category": "blends",
+      "name": "BPC+TB500",
+      "compound": "BPC-157 5mg / TB-500 5mg blend",
+      "category": "peptides",
       "price": 69.99,
       "stock": true,
       "featured": true,
-      "mass": "20mg lyophilized (10mg + 10mg)",
+      "mass": "10mg lyophilized (5mg + 5mg)",
       "molecular_weight": "Blend \u2014 see COA",
       "purity": "\u226599%",
       "purity_method": "See COA",
@@ -72,14 +71,13 @@
       "tested": "",
       "coa_url": "https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_BB10_BTB52607-114M_v2-1.jpg",
       "coa_type": "image",
-      "image": "/assets/img/products/bpc-tb500.png",
+      "image": "/assets/img/products/bpc-tb500.webp",
       "image_alt": "VRC Solutions BPC+TB500 blend vial",
       "label": "BPC+TB500",
       "review": [
         "purity",
         "method",
         "test date",
-        "compound",
         "molecular weight"
       ]
     },
@@ -101,7 +99,7 @@
       "tested": "",
       "coa_url": "https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_TSM10_TS10-0526-A_v2-1.jpg",
       "coa_type": "image",
-      "image": "/assets/img/products/tesamorelin-10mg.png",
+      "image": "/assets/img/products/tesamorelin-10mg.webp",
       "image_alt": "VRC Solutions Tesamorelin 10mg lyophilized vial",
       "review": [
         "purity",
@@ -128,7 +126,7 @@
       "tested": "",
       "coa_url": "https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_IG1_IGF01J7_v2-1.jpg",
       "coa_type": "image",
-      "image": "/assets/img/products/igf-1-lr3-1mg.png",
+      "image": "/assets/img/products/igf-1-lr3-1mg.webp",
       "image_alt": "VRC Solutions IGF-1 LR3 1mg lyophilized vial",
       "review": [
         "purity",
@@ -155,7 +153,7 @@
       "tested": "",
       "coa_url": "https://vrcsolutions.co/wp-content/uploads/2026/07/VRC_COA_GHKCu_50mg.jpg",
       "coa_type": "image",
-      "image": "/assets/img/products/ghk-cu-50mg.png",
+      "image": "/assets/img/products/ghk-cu-50mg.webp",
       "image_alt": "VRC Solutions GHK-Cu 50mg lyophilized vial",
       "review": [
         "lot",
@@ -183,7 +181,7 @@
       "tested": "",
       "coa_url": "https://vrcsolutions.co/wp-content/uploads/2026/09/RetaCOA_screenshot.png",
       "coa_type": "image",
-      "image": "/assets/img/products/retatrutide-20mg.png",
+      "image": "/assets/img/products/retatrutide-20mg.webp",
       "image_alt": "VRC Solutions Retatrutide 20mg lyophilized vial",
       "review": [
         "lot",
@@ -211,7 +209,7 @@
       "tested": "",
       "coa_url": "https://verify.janoshik.com/tests/137638-reta10mg_Cocer_Peptides_MSARBWF3I3P9",
       "coa_type": "lab",
-      "image": "/assets/img/products/rt-10-10mg.png",
+      "image": "/assets/img/products/rt-10-10mg.webp",
       "image_alt": "VRC Solutions RT-10 10mg lyophilized vial",
       "review": [
         "lot",
@@ -239,7 +237,7 @@
       "tested": "",
       "coa_url": "https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_NAD50_PH-na500-0509.jpg",
       "coa_type": "image",
-      "image": "/assets/img/products/nad-500mg.png",
+      "image": "/assets/img/products/nad-500mg.webp",
       "image_alt": "VRC Solutions NAD+ 500mg lyophilized vial",
       "review": [
         "purity",
@@ -266,7 +264,7 @@
       "tested": "",
       "coa_url": "https://janoshik.com/tests/124498-Ipamorelin_10mg_Cocer_Peptide_7YE6S1T3TLAS",
       "coa_type": "lab",
-      "image": "/assets/img/products/ipamorelin-10mg.png",
+      "image": "/assets/img/products/ipamorelin-10mg.webp",
       "image_alt": "VRC Solutions Ipamorelin 10mg lyophilized vial",
       "review": [
         "lot",
@@ -281,7 +279,7 @@
       "slug": "cjcipa-blend-no-dac",
       "name": "CJC+IPA Blend (No-DAC)",
       "compound": "CJC-1295 No-DAC 5mg / Ipamorelin 5mg blend",
-      "category": "blends",
+      "category": "peptides",
       "price": 74.99,
       "stock": true,
       "featured": false,
@@ -294,7 +292,7 @@
       "tested": "",
       "coa_url": "https://janoshik.com/tests/121731-CJCIpa_55_Cocer_Peptides_KPSQDAP7FBG1",
       "coa_type": "lab",
-      "image": "/assets/img/products/cjcipa-blend-no-dac.png",
+      "image": "/assets/img/products/cjcipa-blend-no-dac.webp",
       "image_alt": "VRC Solutions CJC+IPA No-DAC blend vial",
       "label": "CJC+IPA",
       "review": [
@@ -302,17 +300,16 @@
         "purity",
         "method",
         "test date",
-        "compound",
         "molecular weight"
       ]
     },
     {
       "sku": "GLW70",
       "slug": "glow-70mg-blend",
-      "name": "GLOW 70mg Blend",
+      "name": "GLOW 70mg (Blend)",
       "compound": "GHK-Cu / BPC-157 / TB-500 blend",
-      "category": "blends",
-      "price": 119.99,
+      "category": "peptides",
+      "price": 105.99,
       "stock": true,
       "featured": false,
       "mass": "70mg lyophilized",
@@ -324,7 +321,7 @@
       "tested": "",
       "coa_url": "https://vrcsolutions.co/wp-content/uploads/2026/07/VRC_COA_GLOW_GLOW017.jpg",
       "coa_type": "image",
-      "image": "/assets/img/products/glow-70mg-blend.png",
+      "image": "/assets/img/products/glow-70mg-blend.webp",
       "image_alt": "VRC Solutions GLOW 70mg blend vial",
       "label": "GLOW",
       "review": [
@@ -338,9 +335,9 @@
     {
       "sku": "KLW80",
       "slug": "klow-80mg",
-      "name": "KLOW 80mg Blend",
+      "name": "KLOW 80mg",
       "compound": "KPV / GHK-Cu / BPC-157 / TB-500 blend",
-      "category": "blends",
+      "category": "peptides",
       "price": 119.99,
       "stock": true,
       "featured": false,
@@ -353,14 +350,13 @@
       "tested": "",
       "coa_url": "https://vrcsolutions.co/wp-content/uploads/2026/09/VRC-KLOW-COA-Horizon-Analytical-Lot-SQS-7626298-P.pdf",
       "coa_type": "pdf",
-      "image": "/assets/img/products/klow-80mg.png",
+      "image": "/assets/img/products/klow-80mg.webp",
       "image_alt": "VRC Solutions KLOW 80mg blend vial",
       "label": "KLOW",
       "review": [
         "purity",
         "method",
         "test date",
-        "sku",
         "compound",
         "molecular weight"
       ]
@@ -383,7 +379,7 @@
       "tested": "",
       "coa_url": "https://vrcsolutions.co/wp-content/uploads/2026/07/VRC_COA_KPV_KPV016.jpg",
       "coa_type": "image",
-      "image": "/assets/img/products/kpv-10mg.png",
+      "image": "/assets/img/products/kpv-10mg.webp",
       "image_alt": "VRC Solutions KPV 10mg lyophilized vial",
       "review": [
         "purity",
@@ -410,7 +406,7 @@
       "tested": "",
       "coa_url": "",
       "coa_type": "missing",
-      "image": "/assets/img/products/mots-c-10mg.png",
+      "image": "/assets/img/products/mots-c-10mg.webp",
       "image_alt": "VRC Solutions MOTS-C 10mg lyophilized vial",
       "review": [
         "lot",
@@ -439,7 +435,7 @@
       "tested": "",
       "coa_url": "https://janoshik.com/tests/124505-mt1_10mg_Cocer_PeptidesWhatsApp852_6904_8891_Z45H4KELX8L2",
       "coa_type": "lab",
-      "image": "/assets/img/products/mt-1-10mg.png",
+      "image": "/assets/img/products/mt-1-10mg.webp",
       "image_alt": "VRC Solutions MT-1 10mg lyophilized vial",
       "review": [
         "lot",
@@ -467,7 +463,7 @@
       "tested": "",
       "coa_url": "https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_ML10_MPMT2002.jpg",
       "coa_type": "image",
-      "image": "/assets/img/products/mt-2-10mg.png",
+      "image": "/assets/img/products/mt-2-10mg.webp",
       "image_alt": "VRC Solutions MT-2 10mg lyophilized vial",
       "review": [
         "purity",
@@ -494,7 +490,7 @@
       "tested": "",
       "coa_url": "",
       "coa_type": "missing",
-      "image": "/assets/img/products/selank-10mg.png",
+      "image": "/assets/img/products/selank-10mg.webp",
       "image_alt": "VRC Solutions Selank 10mg lyophilized vial",
       "review": [
         "lot",
@@ -523,7 +519,7 @@
       "tested": "",
       "coa_url": "",
       "coa_type": "missing",
-      "image": "/assets/img/products/semax-10mg.png",
+      "image": "/assets/img/products/semax-10mg.webp",
       "image_alt": "VRC Solutions Semax 10mg lyophilized vial",
       "review": [
         "lot",
@@ -552,7 +548,7 @@
       "tested": "",
       "coa_url": "",
       "coa_type": "missing",
-      "image": "/assets/img/products/glutathione-600mg.png",
+      "image": "/assets/img/products/glutathione-600mg.webp",
       "image_alt": "VRC Solutions Glutathione 600mg lyophilized vial",
       "review": [
         "lot",
@@ -564,9 +560,37 @@
       ]
     },
     {
-      "sku": "BW10",
+      "sku": "BA3",
+      "slug": "bac-water-3ml",
+      "name": "Bac Water 3ml",
+      "compound": "Bacteriostatic Water (0.9% benzyl alcohol)",
+      "category": "solvents",
+      "price": 7.99,
+      "stock": true,
+      "featured": false,
+      "mass": "3ml",
+      "molecular_weight": "Solvent \u2014 not applicable",
+      "purity": "USP-grade",
+      "purity_method": "USP <1231>",
+      "lot": "PLACEHOLDER-BA3-LOT",
+      "storage": "Room temperature, protected from light",
+      "tested": "",
+      "coa_url": "",
+      "coa_type": "missing",
+      "image": "/assets/img/products/bac-water-3ml.webp",
+      "image_alt": "VRC Solutions bacteriostatic water 3ml vial",
+      "label": "Bac Water",
+      "review": [
+        "lot",
+        "method",
+        "test date",
+        "coa"
+      ]
+    },
+    {
+      "sku": "BA10",
       "slug": "bac-water-10ml",
-      "name": "Bacteriostatic Water 10ml",
+      "name": "Bac Water 10ml",
       "compound": "Bacteriostatic Water (0.9% benzyl alcohol)",
       "category": "solvents",
       "price": 14.99,
@@ -576,18 +600,17 @@
       "molecular_weight": "Solvent \u2014 not applicable",
       "purity": "USP-grade",
       "purity_method": "USP <1231>",
-      "lot": "PLACEHOLDER-BW10-LOT",
+      "lot": "PLACEHOLDER-BA10-LOT",
       "storage": "Room temperature, protected from light",
       "tested": "",
       "coa_url": "",
       "coa_type": "missing",
-      "image": "/assets/img/products/bac-water-10ml.png",
+      "image": "/assets/img/products/bac-water-10ml.webp",
       "image_alt": "VRC Solutions bacteriostatic water 10ml vial",
       "label": "Bac Water",
       "review": [
         "lot",
         "test date",
-        "sku",
         "coa"
       ]
     },
@@ -609,7 +632,7 @@
       "tested": "",
       "coa_url": "",
       "coa_type": "missing",
-      "image": "/assets/img/products/tm-biowater-30ml.png",
+      "image": "/assets/img/products/tm-biowater-bacteriostatic-water-30ml.webp",
       "image_alt": "VRC Solutions TM BioWater 30ml bacteriostatic water vial",
       "label": "BioWater",
       "review": [
@@ -625,12 +648,8 @@
       "name": "Peptides"
     },
     {
-      "slug": "blends",
-      "name": "Blends"
-    },
-    {
       "slug": "solvents",
-      "name": "Solvents"
+      "name": "Research Solvents"
     }
   ]
 }

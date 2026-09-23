@@ -1,62 +1,53 @@
 ---
-title: Shop — Research Peptides, Blends & Solvents | VRC Solutions
-desc: Browse all VRC Solutions research compounds. Independently HPLC-verified, Certificate of Analysis published for every batch. Research use only, ships within the US.
+title: Shop — Research Peptides & Solvents | VRC Solutions
+desc: Browse all VRC Solutions research compounds. Independently tested, Certificates of Analysis published in a public library. Research use only, ships within the US.
 path: /shop/
 ogtype: website
 ---
 
-<div class="wrap">
-  <nav class="crumbs" aria-label="Breadcrumb">
-    <a href="/">Home</a><span>/</span>Shop
-  </nav>
-</div>
+<section class="shell sec sec-tight sec-cream">
+  <div class="inner">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a><span aria-hidden="true">/</span><span>Shop</span>
+    </nav>
+    <h1 class="sr-only">Shop research compounds</h1>
 
-<section class="wrap band-tight">
-  <div class="head-block">
-    <h1>Catalog</h1>
-    <p class="lead">
-      {{PRODUCT_COUNT}} compounds, every one independently tested. Filter by category,
-      or search by compound name, SKU or lot number.
+    <div class="chips" role="group" aria-label="Filter by category">
+      <button class="chip" type="button" data-filter="all" aria-pressed="true">All <span class="count">{{PRODUCT_COUNT}}</span></button>
+      <button class="chip" type="button" data-filter="peptides" aria-pressed="false">Peptides <span class="count">{{COUNT_PEPTIDES}}</span></button>
+      <button class="chip" type="button" data-filter="solvents" aria-pressed="false">Solvents <span class="count">{{COUNT_SOLVENTS}}</span></button>
+    </div>
+
+    <div class="toolbar">
+      <p class="result-count" id="catalog-count" aria-live="polite">Showing all {{PRODUCT_COUNT}} results</p>
+      <div class="toolbar-right">
+        <label class="sr-only" for="catalog-search">Search the catalog</label>
+        <input class="input" id="catalog-search" type="search" placeholder="Search compound, SKU or lot" autocomplete="off">
+        <label class="sr-only" for="catalog-sort">Sort products</label>
+        <select class="select" id="catalog-sort">
+          <option value="default">Default sorting</option>
+          <option value="name">Sort by name, A–Z</option>
+          <option value="price-asc">Sort by price: low to high</option>
+          <option value="price-desc">Sort by price: high to low</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="pgrid" id="catalog">
+{{ALL_CARDS}}
+    </div>
+
+    <p class="empty-note" id="catalog-empty" hidden>
+      Nothing matches that search. Try a shorter term, or <a href="/shop/">clear the filters</a>.
     </p>
   </div>
-
-  <div class="toolbar">
-    <div class="chips" role="group" aria-label="Filter by category">
-      <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
-      <button class="chip" type="button" data-filter="peptides" aria-pressed="false">Peptides</button>
-      <button class="chip" type="button" data-filter="blends" aria-pressed="false">Blends</button>
-      <button class="chip" type="button" data-filter="solvents" aria-pressed="false">Solvents</button>
-    </div>
-
-    <div class="toolbar-right">
-      <span class="result-count" id="catalog-count" aria-live="polite">{{PRODUCT_COUNT}} products</span>
-      <label class="sr-only" for="catalog-search">Search catalog</label>
-      <input class="input" id="catalog-search" type="search" placeholder="Search compound, SKU, lot" autocomplete="off">
-      <label class="sr-only" for="catalog-sort">Sort</label>
-      <select class="select" id="catalog-sort">
-        <option value="default">Featured first</option>
-        <option value="name">Name, A–Z</option>
-        <option value="price-asc">Price, low to high</option>
-        <option value="price-desc">Price, high to low</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="cards" id="catalog">
-{{ALL_CARDS}}
-  </div>
-
-  <p class="ledger-empty" id="catalog-empty" hidden>
-    Nothing matches that search. Try a shorter term, or clear the category filter.
-  </p>
 </section>
 
-<section class="band band-tight">
-  <div class="wrap">
-    <div class="ruo">
-      <h3>Research use only</h3>
-      <p>Everything in this catalog is sold exclusively for laboratory research use. Not for human or animal consumption, clinical use, or veterinary application. We do not supply dosing guidance or reconstitution protocols.</p>
-      <p><a href="/research-use-only-policy/">Read the full policy</a></p>
-    </div>
+<section class="shell sec sec-white">
+  <div class="notice-card">
+    <span class="eyebrow eyebrow-pill">For research use only</span>
+    <h2>Everything in this catalog is sold for laboratory research use only.</h2>
+    <p>Not for human or animal consumption, clinical use, or veterinary application. We do not supply dosing guidance or reconstitution protocols.</p>
+    <a class="btn btn-outline" href="/research-use-only-policy/">Read the full policy</a>
   </div>
 </section>

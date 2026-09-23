@@ -24,7 +24,7 @@ function totalRows(t, promo) {
     <tr><th scope="row">Subtotal</th><td style="text-align:right">${cart.money(t.subtotal)}</td></tr>
     ${t.discount > 0 ? `<tr><th scope="row">Discount${promo ? ` (${esc(promo)})` : ''}</th><td style="text-align:right">&minus;${cart.money(t.discount)}</td></tr>` : ''}
     <tr><th scope="row">Shipping</th><td style="text-align:right">${t.shipping === 0 ? 'Free' : cart.money(t.shipping)}</td></tr>
-    <tr><th scope="row"><strong>Total</strong></th><td style="text-align:right"><strong>${cart.money(t.total)}</strong></td></tr>`;
+    <tr class="total"><th scope="row">Total</th><td style="text-align:right">${cart.money(t.total)}</td></tr>`;
 }
 
 /** Show the local preview immediately, then replace it with the server's
@@ -36,7 +36,7 @@ async function renderSummary(box, submit) {
     box.innerHTML = `
       <div class="empty-state" style="padding:var(--s-6) 0">
         <p>Your cart is empty.</p>
-        <a class="btn btn-primary" href="${ROOT}/shop/">Browse the catalog</a>
+        <a class="btn btn-copper" href="${ROOT}/shop/">Browse the catalog</a>
       </div>`;
     if (submit) submit.disabled = true;
     return;
@@ -45,7 +45,7 @@ async function renderSummary(box, submit) {
 
   const draw = (items, totals, note) => {
     box.innerHTML = `
-      <table class="spec" style="margin-top:0">
+      <table class="sum-table">
         <tbody>${lineRows(items)}${totalRows(totals, state.promo)}</tbody>
       </table>
       ${note ? `<p class="note" style="margin-top:var(--s-3)">${note}</p>` : ''}`;
@@ -88,14 +88,14 @@ function renderConfirmation(main, order) {
   rows.push(['Payment note', copyable(order.reference)]);
 
   main.innerHTML = `
-    <span class="badge badge-stock"><span class="dot"></span>Order placed</span>
+    <span class="pill pill-green"><span class="dot"></span>Order placed</span>
     <h2 style="margin-top:var(--s-4)">Order <span class="mono">${esc(order.reference)}</span></h2>
     <p class="lead" style="margin-top:var(--s-3)">
       Send payment using the details below. Your order ships the next business
       day after payment clears.
     </p>
-    <table class="spec">
-      <caption>How to pay</caption>
+    <h3 style="margin-top:24px">How to pay</h3>
+    <table class="sum-table pay-table">
       <tbody>${rows.map(([k, v]) => `<tr><th scope="row">${k}</th><td>${v}</td></tr>`).join('')}</tbody>
     </table>
     ${pay.note ? `<p class="small" style="margin-top:var(--s-4)"><strong>${esc(pay.note)}</strong></p>` : ''}
@@ -180,7 +180,7 @@ export function initCheckout() {
       renderConfirmation(main, order);
       box.innerHTML = '<p class="note">Order placed. Your cart is empty.</p>';
     } catch (err) {
-      status.textContent = `${err.message}. Email orders@vrcsolutions.co if this keeps happening.`;
+      status.textContent = `${err.message}. Email support@vrcsolutions.co if this keeps happening.`;
       status.className = 'err';
       submit.disabled = false;
       submit.textContent = 'Place order';
@@ -222,11 +222,10 @@ export function initOrderStatus() {
       const o = await api(`/api/orders/${encodeURIComponent(ref)}?email=${encodeURIComponent(email)}`);
       const [label, desc] = STATUS_COPY[o.status] || [o.status, ''];
       out.innerHTML = `
-        <span class="badge ${o.status === 'cancelled' ? 'badge-flag' : 'badge-stock'}"><span class="dot"></span>${esc(label)}</span>
+        <span class="pill ${o.status === 'cancelled' ? 'pill-amber' : 'pill-green'}"><span class="dot"></span>${esc(label)}</span>
         <h2 style="margin-top:var(--s-3)">Order <span class="mono">${esc(o.reference)}</span></h2>
         <p class="small muted" style="margin-top:var(--s-2)">${esc(desc)}</p>
-        <table class="spec">
-          <caption>Details</caption>
+        <table class="sum-table" style="margin-top:16px">
           <tbody>
             ${o.tracking_number ? `<tr><th scope="row">Tracking</th><td class="mono">${esc(o.tracking_number)}</td></tr>` : ''}
             <tr><th scope="row">Total</th><td>${cart.money(o.total)}</td></tr>

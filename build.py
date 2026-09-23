@@ -107,6 +107,53 @@ def purity_text(p: dict, html_out: bool = True) -> str:
     return f"{num} (exact figure on the certificate)"
 
 
+def is_solvent(p: dict) -> bool:
+    return p["category"] == "solvents"
+
+
+def strength(p: dict) -> str:
+    """'10mg lyophilized (5mg + 5mg)' -> '10mg (5mg + 5mg)' for tables and cards."""
+    return re.sub(r"\s*lyophili[sz]ed", "", p.get("mass", "")).strip()
+
+
+def verify_pill(p: dict) -> str:
+    """Card badge. Says 'Lab verified' only when a certificate is published;
+    otherwise it says the certificate is pending, never implies one exists."""
+    claim = "USP-grade solvent" if is_solvent(p) else f"{p.get('purity', '')} purity"
+    if p.get("coa_url"):
+        status, tone = ("Third-party tested" if is_solvent(p) else "Lab verified"), "pill-green"
+    else:
+        status, tone = "COA pending", "pill-amber"
+    return f'<span class="pill {tone}">{e(claim)} · {status}</span>'
+
+
+def svg(paths: str, width: str = "1.7") -> str:
+    return (f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{width}" '
+            f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{paths}</svg>')
+
+
+# Line icons, available to page templates as {{ICON_NAME}}.
+ICONS = {
+    "TRUCK": svg('<path d="M3 6h10v10H3z"/><path d="M13 9h4.2l3.3 3.6V16H13z"/>'
+                 '<circle cx="7" cy="17" r="1.8"/><circle cx="17" cy="17" r="1.8"/>'),
+    "SHIELD": svg('<path d="M12 3.2 5 6v5.3c0 4.4 3 8 7 9.5 4-1.5 7-5.1 7-9.5V6z"/><path d="m9 12.2 2.2 2.2 4-4.3"/>'),
+    "BOX": svg('<path d="M12 3 20.5 7.5v9L12 21l-8.5-4.5v-9z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/>'),
+    "GEM": svg('<path d="M7 4h10l4 5-9 11L3 9z"/><path d="M3 9h18M10 4 8.5 9 12 20l3.5-11L14 4"/>'),
+    "FLASK": svg('<path d="M9 3h6M10 3v6L4.8 18.2A1.9 1.9 0 0 0 6.4 21h11.2a1.9 1.9 0 0 0 1.6-2.8L14 9V3"/><path d="M7 15h10"/>'),
+    "DOC": svg('<rect x="5" y="3.5" width="14" height="17.5" rx="2"/><path d="M8.5 8.5h7M8.5 12.5h7M8.5 16.5h4"/>'),
+    "DOCCHECK": svg('<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="m9 14.5 2 2 4-4"/>'),
+    "BUILDING": svg('<path d="M4 21V6l8-3v18M12 9l8 2.5V21M2.5 21h19"/>'
+                    '<path d="M7.5 9h1.5M7.5 12.5h1.5M7.5 16h1.5M15.5 14h1.5M15.5 17.5h1.5"/>'),
+    "CLOCK": svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+    "MAIL": svg('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>'),
+    "PIN": svg('<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>'),
+    "CHECK": svg('<path d="m5 12.5 4.5 4.5L19 7.5"/>', "2"),
+    "X": svg('<path d="M7 7l10 10M17 7 7 17"/>', "2"),
+    "BAN": svg('<circle cx="12" cy="12" r="9"/><path d="m5.7 5.7 12.6 12.6"/>'),
+    "ARROW": svg('<path d="M5 12h14M13 6l6 6-6 6"/>', "2"),
+}
+
+
 def parse_front_matter(raw: str) -> tuple[dict, str]:
     meta: dict = {}
     match = FRONT_MATTER.match(raw)
@@ -220,45 +267,47 @@ def resolve_images() -> list[str]:
 # fragments
 # --------------------------------------------------------------------------
 
-def coa_button(url: str) -> str:
-    return (f'<a class="btn btn-verify btn-sm" href="{e(url)}" '
-            f'target="_blank" rel="noopener">View COA</a>')
-
-
 def ledger_row(p: dict, record: dict | None = None, archived: bool = False) -> str:
-    """One row of the batch ledger. `record` is an archived lot when given.
+    """One row of the COA library table. `record` is an archived lot when given.
 
     The old site sent products with no certificate to /coa-library/, which
     quietly broke the site's central promise. A missing certificate is now
-    stated as Pending instead of being disguised as a working link.
+    stated as pending instead of being disguised as a working link.
     """
     r = record or p
     lot = r.get("lot", "")
     url = r.get("coa_url", "")
     search = " ".join([p["sku"], p["name"], p["compound"], lot, p["category"]]).lower()
-    lot_html = ('<span class="muted">Not published</span>' if is_placeholder_lot(lot)
-                else f'<span class="mono">{e(lot)}</span>')
-    tag = ' <span class="badge badge-plain">Archived</span>' if archived else ""
-    cert = coa_button(url) if url else (
-        '<span class="badge badge-plain" title="Certificate not yet published">Pending</span>')
+    lot_html = ('<span class="muted xsmall">Not published</span>' if is_placeholder_lot(lot)
+                else f'<span class="lot">{e(lot)}</span>')
+    tag = ' <span class="pill pill-grey">Archived</span>' if archived else ""
+    if is_solvent(p):
+        purity = '<span class="pill pill-grey">USP</span>'
+    else:
+        tone = "pill-green" if url else "pill-amber"
+        method = (f' <span class="xsmall muted">{e(r["purity_method"])}</span>'
+                  if r.get("purity_method") not in (None, "", "See COA") else "")
+        purity = f'<span class="pill {tone}">{e(r.get("purity", "—"))}</span>{method}'
+    cert = (f'<a class="coa-btn" href="{e(url)}" target="_blank" rel="noopener" '
+            f'aria-label="View COA for {e(p["name"])} lot {e(lot)}">View COA →</a>' if url else
+            '<span class="coa-pending" title="Certificate not yet published">COA pending</span>')
     return f"""          <tr data-search="{e(search)}">
-            <td class="mono">{e(p['sku'])}</td>
-            <td><a class="ledger-name" href="/product/{e(p['slug'])}/">{e(p['name'])}</a>{tag}</td>
-            <td>{lot_html}</td>
-            <td class="purity mono">{e(r.get('purity', '—'))}</td>
-            <td>{e(r.get('purity_method', '—'))}</td>
-            <td>{e(nice_date(r.get('tested', '')))}</td>
-            <td style="text-align:right">{cert}</td>
+            <td class="cell-name"><a class="name" href="/product/{e(p['slug'])}/">{e(p['name'])}</a>{tag}</td>
+            <td data-label="Strength">{e(strength(p))}</td>
+            <td data-label="Lot number">{lot_html}</td>
+            <td data-label="Purity">{purity}</td>
+            <td class="cell-coa">{cert}</td>
           </tr>"""
 
 
 def card(p: dict, order: int) -> str:
     payload = {"sku": p["sku"], "slug": p["slug"], "name": p["name"],
                "price": p["price"], "image": p["_img"]}
-    coa = (f'<a class="btn btn-verify btn-sm" href="{e(p["coa_url"])}" target="_blank" '
-           f'rel="noopener" aria-label="View Certificate of Analysis for {e(p["name"])}">COA</a>'
-           if p.get("coa_url") else "")
-    return f"""      <article class="card" data-product
+    coa = (f'<a class="btn btn-coa" href="{e(p["coa_url"])}" target="_blank" rel="noopener" '
+           f'aria-label="View Certificate of Analysis for {e(p["name"])}">COA</a>'
+           if p.get("coa_url") else
+           '<span class="btn btn-coa is-pending" title="Certificate for the current lot not yet published">COA pending</span>')
+    return f"""      <article class="pcard" data-product
                data-category="{e(p['category'])}"
                data-name="{e(p['name'])}"
                data-sku="{e(p['sku'])}"
@@ -266,21 +315,27 @@ def card(p: dict, order: int) -> str:
                data-lot="{e(p.get('lot',''))}"
                data-price="{p['price']}"
                data-order="{order}">
-        <a class="card-media" href="/product/{e(p['slug'])}/" tabindex="-1" aria-hidden="true">
-          <img src="{e(p['_img'])}" alt="" loading="lazy" width="320" height="400">
-          <span class="badge badge-verify card-flag"><span class="dot"></span>{e(p.get('purity','—'))}</span>
+        <a class="pcard-media" href="/product/{e(p['slug'])}/" tabindex="-1" aria-hidden="true">
+          <img src="{e(p['_img'])}" alt="" loading="lazy" width="640" height="800">
         </a>
-        <div class="card-body">
-          <p class="card-cat">{e(CATEGORIES.get(p['category'], p['category'].title()))}</p>
-          <h3 class="card-title"><a href="/product/{e(p['slug'])}/">{e(p['name'])}</a></h3>
-          <p class="card-meta"><span class="mono">{e(p['sku'])}</span><span>{e(p['mass'])}</span></p>
-          <div class="card-foot"><span class="card-price">{money(p['price'])}</span></div>
-        </div>
-        <div class="card-actions">
-          <button class="btn btn-primary btn-sm" type="button" data-add='{attr_json(payload)}'>Add to cart</button>
-          {coa}
+        <div class="pcard-body">
+          {verify_pill(p)}
+          <p class="pcard-cat">{e(CATEGORIES.get(p['category'], p['category'].title()))}</p>
+          <h3 class="pcard-title"><a href="/product/{e(p['slug'])}/">{e(p['name'])}</a></h3>
+          <p class="pcard-price">{money(p['price'])}</p>
+          <div class="pcard-actions">
+            <button class="btn btn-copper btn-square btn-caps" type="button" data-add='{attr_json(payload)}'>Add to cart</button>
+            {coa}
+          </div>
         </div>
       </article>"""
+
+
+def bestsellers() -> list[dict]:
+    """The homepage row: site.bestsellers in the order given, else featured."""
+    by_sku = {p["sku"]: p for p in PRODUCTS}
+    picks = [by_sku[s] for s in SITE.get("bestsellers", []) if s in by_sku]
+    return picks or [p for p in PRODUCTS if p.get("featured")][:4]
 
 
 def cards_html(items: list[dict]) -> str:
@@ -360,12 +415,14 @@ def breadcrumbs(trail: list[tuple[str, str]]) -> dict:
 
 
 def faq_jsonld(body: str) -> dict | None:
-    """Lift the <details> blocks straight out of the FAQ markup, so the
+    """Lift the question cards straight out of the FAQ markup, so the
     structured data can never drift from what the page actually says."""
-    pairs = re.findall(r"<summary>(.*?)</summary>\s*<div class=\"acc-body\">(.*?)</div>", body, re.S)
+    pairs = re.findall(r'<div class="faq-item"[^>]*>\s*<h3>(.*?)</h3>\s*<div class="answer">(.*?)</div>\s*</div>',
+                       body, re.S)
     if not pairs:
         return None
-    strip = lambda s: re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", s)).strip()
+    strip = lambda s: re.sub(r"\s+([.,;:!?])", r"\1",
+                             re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", s))).strip()
     return {
         "@context": "https://schema.org",
         "@type": "FAQPage",
@@ -445,6 +502,24 @@ def build_pages() -> list[tuple[str, float]]:
     return urls
 
 
+def product_copy(p: dict) -> tuple[str, str]:
+    """Short description and purity line for the buy box, in the live site's
+    wording, but only claiming what the data confirms."""
+    kind = "USP-grade research solvent" if is_solvent(p) else "high-purity research compound"
+    short = f"<strong>{e(p['compound'])}</strong> — {kind} for laboratory research use only."
+    has_coa = bool(p.get("coa_url"))
+    if is_solvent(p):
+        line = f"Grade: {e(p.get('purity', 'USP-grade'))}. Research-grade solvent for in-vitro laboratory dilution."
+    elif purity_confirmed(p):
+        line = (f"Lab verified: <strong>{e(p['purity'])}</strong> by {e(p['purity_method'])}. "
+                "Independent third-party COA available.")
+    else:
+        line = f"Purity {e(p.get('purity', ''))}, exact figure on the certificate. "
+        line += ("Independent third-party COA available." if has_coa
+                 else "The certificate for the current lot is not yet published.")
+    return short, line
+
+
 def build_products() -> list[tuple[str, float]]:
     urls = []
     for p in PRODUCTS:
@@ -454,32 +529,49 @@ def build_products() -> list[tuple[str, float]]:
         payload = {"sku": p["sku"], "slug": p["slug"], "name": p["name"],
                    "price": p["price"], "image": p["_img"]}
         image = (f'<img src="{e(p["_img"])}" alt="{e(p.get("image_alt", p["name"]))}" '
-                 f'width="560" height="700">')
+                 f'width="640" height="800">')
 
+        lot = "Not published" if is_placeholder_lot(p.get("lot")) else p["lot"]
         if p.get("coa_url"):
-            coa = (f'<a class="btn btn-verify btn-block" href="{e(p["coa_url"])}" '
-                   f'target="_blank" rel="noopener">Open the certificate</a>')
+            coa_btn = (f'<a class="btn btn-green" href="{e(p["coa_url"])}" target="_blank" '
+                       f'rel="noopener">View COA</a>')
+            coa_panel = (f'<a class="btn btn-copper btn-block btn-square" href="{e(p["coa_url"])}" '
+                         f'target="_blank" rel="noopener">Open the certificate</a>'
+                         '<p class="note">Opens the laboratory report for this lot in a new tab.</p>')
+            coa_status = '<span class="pill pill-green"><span class="dot"></span>COA published</span>'
         else:
             # Honest about the gap rather than linking to a page that does not
             # contain the certificate.
-            coa = ('<p class="small" style="color:var(--flag);font-weight:600">'
-                   'The certificate for this lot is not yet published. '
-                   '<a href="/contact/">Request it</a> and we will send it before you order.</p>')
+            coa_btn = '<a class="btn btn-outline" href="/contact/">Request COA</a>'
+            coa_panel = ('<a class="btn btn-outline btn-block btn-square" href="/contact/">Request the certificate</a>'
+                         '<p class="note">The certificate for this lot is not yet published. '
+                         'Ask and we will send it before you order.</p>')
+            coa_status = '<span class="pill pill-amber"><span class="dot"></span>COA pending</span>'
 
-        lot = "Not published" if is_placeholder_lot(p.get("lot")) else p["lot"]
+        spec_rows = [("Compound", e(p["compound"])), ("Molecular weight", e(p["molecular_weight"])),
+                     ("Mass", e(p["mass"])), ("Storage", e(p["storage"])),
+                     ("Purity", purity_text(p)), ("Lot", f'<span class="mono">{e(lot)}</span>')]
+        specs = "".join(f"<dt>{k}</dt><dd>{v}</dd>" for k, v in spec_rows)
+        short, purity_line = product_copy(p)
+
         body = PRODUCT_TPL
         for key, value in {
-            "P_NAME": e(p["name"]), "P_SKU": e(p["sku"]), "P_COMPOUND": e(p["compound"]),
-            "P_MASS": e(p["mass"]), "P_MW": e(p["molecular_weight"]),
-            "P_PURITY": e(p.get("purity", "—")), "P_PURITY_TEXT": purity_text(p),
+            "P_NAME": e(p["name"]), "P_SKU": e(p["sku"]),
+            "P_PURITY": e(p.get("purity", "—")),
             "P_METHOD_TEXT": (e(p["purity_method"]) if purity_confirmed(p) else "See certificate"),
             "P_LOT": e(lot), "P_TESTED": e(nice_date(p.get("tested", ""))),
-            "P_STORAGE": e(p["storage"]), "P_PRICE_FMT": money(p["price"]),
+            "P_PRICE_FMT": money(p["price"]),
             "P_CATEGORY_NAME": e(CATEGORIES.get(p["category"], p["category"].title())),
-            "P_IMAGE": image, "P_COA_BUTTON": coa, "P_JSON": attr_json(payload),
+            "P_CATEGORY_SLUG": e(p["category"]),
+            "P_SHORT": short, "P_PURITY_LINE": purity_line,
+            "P_STOCK": ('<span class="in-stock">In stock</span>' if p.get("stock", True)
+                        else '<span class="muted">Out of stock</span>'),
+            "P_IMAGE": image, "P_COA_BUTTON": coa_btn, "P_COA_PANEL": coa_panel,
+            "P_COA_STATUS": coa_status, "P_SPECS": specs, "P_JSON": attr_json(payload),
             "P_RELATED": cards_html(related),
         }.items():
             body = body.replace("{{" + key + "}}", value)
+        body = substitute_tokens(body)
 
         path = f"/product/{p['slug']}/"
         target = out_path(path)
@@ -553,23 +645,26 @@ def build_meta_files(urls: list[tuple[str, float]]) -> None:
 
     (OUT / "assets" / "img" / "favicon.svg").write_text(
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'
-        '<rect width="64" height="64" rx="10" fill="#123D3C"/>'
-        '<text x="32" y="41" font-family="Menlo,Consolas,monospace" font-size="21" '
-        'font-weight="700" fill="#F7F4ED" text-anchor="middle">VRC</text></svg>',
+        '<rect width="64" height="64" rx="12" fill="#0F3433"/>'
+        '<rect x="12" y="14" width="2.5" height="36" rx="1" fill="#B8794A"/>'
+        '<text x="37" y="41" font-family="Helvetica,Arial,sans-serif" font-size="20" '
+        'font-weight="800" fill="#F7F4ED" text-anchor="middle">VRC</text></svg>',
         encoding="utf-8")
 
     (OUT / "404.html").write_text(wrap_page(
         title="Page not found | VRC Solutions", desc="That page does not exist.",
         path="/404.html", robots="noindex", gate="off",
         content="""
-<section class="wrap band">
-  <div class="head-block">
-    <h1>That page doesn't exist</h1>
+<section class="shell sec sec-dark page-hero">
+  <div class="inner-narrow">
+    <p class="tagline">Error 404</p>
+    <h1>That page doesn't exist.</h1>
+    <span class="rule"></span>
     <p class="lead">The link may be out of date. The catalog and the full COA library are both one click away.</p>
-  </div>
-  <div class="btn-row">
-    <a class="btn btn-primary" href="/shop/">Browse the catalog</a>
-    <a class="btn btn-verify" href="/coa-library/">COA library</a>
+    <div class="btn-row">
+      <a class="btn btn-copper btn-lg" href="/shop/">Browse the catalog</a>
+      <a class="btn btn-light btn-lg" href="/coa-library/">COA Library</a>
+    </div>
   </div>
 </section>"""), encoding="utf-8")
 
@@ -599,9 +694,12 @@ def main(strict: bool = False) -> None:
     TOKENS.update({
         "LEDGER_ROWS": "\n".join(current),
         "COA_LIBRARY_ROWS": "\n".join(current + archive),
-        "FEATURED_CARDS": cards_html([p for p in PRODUCTS if p.get("featured")][:6]),
+        "FEATURED_CARDS": cards_html(bestsellers()),
         "ALL_CARDS": cards_html(sorted(PRODUCTS, key=lambda p: (not p.get("featured"), p["name"]))),
         "PRODUCT_COUNT": str(len(PRODUCTS)),
+        "COUNT_PEPTIDES": str(sum(p["category"] == "peptides" for p in PRODUCTS)),
+        "COUNT_SOLVENTS": str(sum(p["category"] == "solvents" for p in PRODUCTS)),
+        **{f"ICON_{name}": icon for name, icon in ICONS.items()},
     })
 
     urls = build_pages() + build_products()

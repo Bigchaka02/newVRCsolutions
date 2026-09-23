@@ -4,15 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Privacy Policy | VRC Solutions</title>
-<meta name="description" content="How VRC Solutions LLC collects, uses and retains customer data.">
+<meta name="description" content="What personal information VRC Solutions LLC collects, how it is used and shared, and the rights you have over it.">
 <link rel="canonical" href="https://vrcsolutions.co/privacy-policy/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="theme-color" content="#EDE6D4">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="VRC Solutions">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="Privacy Policy | VRC Solutions">
-<meta property="og:description" content="How VRC Solutions LLC collects, uses and retains customer data.">
+<meta property="og:description" content="What personal information VRC Solutions LLC collects, how it is used and shared, and the rights you have over it.">
 <meta property="og:url" content="https://vrcsolutions.co/privacy-policy/">
 <meta property="og:image" content="https://vrcsolutions.co/assets/img/og-default.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -20,7 +21,7 @@
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 
-<link rel="preload" href="/assets/fonts/public-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 
 <link rel="stylesheet" href="/assets/css/tokens.css">
 <link rel="stylesheet" href="/assets/css/vrc.css">
@@ -37,144 +38,272 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="announce">
-  <strong>New here?</strong> 15% off your first order with code <strong class="mono">FIRST15</strong>, free bacteriostatic water included, free shipping over $105.
+<div class="topbar">
+  <a href="/shop/"><strong>NEW HERE?</strong> Get 15% off with code <strong>FIRST15</strong> · Free Bac Water included · Free shipping over $105 <span aria-hidden="true">→</span></a>
 </div>
 
-<header class="header">
+<header class="site-header" id="site-header">
   <div class="wrap header-in">
-    <a class="brand" href="/" aria-label="VRC Solutions, home">
-      <span class="brand-mark" aria-hidden="true">VRC</span>
-      <span>
-        <span class="brand-name">VRC Solutions</span>
-        <span class="brand-sub">Verified Research Compounds</span>
+    <a class="logo" href="/" aria-label="VRC Solutions, home">
+      <span class="logo-mark" aria-hidden="true"><span>V</span><span>R</span><span>C</span></span>
+      <span class="logo-text">
+        <span class="logo-name">VRC Solutions</span>
+        <span class="logo-tag">Verified · Research · Compounds</span>
       </span>
     </a>
 
     <nav class="nav" aria-label="Primary">
+      <a href="/">Home</a>
       <a href="/shop/">Shop</a>
       <a href="/coa-library/">COA Library</a>
-      <a href="/about/">About</a>
       <a href="/faq/">FAQ</a>
       <a href="/contact/">Contact</a>
+      <a href="/learn/">Learn</a>
     </nav>
 
-    <div class="header-actions">
-      <button class="icon-btn" type="button" data-cart-open aria-label="Open cart">
-        Cart <span class="cart-count" data-cart-count data-empty="true">0</span>
+    <div class="header-tools">
+      <button class="tool-btn" type="button" data-search-open aria-label="Search products" aria-expanded="false" aria-controls="site-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
       </button>
-      <button class="icon-btn burger" type="button" id="burger" aria-expanded="false" aria-controls="mobile-nav">
-        Menu
+      <button class="tool-btn" type="button" data-cart-open aria-label="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/><path d="M2.5 3h2.6l2.4 11.3a1.6 1.6 0 0 0 1.6 1.2h8.3a1.6 1.6 0 0 0 1.6-1.2L21 7H6"/></svg>
+        <span class="cart-count" data-cart-count data-empty="true">0</span>
+      </button>
+      <button class="tool-btn burger" type="button" id="burger" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
   </div>
 
+  <form class="site-search" id="site-search" action="/shop/" method="get" role="search" hidden>
+    <div class="wrap">
+      <label class="sr-only" for="site-search-q">Search products</label>
+      <input class="input" id="site-search-q" name="q" type="search" placeholder="Search compounds, SKUs or lot numbers" autocomplete="off">
+      <button class="btn btn-copper btn-square" type="submit">Search</button>
+    </div>
+  </form>
+
   <nav class="mobile-nav" id="mobile-nav" data-open="false" aria-label="Mobile">
     <div class="wrap">
-      <a href="/shop/">Shop</a>
-      <a href="/coa-library/">COA Library</a>
-      <a href="/about/">About</a>
-      <a href="/faq/">FAQ</a>
-      <a href="/contact/">Contact</a>
-      <a href="/learn/">Learn</a>
-      <a href="/order-status/">Check an order</a>
+      <ul role="list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/shop/">Shop</a></li>
+        <li><a href="/coa-library/">COA Library</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/learn/">Learn</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/order-status/">Check an order</a></li>
+      </ul>
     </div>
   </nav>
 </header>
 
 <main id="main">
-<div class="wrap">
-  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>Privacy Policy</nav>
-</div>
-
-<section class="wrap band-tight">
-  <div class="head-block">
+<section class="shell sec sec-dark page-hero">
+  <div class="inner-narrow">
+    <p class="tagline">Legal</p>
     <h1>Privacy Policy</h1>
-    <p class="lead">How VRC Solutions LLC collects, uses and retains customer data.</p>
+    <span class="rule"></span>
   </div>
+</section>
 
-  <div class="prose">
-    <div class="placeholder">
-      <strong>Placeholder — copy needed.</strong>
-      The Privacy Policy text goes here, copied verbatim from the current site or
-      supplied by counsel. Paste it into <code>src/pages/privacy-policy.html</code> in
-      place of this block and rebuild.
-    </div>
-
-    <p class="small muted" style="margin-top:var(--s-6)">
-      Questions about this policy: <a href="mailto:legal@vrcsolutions.co">legal@vrcsolutions.co</a>
-    </p>
+<section class="shell sec sec-cream">
+  <div class="inner">
+    <article class="doc prose">
+      <p><strong>Effective Date:</strong> June 26, 2026<br><strong>Last Updated:</strong> June 26, 2026</p>
+      <p>VRC Solutions LLC (“VRC”, “we”, “us”, “our”) respects your privacy. This Privacy Policy explains what personal information we collect, how we use it, with whom we share it, and the rights you have over it.</p>
+      <p>By accessing vrcsolutions.co (the “Site”) or placing an order, you agree to the terms of this Privacy Policy.</p>
+      <h2>1. Information We Collect</h2>
+      <h3>Information you provide directly to us:</h3>
+      <ul>
+      <li>Name (legal name as required for shipping and identity verification)</li>
+      <li>Date of birth (for age-verification purposes only; not stored long-term)</li>
+      <li>Email address</li>
+      <li>Shipping address</li>
+      <li>Billing address</li>
+      <li>Phone number</li>
+      <li>Account password (stored in hashed form only)</li>
+      <li>Payment card information (collected and processed by our payment processor; we do not store full card numbers)</li>
+      <li>Order history</li>
+      <li>Communications you send to us, including support inquiries and customer reviews</li>
+      </ul>
+      <h3>Information collected automatically:</h3>
+      <ul>
+      <li>IP address</li>
+      <li>Browser type and version</li>
+      <li>Device identifier and operating system</li>
+      <li>Pages viewed, time spent on each page, and navigation patterns</li>
+      <li>Referring URL</li>
+      <li>Date and time of access</li>
+      <li>Cookies and similar tracking technologies (see Section 8)</li>
+      </ul>
+      <h3>Information from third parties:</h3>
+      <ul>
+      <li>Payment confirmation from our payment processor</li>
+      <li>Shipping status updates from carriers</li>
+      <li>Fraud risk signals from third-party fraud-prevention services</li>
+      </ul>
+      <h2>2. How We Use Your Information</h2>
+      <ul>
+      <li>To create and maintain your account</li>
+      <li>To process and ship your orders</li>
+      <li>To verify your age and eligibility under our <a href="/research-use-only-policy/">Research Use Only Policy</a></li>
+      <li>To communicate with you about your orders, account, and customer service inquiries</li>
+      <li>To send you transactional emails (order confirmations, shipping notifications, account changes)</li>
+      <li>To detect, prevent, and respond to fraud and abuse</li>
+      <li>To comply with legal obligations including tax reporting and law-enforcement requests</li>
+      <li>To enforce our <a href="/terms-of-service/">Terms of Service</a> and Research Use Only Policy</li>
+      <li>To improve our Site and Services</li>
+      <li>To send you marketing communications about our products (only if you have opted in, and you may opt out at any time)</li>
+      </ul>
+      <h2>3. Legal Bases for Processing</h2>
+      <ul>
+      <li><strong>Performance of a contract</strong>: to process and ship your orders and provide customer service</li>
+      <li><strong>Compliance with legal obligations</strong>: to meet tax, record-keeping, and law-enforcement requirements</li>
+      <li><strong>Legitimate interests</strong>: to operate our business, prevent fraud, secure our systems, and improve our Site</li>
+      <li><strong>Consent</strong>: to send marketing communications, where required by law</li>
+      </ul>
+      <h2>4. How We Share Your Information</h2>
+      <p>We do not sell your personal information. We share it only with the following categories of recipients:</p>
+      <ul>
+      <li><strong>Payment processors</strong>: to process your payment</li>
+      <li><strong>Shipping carriers</strong>: USPS, UPS, FedEx, or others, to deliver your order</li>
+      <li><strong>Fraud-prevention services</strong>: to verify your identity and detect fraudulent orders</li>
+      <li><strong>Hosting and IT service providers</strong>: who maintain our Site infrastructure</li>
+      <li><strong>Professional advisors</strong>: including our accountants and attorneys, when needed for business operations</li>
+      <li><strong>Government authorities and law enforcement</strong>: when required by law, valid legal process, or to protect the rights, property, or safety of VRC or others</li>
+      </ul>
+      <p>We do not share your information with advertising networks, data brokers, or marketing partners.</p>
+      <h2>5. Data Retention</h2>
+      <p>We retain personal information for as long as is necessary to:</p>
+      <ul>
+      <li>Fulfill the purposes described in Section 2</li>
+      <li>Meet our legal, tax, and accounting obligations (typically 7 years for financial records)</li>
+      <li>Resolve disputes, enforce our agreements, and protect our legal rights</li>
+      </ul>
+      <p>When personal information is no longer necessary, we delete it or anonymize it.</p>
+      <h2>6. Data Security</h2>
+      <p>We implement reasonable administrative, technical, and physical safeguards to protect personal information including:</p>
+      <ul>
+      <li>SSL/TLS encryption for all data transmitted to and from our Site</li>
+      <li>Password hashing (we never store plaintext passwords)</li>
+      <li>Restricted internal access on a need-to-know basis</li>
+      <li>Use of reputable third-party processors that maintain their own security standards</li>
+      </ul>
+      <p>However, no method of internet transmission or electronic storage is 100% secure. We cannot guarantee absolute security.</p>
+      <h2>7. Your Privacy Rights</h2>
+      <p>Depending on your state of residence, you may have one or more of the following rights:</p>
+      <ul>
+      <li><strong>Right to know</strong> what personal information we have collected about you</li>
+      <li><strong>Right to access</strong> a copy of your personal information</li>
+      <li><strong>Right to correct</strong> inaccurate personal information</li>
+      <li><strong>Right to delete</strong> your personal information (subject to legal exceptions)</li>
+      <li><strong>Right to opt out</strong> of the sale or sharing of personal information (we do not sell or share for behavioral advertising)</li>
+      <li><strong>Right to non-discrimination</strong> for exercising your privacy rights</li>
+      <li><strong>Right to appeal</strong> a denial of a privacy request</li>
+      </ul>
+      <p>To exercise any of these rights, contact us at <a href="mailto:privacy@vrcsolutions.co">privacy@vrcsolutions.co</a>. We will respond within the timeframe required by applicable law (typically 45 days). We may need to verify your identity before processing your request.</p>
+      <h2>8. Cookies and Tracking Technologies</h2>
+      <p>We use cookies and similar tracking technologies to:</p>
+      <ul>
+      <li>Authenticate your session (essential cookies)</li>
+      <li>Remember your preferences and account state</li>
+      <li>Analyze Site traffic via privacy-friendly analytics (Plausible Analytics, which does not use third-party cookies)</li>
+      <li>Prevent fraud and improve security</li>
+      </ul>
+      <p>We do not use Google Analytics, Microsoft Clarity, Facebook Pixel, or other third-party tracking technologies that share data with advertising networks.</p>
+      <p>You may disable cookies in your browser settings; however, essential cookies are required for the Site to function (e.g., logging in, completing checkout).</p>
+      <h2>9. Children’s Privacy</h2>
+      <p>The Site is not intended for and may not be used by anyone under 21. We do not knowingly collect personal information from anyone under 21. If we become aware that we have collected personal information from a person under 21, we will delete it. If you believe a minor has provided us with personal information, please contact us at <a href="mailto:privacy@vrcsolutions.co">privacy@vrcsolutions.co</a>.</p>
+      <h2>10. International Visitors</h2>
+      <p>The Site is operated from the United States and is intended for U.S. users. We do not ship outside the United States. If you access the Site from outside the United States, you acknowledge that your personal information will be transferred to, stored, and processed in the United States and is subject to U.S. law.</p>
+      <h2>11. Third-Party Links</h2>
+      <p>The Site may contain links to third-party websites (e.g., our payment processors, third-party testing laboratories for COA verification). We are not responsible for the privacy practices of those websites. We encourage you to read the privacy policies of any third-party site you visit.</p>
+      <h2>12. Changes to This Privacy Policy</h2>
+      <p>We may update this Privacy Policy from time to time. The “Last Updated” date at the top reflects the most recent change. Continued use of the Site after an update constitutes acceptance of the updated Privacy Policy.</p>
+      <h2>13. Contact Us</h2>
+      <p>For questions, requests, or complaints regarding this Privacy Policy or your personal information, contact us at:</p>
+      <p><strong>VRC Solutions LLC</strong><br>
+      9462 Brownsboro Rd, PMB 379<br>
+      Louisville, KY 40241<br>
+      <a href="mailto:privacy@vrcsolutions.co">privacy@vrcsolutions.co</a></p>
+    </article>
   </div>
 </section>
 
 </main>
 
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <a class="brand" href="/" style="margin-bottom:var(--s-4)">
-          <span class="brand-mark" aria-hidden="true">VRC</span>
-          <span><span class="brand-name" style="color:var(--paper)">VRC Solutions</span></span>
-        </a>
-        <address>
-          VRC Solutions LLC<br>
-          9462 Brownsboro Rd, PMB 379<br>
-          Louisville, KY 40241
-        </address>
-        <div class="pay-row" aria-label="Accepted payment methods">
-          <span>Venmo</span><span>Cash App</span><span>BTC</span><span>ETH</span><span>USDC</span>
+<footer>
+  <div class="footer-main">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-word">VRC</div>
+          <div class="footer-tag">Verified Research Compounds</div>
+          <address>
+            VRC Solutions LLC<br>
+            9462 Brownsboro Rd, PMB 379<br>
+            Louisville, KY 40241
+          </address>
         </div>
-        <p class="xsmall" style="margin-top:var(--s-3);opacity:.7">Card payments available in select regions. Contact us to check yours.</p>
+
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul role="list">
+            <li><a href="/shop/">All products</a></li>
+            <li><a href="/shop/#peptides">Peptides</a></li>
+            <li><a href="/shop/#solvents">Research solvents</a></li>
+            <li><a href="/order-status/">Check an order</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Policies</h4>
+          <ul role="list">
+            <li><a href="/research-use-only-policy/">Research Use Only Policy</a></li>
+            <li><a href="/terms-conditions/">Terms of Service</a></li>
+            <li><a href="/refund-policy/">Refund Policy</a></li>
+            <li><a href="/privacy-policy/">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Verify &amp; contact</h4>
+          <ul role="list">
+            <li><a href="/coa-library/">COA Library</a></li>
+            <li><a href="/faq/">FAQ</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/learn/">Learn</a></li>
+          </ul>
+        </div>
       </div>
 
-      <div>
-        <h4>Catalog</h4>
-        <ul role="list">
-          <li><a href="/shop/">All products</a></li>
-          <li><a href="/shop/#peptides">Peptides</a></li>
-          <li><a href="/shop/#blends">Blends</a></li>
-          <li><a href="/shop/#solvents">Solvents</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4>Verify</h4>
-        <ul role="list">
-          <li><a href="/coa-library/">COA Library</a></li>
-          <li><a href="/coa-library/#lookup">Look up a lot number</a></li>
-          <li><a href="/about/">About VRC</a></li>
-          <li><a href="/learn/">Learn</a></li>
-          <li><a href="/faq/">FAQ</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4>Policies</h4>
-        <ul role="list">
-          <li><a href="/research-use-only-policy/">Research Use Only Policy</a></li>
-          <li><a href="/terms-conditions/">Terms of Service</a></li>
-          <li><a href="/refund-policy/">Refund Policy</a></li>
-          <li><a href="/privacy-policy/">Privacy Policy</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4>Contact</h4>
-        <ul role="list">
-          <li><a href="mailto:hello@vrcsolutions.co">hello@vrcsolutions.co</a></li>
-          <li><a href="mailto:orders@vrcsolutions.co">orders@vrcsolutions.co</a></li>
-          <li><a href="/order-status/">Check an order</a></li>
-          <li><a href="https://www.instagram.com/vrcsolutions/" rel="noopener">Instagram</a></li>
-          <li><a href="https://www.tiktok.com/@vrc.solutions" rel="noopener">TikTok</a></li>
-        </ul>
+      <div class="footer-legal">
+        <p><strong>For research use only.</strong> All products are sold exclusively for laboratory research use only. They are not intended for human or animal consumption, clinical use, or veterinary applications, and are not intended to diagnose, treat, cure, or prevent any disease.</p>
+        <p>VRC Solutions LLC is a chemical supplier. VRC Solutions LLC is not a compounding pharmacy or chemical compounding facility as defined under 503A of the Federal Food, Drug, and Cosmetic Act. VRC Solutions LLC is not an outsourcing facility as defined under 503B of the Federal Food, Drug, and Cosmetic Act.</p>
+        <p class="footer-copy">&copy; 2026 VRC Solutions LLC. All rights reserved.</p>
       </div>
     </div>
+  </div>
 
-    <div class="footer-legal">
-      <p><strong>For research use only.</strong> All products are sold exclusively for laboratory research use only. They are not intended for human or animal consumption, clinical use, or veterinary applications, and are not intended to diagnose, treat, cure, or prevent any disease.</p>
-      <p>VRC Solutions LLC is a chemical supplier. VRC Solutions LLC is not a compounding pharmacy or chemical compounding facility as defined under 503A of the Federal Food, Drug, and Cosmetic Act. VRC Solutions LLC is not an outsourcing facility as defined under 503B of the Federal Food, Drug, and Cosmetic Act.</p>
-      <p>&copy; 2026 VRC Solutions LLC. All rights reserved.</p>
+  <div class="footer-band">
+    <div class="wrap band-grid">
+      <div>
+        <h4>Follow us</h4>
+        <div class="social">
+          <a href="https://www.instagram.com/vrcsolutions/" rel="noopener"><span class="badge-ig" aria-hidden="true">IG</span>@vrcsolutions</a>
+          <a href="https://www.tiktok.com/@vrc.solutions" rel="noopener"><span class="badge-tt" aria-hidden="true">TT</span>@vrc.solutions</a>
+        </div>
+      </div>
+      <div>
+        <h4>Accepted payments</h4>
+        <div class="paylist" aria-label="Accepted payment methods">
+          <span class="pay-venmo">Venmo</span><span class="pay-cash">Cash App</span><span class="pay-crypto">Crypto (BTC · ETH · USDC)</span>
+        </div>
+        <p class="note">Card payments enabled for select regions. Contact us for details.</p>
+      </div>
     </div>
   </div>
 </footer>
@@ -183,8 +312,8 @@
 <div class="scrim" id="scrim" data-open="false"></div>
 <aside class="drawer" id="cart-drawer" data-open="false" aria-hidden="true" aria-label="Shopping cart">
   <div class="drawer-top">
-    <h2>Cart</h2>
-    <button class="btn btn-ghost btn-sm" type="button" data-cart-close aria-label="Close cart">Close</button>
+    <h2>Your cart</h2>
+    <button class="btn btn-ghost btn-sm" type="button" data-cart-close aria-label="Close cart">Close ✕</button>
   </div>
   <div class="drawer-body" id="cart-lines"></div>
   <div class="drawer-foot" id="cart-foot" hidden>
@@ -192,43 +321,43 @@
       <p></p>
       <div class="ship-bar"><div class="ship-fill"></div></div>
     </div>
-    <form id="promo-form" style="display:flex;gap:var(--s-2);margin-bottom:var(--s-4)">
+    <form class="promo" id="promo-form">
       <label class="sr-only" for="promo-input">Discount code</label>
       <input class="input" id="promo-input" placeholder="Discount code" autocomplete="off">
-      <button class="btn btn-outline btn-sm" type="submit">Apply</button>
-      <span class="hint" id="promo-msg" style="flex-basis:100%"></span>
+      <button class="btn btn-outline btn-sm btn-square" type="submit">Apply</button>
+      <span class="hint" id="promo-msg"></span>
     </form>
     <div class="totals" id="cart-totals"></div>
-    <a class="btn btn-primary btn-block btn-lg" href="/checkout/">Checkout</a>
-    <p class="note" style="margin-top:var(--s-3);text-align:center">Research use only. Ships within the United States.</p>
+    <a class="btn btn-copper btn-block btn-lg btn-square" href="/checkout/">Checkout</a>
+    <p class="note center" style="margin-top:10px">Research use only. Ships within the United States.</p>
   </div>
 </aside>
 
-<!-- RUO gate: overlays fully-rendered content, never replaces it -->
+<!-- Researcher verification: overlays fully rendered content, never replaces it -->
 <div class="gate" id="ruo-gate" data-open="false" role="dialog" aria-modal="true" aria-labelledby="gate-title">
   <div class="gate-card">
-    <span class="badge badge-flag"><span class="dot"></span>Research use only</span>
-    <h2 id="gate-title" style="margin-top:var(--s-4)">Confirm before you continue</h2>
-    <p>VRC Solutions supplies research compounds to researchers and laboratories. Confirm both statements to enter.</p>
+    <span class="gate-pill">Research use only</span>
+    <h2 id="gate-title">Researcher verification</h2>
+    <p>VRC Solutions supplies research compounds to qualified researchers and laboratories. Please confirm the statements below before continuing.</p>
     <form id="gate-form">
-      <div class="gate-checks">
+      <div class="checks">
         <label class="check">
           <input type="checkbox" required>
           <span>I am at least <strong>21 years of age</strong>.</span>
         </label>
         <label class="check">
           <input type="checkbox" required>
-          <span>I am purchasing for <strong>laboratory research use only</strong> — not for human or veterinary use, and not for diagnostic or therapeutic purposes.</span>
+          <span>I confirm I am purchasing for <strong>laboratory research use only</strong> — not for human or veterinary use, and not for diagnostic or therapeutic purposes.</span>
         </label>
       </div>
-      <button class="btn btn-primary btn-lg btn-block" type="submit" id="gate-enter" disabled>Enter site</button>
-      <a class="btn btn-ghost btn-block" href="https://www.google.com" rel="noopener" style="margin-top:var(--s-2)">Leave site</a>
+      <div class="gate-actions">
+        <button class="btn btn-enter" type="submit" id="gate-enter" disabled>Enter VRC Solutions →</button>
+        <a class="btn btn-exit" href="https://www.google.com" rel="noopener">Exit</a>
+      </div>
     </form>
-    <p class="note" style="margin-top:var(--s-4)">
-      Read the <a href="/research-use-only-policy/">Research Use Only Policy</a> and
-      <a href="/terms-conditions/">Terms of Service</a> before entering.
-    </p>
-    <p class="gate-foot">By continuing you affirm the statements above are true. VRC products are not for human or veterinary use, are not for use in diagnostic procedures, and have not been evaluated by the U.S. Food and Drug Administration.</p>
+    <p class="gate-fine">By proceeding you affirm the statements above are true. VRC products are not for human or veterinary use, not for use in diagnostic procedures, and have not been evaluated by the U.S. Food and Drug Administration.</p>
+    <p class="gate-links">Read the <a href="/research-use-only-policy/">Research Use Only Policy</a> and <a href="/terms-conditions/">Terms of Service</a>.</p>
+    <p class="gate-trust">HPLC + MS tested · COA library · U.S. LLC · Discreet shipping</p>
   </div>
 </div>
 

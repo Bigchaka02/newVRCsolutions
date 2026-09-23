@@ -1,20 +1,19 @@
 /* ==========================================================================
-   VRC Solutions — Design Tokens
-   Small enough to inline as critical CSS in <head> if you want to shave a
-   round trip. Everything downstream reads from here; never hardcode a hex.
+   VRC Solutions — Design tokens
+   Palette, type and spacing taken from the live vrcsolutions.co theme
+   (--vrc-green #0F3433, --vrc-copper #B8794A, --vrc-cream #F7F4ED, Inter).
+   Everything downstream reads from here; never hardcode a hex.
    ========================================================================== */
 
 /* Self-hosted, open-licensed (SIL OFL 1.1; licenses in /assets/fonts/).
-   No third-party request on page load: faster first paint, no visitor IPs
-   sent to Google, and a simpler Content-Security-Policy. Public Sans is the
-   variable build, so every weight (including 550 and 650) is one 27KB file. */
+   No third-party request on page load, which keeps the CSP first-party. */
 @font-face {
-  font-family: "Public Sans";
-  src: url("../fonts/public-sans-latin-wght-normal.woff2") format("woff2");
+  font-family: "Inter";
+  src: url("../fonts/inter-latin-wght-normal.woff2") format("woff2");
   font-weight: 100 900; font-style: normal; font-display: swap;
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
+    U+2212, U+2215, U+2265, U+FEFF, U+FFFD;
 }
 @font-face {
   font-family: "IBM Plex Mono";
@@ -28,132 +27,96 @@
 }
 
 :root {
-  /* --- Core palette ------------------------------------------------------
-     Carried over from the existing brand. `brand` and `paper` are the two
-     original values; the rest are derived so the ramp stays harmonious.    */
-  --ink:         #0E2B2A;   /* deepest teal-black — body text              */
-  --ink-soft:    #4A6664;   /* secondary text, captions                    */
-  --ink-faint:   #7E9694;   /* hairlines, disabled text                    */
+  /* --- Brand ------------------------------------------------------------ */
+  --teal:          #0F3433;   /* dark sections, table heads (theme --vrc-green) */
+  --teal-2:        #123D3C;   /* headings on light (theme --vrc-green-deep)     */
+  --teal-3:        #1C4B49;   /* hover on dark                                  */
+  --mint:          #ACC9C1;   /* body text on dark                              */
+  --mint-soft:     rgba(172, 201, 193, 0.18);   /* hairlines on dark            */
+  --on-dark:       #F7F4ED;   /* headings on dark                               */
 
-  --brand:       #123D3C;   /* primary surface + button fill               */
-  --brand-lift:  #1C5654;   /* hover state                                 */
-  --brand-deep:  #0A2726;   /* footer, overlay scrim                       */
-  --brand-wash:  rgba(18, 61, 60, 0.08);  /* borders, inset fills          */
+  --copper:        #B8794A;   /* primary action, accents                        */
+  --copper-deep:   #A2673C;   /* hover                                          */
+  --copper-bright: #D0A07A;   /* accents on dark                                */
+  --copper-wash:   rgba(184, 121, 74, 0.10);
 
-  --paper:       #F7F4ED;   /* page background                             */
-  --paper-2:     #EFEAE0;   /* recessed band — section rhythm              */
-  --paper-3:     #E4DED1;   /* input wells, table stripes                  */
-  --paper-pure:  #FFFDF8;   /* raised card surface                         */
+  --green:         #1F6E47;   /* logo, links, verification                      */
+  --green-vivid:   #2F8F4A;
+  --green-price:   #2F6B2F;
+  --green-bar:     #2C7A3F;   /* announcement bar                               */
+  --green-wash:    #E8F4E8;
 
-  /* --- Meaning-carrying accents -----------------------------------------
-     RULE: brass appears ONLY on verification affordances (COA links, lot
-     lookups, purity badges). Oxblood appears ONLY on RUO / compliance
-     notices. If you reach for either anywhere else, pick a neutral.        */
-  --verify:      #B4802F;   /* brass — proof, certificates, assay data     */
-  --verify-lift: #966922;
-  --verify-wash: rgba(180, 128, 47, 0.10);
+  /* --- Surfaces --------------------------------------------------------- */
+  --page:          #FAF6EC;   /* page background around the framed sections     */
+  --cream:         #F7F4ED;
+  --beige:         #EDE6D4;   /* header, feature band                           */
+  --white:         #FFFFFF;
+  --well:          #F1F0EC;   /* product photo well                             */
+  --line:          #E4DFD3;
+  --line-strong:   #D6CFBF;
+  --charcoal:      #1A1E24;   /* footer band                                    */
+  --black:         #111111;
 
-  --flag:        #8C2F26;   /* oxblood — RUO, restrictions, errors         */
-  --flag-wash:   rgba(140, 47, 38, 0.08);
+  /* --- Text -------------------------------------------------------------- */
+  --ink:           #1A1A1A;
+  --ink-2:         #3B4543;
+  --ink-3:         #5F6B68;
 
-  --ok:          #2F6B4F;   /* in stock, order confirmed                   */
+  /* --- Status ------------------------------------------------------------ */
+  --amber:         #8A5A22;
+  --amber-wash:    #FBF1E3;
+  --danger:        #A33A2E;
+  --danger-wash:   #FBEDEA;
 
-  /* --- Type -------------------------------------------------------------
-     One family. Public Sans is the US Web Design System face — the
-     typography of regulatory documents, which is exactly the register this
-     brand trades on. Plex Mono is reserved for real lab identifiers.       */
-  --font-sans: "Public Sans", ui-sans-serif, system-ui, -apple-system,
-               "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo,
-               Consolas, monospace;
+  /* --- Type -------------------------------------------------------------- */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+               Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+               monospace;
 
-  /* Type scale — 1.250 (major third), rounded to whole px */
-  --fs-3xs:  0.6875rem;  /* 11px — table micro-labels          */
-  --fs-2xs:  0.75rem;    /* 12px — badges, captions            */
-  --fs-xs:   0.8125rem;  /* 13px — table data, meta            */
-  --fs-sm:   0.9375rem;  /* 15px — UI text, nav                */
-  --fs-base: 1.0625rem;  /* 17px — body copy                   */
-  --fs-md:   1.25rem;    /* 20px — lead paragraphs             */
-  --fs-lg:   1.5rem;     /* 24px — h3                          */
-  --fs-xl:   1.9375rem;  /* 31px — h2                          */
-  --fs-2xl:  2.4375rem;  /* 39px — page title                  */
-  --fs-3xl:  3.0625rem;  /* 49px — hero (clamped below)        */
+  --fs-2xs:  0.6875rem;  /* 11px  eyebrow labels   */
+  --fs-xs:   0.8125rem;  /* 13px  meta, captions   */
+  --fs-sm:   0.9375rem;  /* 15px  UI text          */
+  --fs-base: 1rem;       /* 16px  body             */
+  --fs-md:   1.125rem;   /* 18px  lead             */
+  --fs-lg:   1.375rem;   /* 22px  h3               */
 
-  --lh-tight: 1.08;
-  --lh-snug:  1.28;
-  --lh-body:  1.62;
+  /* --- Space & shape ------------------------------------------------------ */
+  --s-1: 0.25rem; --s-2: 0.5rem; --s-3: 0.75rem; --s-4: 1rem; --s-5: 1.5rem;
+  --s-6: 2rem;    --s-7: 2.5rem; --s-8: 3rem;    --s-9: 4rem; --s-10: 5.5rem;
 
-  /* --- Space — 4px base, doubling ramp */
-  --s-1:  0.25rem;  --s-2:  0.5rem;   --s-3:  0.75rem;  --s-4: 1rem;
-  --s-5:  1.5rem;   --s-6:  2rem;     --s-7:  2.5rem;   --s-8: 3rem;
-  --s-9:  4rem;     --s-10: 5.5rem;   --s-11: 7rem;
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-xl:   22px;
+  --r-pill: 999px;
 
-  /* --- Structure ---------------------------------------------------------
-     Radius varies by role, deliberately. Data surfaces are square because
-     certificates and ledgers are square. Controls get a small stamp radius. */
-  --r-control: 3px;
-  --r-card:    5px;
-  --r-pill:    999px;
-  --r-data:    0;
+  --shadow-1: 0 1px 2px rgba(15, 52, 51, 0.06), 0 4px 14px rgba(15, 52, 51, 0.05);
+  --shadow-2: 0 2px 6px rgba(15, 52, 51, 0.08), 0 16px 36px rgba(15, 52, 51, 0.10);
+  --shadow-3: 0 30px 70px rgba(10, 30, 29, 0.28);
 
-  --hair:      1px solid var(--brand-wash);
-  --hair-firm: 1px solid rgba(18, 61, 60, 0.18);
-  --rule:      2px solid var(--brand);
+  --shell:  1200px;   /* framed section width, as on the live site */
+  --wrap:   1152px;   /* content width inside a section            */
+  --narrow: 880px;    /* reading width                             */
 
-  --wrap:      1180px;   /* page max-width  */
-  --measure:   68ch;     /* prose max-width */
+  --header-h: 84px;
 
-  --header-h:  66px;
-
-  /* --- Motion — one orchestrated entrance, otherwise response-only */
   --ease: cubic-bezier(0.32, 0.72, 0.28, 1);
-  --t-fast: 120ms var(--ease);
-  --t-mid:  240ms var(--ease);
-  --t-slow: 420ms var(--ease);
+  --t-fast: 140ms var(--ease);
+  --t-mid:  260ms var(--ease);
 
-  --z-drawer: 60;
   --z-header: 50;
+  --z-drawer: 60;
   --z-gate:   90;
+  --z-toast:  95;
 
   color-scheme: light;
 }
 
-/* Viewer-level dark preference. The brand is light-first, so dark mode is a
-   faithful inversion rather than a second identity. Guarded so an explicit
-   data-theme="light" always wins. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --ink: #E8E4DA;  --ink-soft: #A9BEBB;  --ink-faint: #6E8785;
-    --brand: #7FC0BC;  --brand-lift: #A2D6D2;  --brand-deep: #061A19;
-    --brand-wash: rgba(127, 192, 188, 0.12);
-    --paper: #0A1F1E;  --paper-2: #0E2827;  --paper-3: #143433;
-    --paper-pure: #102E2D;
-    --verify: #DCA94E;  --verify-lift: #EDC072;
-    --verify-wash: rgba(220, 169, 78, 0.14);
-    --flag: #D98077;  --flag-wash: rgba(217, 128, 119, 0.12);
-    --ok: #63B189;
-    --hair: 1px solid rgba(127, 192, 188, 0.16);
-    --hair-firm: 1px solid rgba(127, 192, 188, 0.28);
-    --rule: 2px solid var(--brand);
-    color-scheme: dark;
-  }
-}
-
-:root[data-theme="dark"] {
-  --ink: #E8E4DA;  --ink-soft: #A9BEBB;  --ink-faint: #6E8785;
-  --brand: #7FC0BC;  --brand-lift: #A2D6D2;  --brand-deep: #061A19;
-  --brand-wash: rgba(127, 192, 188, 0.12);
-  --paper: #0A1F1E;  --paper-2: #0E2827;  --paper-3: #143433;
-  --paper-pure: #102E2D;
-  --verify: #DCA94E;  --verify-lift: #EDC072;
-  --verify-wash: rgba(220, 169, 78, 0.14);
-  --flag: #D98077;  --flag-wash: rgba(217, 128, 119, 0.12);
-  --ok: #63B189;
-  --hair: 1px solid rgba(127, 192, 188, 0.16);
-  --hair-firm: 1px solid rgba(127, 192, 188, 0.28);
-  color-scheme: dark;
+@media (max-width: 959px) {
+  :root { --header-h: 68px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :root { --t-fast: 1ms; --t-mid: 1ms; --t-slow: 1ms; }
+  :root { --t-fast: 1ms; --t-mid: 1ms; }
 }

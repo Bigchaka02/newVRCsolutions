@@ -13,7 +13,7 @@ router = APIRouter(tags=["contact"])
 
 ROUTE_TO = {
     "general": "hello@vrcsolutions.co",
-    "order": "orders@vrcsolutions.co",
+    "order": "support@vrcsolutions.co",
     "coa": "compliance@vrcsolutions.co",
     "compliance": "compliance@vrcsolutions.co",
     "privacy": "privacy@vrcsolutions.co",

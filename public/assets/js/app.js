@@ -4,7 +4,7 @@
    ========================================================================== */
 
 import {
-  initNav, initCart, initGate, initCatalog,
+  initNav, initHeader, initCart, initGate, initCatalog,
   initLedger, initForms, initPromo,
 } from './ui.js';
 import { initCheckout, initOrderStatus } from './checkout.js';
@@ -13,6 +13,7 @@ function boot() {
   // Each initialiser no-ops when its markup is absent, so one bundle serves
   // every page without per-page conditionals.
   initNav();
+  initHeader();
   initCart();
   initGate();
   initCatalog();

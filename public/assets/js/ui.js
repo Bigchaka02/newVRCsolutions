@@ -74,6 +74,32 @@ export function initNav() {
   });
 }
 
+/* ---------- header: search panel + scrolled shadow ------------------------ */
+
+export function initHeader() {
+  const header = $('#site-header');
+  const toggle = $('[data-search-open]');
+  const panel = $('#site-search');
+
+  if (header) {
+    const mark = () => { header.dataset.scrolled = String(window.scrollY > 8); };
+    window.addEventListener('scroll', mark, { passive: true });
+    mark();
+  }
+
+  if (!toggle || !panel) return;
+  const input = $('input', panel);
+  const set = (open) => {
+    panel.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    if (open) input?.focus();
+  };
+  toggle.addEventListener('click', () => set(panel.hidden));
+  panel.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { set(false); toggle.focus(); }
+  });
+}
+
 /* ---------- cart drawer -------------------------------------------------- */
 
 let lastFocused = null;
@@ -151,7 +177,7 @@ function render(state) {
     body.innerHTML = `
       <div class="empty-state">
         <p>Your cart is empty.</p>
-        <a class="btn btn-primary" href="${ROOT}/shop/">Browse the catalog</a>
+        <a class="btn btn-copper" href="${ROOT}/shop/">Browse the catalog</a>
       </div>`;
     if (foot) foot.hidden = true;
     return;
@@ -290,7 +316,7 @@ export function initGate() {
 }
 
 /* ---------- catalog filtering -------------------------------------------- */
-/* Filters the 22 products already present in the HTML. No refetch, no
+/* Filters the products already present in the HTML. No refetch, no
    pagination, no layout shift — the markup is the source of truth. */
 
 export function initCatalog() {
@@ -322,8 +348,8 @@ export function initCatalog() {
 
     if (countEl) {
       countEl.textContent = shown === cards.length
-        ? `${shown} products`
-        : `${shown} of ${cards.length} products`;
+        ? `Showing all ${shown} results`
+        : `Showing ${shown} of ${cards.length} results`;
     }
     if (empty) empty.hidden = shown !== 0;
   };
@@ -353,6 +379,9 @@ export function initCatalog() {
   chips.forEach((chip) => chip.addEventListener('click', () => select(chip.dataset.filter, true)));
   window.addEventListener('hashchange', () => select(location.hash.slice(1) || 'all', false));
   if (location.hash) select(location.hash.slice(1), false);
+
+  const preset = new URLSearchParams(location.search).get('q');
+  if (preset && search) search.value = preset;
 
   search?.addEventListener('input', debounce(apply, 120));
   sort?.addEventListener('change', () => { reorder(sort.value); apply(); });

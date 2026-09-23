@@ -7,6 +7,7 @@
 <meta name="description" content="US-based supplier of research peptides with independent third-party HPLC verification. Every batch tested, every Certificate of Analysis published before sale. Research use only.">
 <link rel="canonical" href="https://vrcsolutions.co/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="theme-color" content="#EDE6D4">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VRC Solutions">
@@ -20,7 +21,7 @@
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 
-<link rel="preload" href="/assets/fonts/public-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 
 <link rel="stylesheet" href="/assets/css/tokens.css">
 <link rel="stylesheet" href="/assets/css/vrc.css">
@@ -36,680 +37,392 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="announce">
-  <strong>New here?</strong> 15% off your first order with code <strong class="mono">FIRST15</strong>, free bacteriostatic water included, free shipping over $105.
+<div class="topbar">
+  <a href="/shop/"><strong>NEW HERE?</strong> Get 15% off with code <strong>FIRST15</strong> · Free Bac Water included · Free shipping over $105 <span aria-hidden="true">→</span></a>
 </div>
 
-<header class="header">
+<header class="site-header" id="site-header">
   <div class="wrap header-in">
-    <a class="brand" href="/" aria-label="VRC Solutions, home">
-      <span class="brand-mark" aria-hidden="true">VRC</span>
-      <span>
-        <span class="brand-name">VRC Solutions</span>
-        <span class="brand-sub">Verified Research Compounds</span>
+    <a class="logo" href="/" aria-label="VRC Solutions, home">
+      <span class="logo-mark" aria-hidden="true"><span>V</span><span>R</span><span>C</span></span>
+      <span class="logo-text">
+        <span class="logo-name">VRC Solutions</span>
+        <span class="logo-tag">Verified · Research · Compounds</span>
       </span>
     </a>
 
     <nav class="nav" aria-label="Primary">
+      <a href="/">Home</a>
       <a href="/shop/">Shop</a>
       <a href="/coa-library/">COA Library</a>
-      <a href="/about/">About</a>
       <a href="/faq/">FAQ</a>
       <a href="/contact/">Contact</a>
+      <a href="/learn/">Learn</a>
     </nav>
 
-    <div class="header-actions">
-      <button class="icon-btn" type="button" data-cart-open aria-label="Open cart">
-        Cart <span class="cart-count" data-cart-count data-empty="true">0</span>
+    <div class="header-tools">
+      <button class="tool-btn" type="button" data-search-open aria-label="Search products" aria-expanded="false" aria-controls="site-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
       </button>
-      <button class="icon-btn burger" type="button" id="burger" aria-expanded="false" aria-controls="mobile-nav">
-        Menu
+      <button class="tool-btn" type="button" data-cart-open aria-label="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/><path d="M2.5 3h2.6l2.4 11.3a1.6 1.6 0 0 0 1.6 1.2h8.3a1.6 1.6 0 0 0 1.6-1.2L21 7H6"/></svg>
+        <span class="cart-count" data-cart-count data-empty="true">0</span>
+      </button>
+      <button class="tool-btn burger" type="button" id="burger" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
   </div>
 
+  <form class="site-search" id="site-search" action="/shop/" method="get" role="search" hidden>
+    <div class="wrap">
+      <label class="sr-only" for="site-search-q">Search products</label>
+      <input class="input" id="site-search-q" name="q" type="search" placeholder="Search compounds, SKUs or lot numbers" autocomplete="off">
+      <button class="btn btn-copper btn-square" type="submit">Search</button>
+    </div>
+  </form>
+
   <nav class="mobile-nav" id="mobile-nav" data-open="false" aria-label="Mobile">
     <div class="wrap">
-      <a href="/shop/">Shop</a>
-      <a href="/coa-library/">COA Library</a>
-      <a href="/about/">About</a>
-      <a href="/faq/">FAQ</a>
-      <a href="/contact/">Contact</a>
-      <a href="/learn/">Learn</a>
-      <a href="/order-status/">Check an order</a>
+      <ul role="list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/shop/">Shop</a></li>
+        <li><a href="/coa-library/">COA Library</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/learn/">Learn</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/order-status/">Check an order</a></li>
+      </ul>
     </div>
   </nav>
 </header>
 
 <main id="main">
-<!-- ── Hero: the batch ledger ────────────────────────────────────────────
-     The most characteristic artifact in this business is the certificate of
-     analysis, so the hero is one — live, searchable, real lot numbers. -->
-<section class="wrap hero">
-  <div class="hero-top">
-    <h1 class="reveal">Verified research compounds. Public COAs.</h1>
-    <div>
-      <p class="lead reveal reveal-1">
-        Every batch goes to an independent third-party laboratory before it
-        reaches inventory. Every Certificate of Analysis is published before the
-        product is sold. No login, no email request, no anonymous shell company.
-      </p>
-      <div class="btn-row reveal reveal-2">
-        <a class="btn btn-primary btn-lg" href="/shop/">Browse the catalog</a>
-        <a class="btn btn-verify btn-lg" href="/coa-library/">Look up a lot number</a>
+<!-- Hero: the live site's framed teal panel, VRC wordmark, vial and callouts -->
+<section class="shell sec hero sec-dark">
+  <div class="inner">
+    <div class="hero-mark">
+      <span class="wordmark" aria-hidden="true">VRC</span>
+      <span class="wordmark-sub">Verified Research Compounds</span>
+    </div>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h1>Verified research compounds. Public COAs. No anonymous shells.</h1>
+        <p class="lead">Every batch independently tested by an independent third-party laboratory. Every Certificate of Analysis published before sale. Real US LLC, real operations.</p>
+        <div class="btn-row">
+          <a class="btn btn-copper btn-lg" href="/shop/">Shop Now</a>
+          <a class="btn btn-light btn-lg" href="/coa-library/">COA Library</a>
+          <a class="btn btn-light btn-lg" href="/research-use-only-policy/">RUO Policy</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-photo">
+          <img src="/assets/img/hero-vial.webp" alt="VRC Solutions BPC+TB500 research vial" width="720" height="900" fetchpriority="high">
+        </div>
+        <div class="callouts">
+          <div class="callout callout-1"><span class="callout-num">1</span><h3>For Research Use Only</h3><p>Handle in accordance with standard laboratory safety practices.</p></div>
+          <div class="callout callout-2"><span class="callout-num">2</span><h3>Purity ≥99%</h3><p>Backed by independent third-party lab testing. COAs linked from each product page.</p></div>
+          <div class="callout callout-3"><span class="callout-num">3</span><h3>Measured Accuracy</h3><p>Every vial labeled with exact lot number and verified mg content.</p></div>
+        </div>
       </div>
     </div>
   </div>
+  <div class="hero-bottom"></div>
+</section>
 
-  <div class="ledger reveal reveal-3">
-    <div class="ledger-top">
-      <div class="ledger-title">
-        Current batch record
-        <span id="ledger-count">22 batches on file</span>
-      </div>
-      <div class="ledger-search">
-        <label class="sr-only" for="ledger-search">Search batches by lot, SKU or compound</label>
-        <input id="ledger-search" type="search" placeholder="Search lot, SKU or compound" autocomplete="off">
-      </div>
+<!-- Trust band -->
+<section class="shell sec sec-beige">
+  <div class="inner features">
+    <div class="feature">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h10v10H3z"/><path d="M13 9h4.2l3.3 3.6V16H13z"/><circle cx="7" cy="17" r="1.8"/><circle cx="17" cy="17" r="1.8"/></svg></div>
+      <h3>US-Based Fulfillment</h3>
+      <p>Domestic quality control, packaging &amp; next-day US shipping. Tracked from our facility to your door.</p>
     </div>
-
-    <div class="ledger-scroll">
-      <table class="ledger-table" id="ledger-table">
-        <thead>
-          <tr>
-            <th scope="col">SKU</th>
-            <th scope="col">Compound</th>
-            <th scope="col">Lot</th>
-            <th scope="col">Purity</th>
-            <th scope="col">Method</th>
-            <th scope="col">Tested</th>
-            <th scope="col"><span class="sr-only">Certificate</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-search="bpc10 bpc-157 10mg bpc-157 (body protective compound-157) as-bpc10-0426 peptides">
-            <td class="mono">BPC10</td>
-            <td><a class="ledger-name" href="/product/bpc-157-10mg/">BPC-157 10mg</a></td>
-            <td><span class="mono">AS-BPC10-0426</span></td>
-            <td class="purity mono">99.24%</td>
-            <td>HPLC-UV</td>
-            <td>—</td>
-            <td style="text-align:right"><a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_BPC10_AS-BPC10-0426.jpg" target="_blank" rel="noopener">View COA</a></td>
-          </tr>
-          <tr data-search="tb10 tb-500 10mg tb-500 (thymosin beta-4 fragment) placeholder-tb10-lot peptides">
-            <td class="mono">TB10</td>
-            <td><a class="ledger-name" href="/product/tb-500-10mg/">TB-500 10mg</a></td>
-            <td><span class="muted">Not published</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><span class="badge badge-plain" title="Certificate not yet published">Pending</span></td>
-          </tr>
-          <tr data-search="bb10 bpc+tb500 blend bpc-157 10mg / tb-500 10mg blend btb52607-114m blends">
-            <td class="mono">BB10</td>
-            <td><a class="ledger-name" href="/product/bpc-tb500/">BPC+TB500 Blend</a></td>
-            <td><span class="mono">BTB52607-114M</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_BB10_BTB52607-114M_v2-1.jpg" target="_blank" rel="noopener">View COA</a></td>
-          </tr>
-          <tr data-search="tsm10 tesamorelin 10mg tesamorelin ts10-0526-a peptides">
-            <td class="mono">TSM10</td>
-            <td><a class="ledger-name" href="/product/tesamorelin-10mg/">Tesamorelin 10mg</a></td>
-            <td><span class="mono">TS10-0526-A</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_TSM10_TS10-0526-A_v2-1.jpg" target="_blank" rel="noopener">View COA</a></td>
-          </tr>
-          <tr data-search="ig1 igf-1 lr3 1mg igf-1 lr3 (long r3 insulin-like growth factor-1) igf01j7 peptides">
-            <td class="mono">IG1</td>
-            <td><a class="ledger-name" href="/product/igf-1-lr3-1mg/">IGF-1 LR3 1mg</a></td>
-            <td><span class="mono">IGF01J7</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_IG1_IGF01J7_v2-1.jpg" target="_blank" rel="noopener">View COA</a></td>
-          </tr>
-          <tr data-search="cu50 ghk-cu 50mg ghk-cu (copper tripeptide-1) placeholder-cu50-lot peptides">
-            <td class="mono">CU50</td>
-            <td><a class="ledger-name" href="/product/ghk-cu-50mg/">GHK-Cu 50mg</a></td>
-            <td><span class="muted">Not published</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/07/VRC_COA_GHKCu_50mg.jpg" target="_blank" rel="noopener">View COA</a></td>
-          </tr>
-          <tr data-search="rt20 retatrutide 20mg retatrutide placeholder-rt20-lot peptides">
-            <td class="mono">RT20</td>
-            <td><a class="ledger-name" href="/product/retatrutide-20mg/">Retatrutide 20mg</a></td>
-            <td><span class="muted">Not published</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/09/RetaCOA_screenshot.png" target="_blank" rel="noopener">View COA</a></td>
-          </tr>
-          <tr data-search="rt10 rt-10 10mg rt-10 placeholder-rt10-lot peptides">
-            <td class="mono">RT10</td>
-            <td><a class="ledger-name" href="/product/rt-10-10mg/">RT-10 10mg</a></td>
-            <td><span class="muted">Not published</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><a class="btn btn-verify btn-sm" href="https://verify.janoshik.com/tests/137638-reta10mg_Cocer_Peptides_MSARBWF3I3P9" target="_blank" rel="noopener">View COA</a></td>
-          </tr>
-          <tr data-search="nad50 nad+ 500mg nad+ (nicotinamide adenine dinucleotide) ph-na500-0509 peptides">
-            <td class="mono">NAD50</td>
-            <td><a class="ledger-name" href="/product/nad-500mg/">NAD+ 500mg</a></td>
-            <td><span class="mono">PH-na500-0509</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_NAD50_PH-na500-0509.jpg" target="_blank" rel="noopener">View COA</a></td>
-          </tr>
-          <tr data-search="ip10 ipamorelin 10mg ipamorelin placeholder-ip10-lot peptides">
-            <td class="mono">IP10</td>
-            <td><a class="ledger-name" href="/product/ipamorelin-10mg/">Ipamorelin 10mg</a></td>
-            <td><span class="muted">Not published</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><a class="btn btn-verify btn-sm" href="https://janoshik.com/tests/124498-Ipamorelin_10mg_Cocer_Peptide_7YE6S1T3TLAS" target="_blank" rel="noopener">View COA</a></td>
-          </tr>
-          <tr data-search="cp10 cjc+ipa blend (no-dac) cjc-1295 no-dac 5mg / ipamorelin 5mg blend placeholder-cp10-lot blends">
-            <td class="mono">CP10</td>
-            <td><a class="ledger-name" href="/product/cjcipa-blend-no-dac/">CJC+IPA Blend (No-DAC)</a></td>
-            <td><span class="muted">Not published</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><a class="btn btn-verify btn-sm" href="https://janoshik.com/tests/121731-CJCIpa_55_Cocer_Peptides_KPSQDAP7FBG1" target="_blank" rel="noopener">View COA</a></td>
-          </tr>
-          <tr data-search="glw70 glow 70mg blend ghk-cu / bpc-157 / tb-500 blend glow017 blends">
-            <td class="mono">GLW70</td>
-            <td><a class="ledger-name" href="/product/glow-70mg-blend/">GLOW 70mg Blend</a></td>
-            <td><span class="mono">GLOW017</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/07/VRC_COA_GLOW_GLOW017.jpg" target="_blank" rel="noopener">View COA</a></td>
-          </tr>
-          <tr data-search="klw80 klow 80mg blend kpv / ghk-cu / bpc-157 / tb-500 blend sqs-7626298-p blends">
-            <td class="mono">KLW80</td>
-            <td><a class="ledger-name" href="/product/klow-80mg/">KLOW 80mg Blend</a></td>
-            <td><span class="mono">SQS-7626298-P</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/09/VRC-KLOW-COA-Horizon-Analytical-Lot-SQS-7626298-P.pdf" target="_blank" rel="noopener">View COA</a></td>
-          </tr>
-          <tr data-search="kpv10 kpv 10mg kpv (lysine-proline-valine) kpv016 peptides">
-            <td class="mono">KPV10</td>
-            <td><a class="ledger-name" href="/product/kpv-10mg/">KPV 10mg</a></td>
-            <td><span class="mono">KPV016</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/07/VRC_COA_KPV_KPV016.jpg" target="_blank" rel="noopener">View COA</a></td>
-          </tr>
-          <tr data-search="mtc10 mots-c 10mg mots-c placeholder-mtc10-lot peptides">
-            <td class="mono">MTC10</td>
-            <td><a class="ledger-name" href="/product/mots-c-10mg/">MOTS-C 10mg</a></td>
-            <td><span class="muted">Not published</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><span class="badge badge-plain" title="Certificate not yet published">Pending</span></td>
-          </tr>
-          <tr data-search="mt1 mt-1 10mg melanotan i placeholder-mt1-lot peptides">
-            <td class="mono">MT1</td>
-            <td><a class="ledger-name" href="/product/mt-1-10mg/">MT-1 10mg</a></td>
-            <td><span class="muted">Not published</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><a class="btn btn-verify btn-sm" href="https://janoshik.com/tests/124505-mt1_10mg_Cocer_PeptidesWhatsApp852_6904_8891_Z45H4KELX8L2" target="_blank" rel="noopener">View COA</a></td>
-          </tr>
-          <tr data-search="ml10 mt-2 10mg melanotan ii mpmt2002 peptides">
-            <td class="mono">ML10</td>
-            <td><a class="ledger-name" href="/product/mt-2-10mg/">MT-2 10mg</a></td>
-            <td><span class="mono">MPMT2002</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_ML10_MPMT2002.jpg" target="_blank" rel="noopener">View COA</a></td>
-          </tr>
-          <tr data-search="slk10 selank 10mg selank placeholder-slk10-lot peptides">
-            <td class="mono">SLK10</td>
-            <td><a class="ledger-name" href="/product/selank-10mg/">Selank 10mg</a></td>
-            <td><span class="muted">Not published</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><span class="badge badge-plain" title="Certificate not yet published">Pending</span></td>
-          </tr>
-          <tr data-search="smx10 semax 10mg semax placeholder-smx10-lot peptides">
-            <td class="mono">SMX10</td>
-            <td><a class="ledger-name" href="/product/semax-10mg/">Semax 10mg</a></td>
-            <td><span class="muted">Not published</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><span class="badge badge-plain" title="Certificate not yet published">Pending</span></td>
-          </tr>
-          <tr data-search="gta600 glutathione 600mg glutathione (reduced, gsh) placeholder-gta600-lot peptides">
-            <td class="mono">GTA600</td>
-            <td><a class="ledger-name" href="/product/glutathione-600mg/">Glutathione 600mg</a></td>
-            <td><span class="muted">Not published</span></td>
-            <td class="purity mono">≥99%</td>
-            <td>See COA</td>
-            <td>—</td>
-            <td style="text-align:right"><span class="badge badge-plain" title="Certificate not yet published">Pending</span></td>
-          </tr>
-          <tr data-search="bw10 bacteriostatic water 10ml bacteriostatic water (0.9% benzyl alcohol) placeholder-bw10-lot solvents">
-            <td class="mono">BW10</td>
-            <td><a class="ledger-name" href="/product/bac-water-10ml/">Bacteriostatic Water 10ml</a></td>
-            <td><span class="muted">Not published</span></td>
-            <td class="purity mono">USP-grade</td>
-            <td>USP &lt;1231&gt;</td>
-            <td>—</td>
-            <td style="text-align:right"><span class="badge badge-plain" title="Certificate not yet published">Pending</span></td>
-          </tr>
-          <tr data-search="tmb30 tm biowater bacteriostatic water 30ml bacteriostatic water (0.9% benzyl alcohol) placeholder-tmb30-lot solvents">
-            <td class="mono">TMB30</td>
-            <td><a class="ledger-name" href="/product/tm-biowater-bacteriostatic-water-30ml/">TM BioWater Bacteriostatic Water 30ml</a></td>
-            <td><span class="muted">Not published</span></td>
-            <td class="purity mono">USP-grade</td>
-            <td>USP &lt;1231&gt;</td>
-            <td>—</td>
-            <td style="text-align:right"><span class="badge badge-plain" title="Certificate not yet published">Pending</span></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="feature">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2 5 6v5.3c0 4.4 3 8 7 9.5 4-1.5 7-5.1 7-9.5V6z"/><path d="m9 12.2 2.2 2.2 4-4.3"/></svg></div>
+      <h3>Third-Party Verified</h3>
+      <p>Every batch tested by an independent third-party laboratory. Public COA library, no login required.</p>
     </div>
-
-    <p class="ledger-empty" id="ledger-empty" hidden>
-      No batch matches that search. Check the lot number on your vial label, or
-      <a href="/contact/">send it to us</a> and we will locate the record.
-    </p>
-
-    <div class="ledger-foot">
-      <span>Open any certificate to see the full laboratory result for that lot.</span>
-      <a href="/coa-library/">Full COA library</a>
+    <div class="feature">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 20.5 7.5v9L12 21l-8.5-4.5v-9z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg></div>
+      <h3>Discreet Packaging</h3>
+      <p>No brand markings on the outside. Return address is our mailing PMB only.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10l4 5-9 11L3 9z"/><path d="M3 9h18M10 4 8.5 9 12 20l3.5-11L14 4"/></svg></div>
+      <h3>Purity ≥99%</h3>
+      <p>Strict cutoff. Anything below specification is rejected before inventory.</p>
     </div>
   </div>
 </section>
 
-<!-- ── Proof tiles ─────────────────────────────────────────────────────── -->
-<section class="band band-tight">
-  <div class="wrap">
-    <div class="proof">
-      <div class="proof-item">
-        <h3>Independent testing</h3>
-        <p>Every batch goes to a third-party laboratory before it reaches inventory. Identity, purity and contamination are on file before anything is sold.</p>
-      </div>
-      <div class="proof-item">
-        <h3>US-based fulfillment</h3>
-        <p>Domestic quality control and packaging. Orders placed before 2pm ET ship the next business day, tracked from our facility.</p>
-      </div>
-      <div class="proof-item">
-        <h3>Discreet packaging</h3>
-        <p>No brand markings on the outside of the parcel. The return address is our mailing PMB.</p>
-      </div>
-      <div class="proof-item">
-        <h3>Purity at or above 99%</h3>
-        <p>A strict cutoff. Anything that comes back below specification is rejected before it enters inventory.</p>
-      </div>
+<!-- Why VRC -->
+<section class="shell sec sec-dark">
+  <div class="inner why-grid">
+    <div class="why-copy">
+      <span class="eyebrow eyebrow-pill">Why VRC</span>
+      <h2>Built for researchers who want to verify before they buy. US-based operations with independent third-party verification on every batch.</h2>
+      <span class="rule"></span>
+      <p>No anonymous brands. No hidden lab reports. No quiet efficacy claims. Just compounds that pass independent verification, sold from a US LLC with a public address.</p>
+      <a class="btn btn-copper btn-lg" href="/about/">Learn More</a>
+    </div>
+
+    <div class="photo-cards">
+      <article class="photo-card">
+        <img src="/assets/img/why/testing.webp" alt="" loading="lazy" width="900" height="600">
+        <span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6L4.8 18.2A1.9 1.9 0 0 0 6.4 21h11.2a1.9 1.9 0 0 0 1.6-2.8L14 9V3"/><path d="M7 15h10"/></svg></span>
+        <h3>Independent Testing</h3>
+        <p>Every batch goes to an independent third-party laboratory before it reaches inventory. Identity, purity, contamination — all on file before sale.</p>
+      </article>
+      <article class="photo-card">
+        <img src="/assets/img/why/research.webp" alt="" loading="lazy" width="900" height="600">
+        <span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17.5" rx="2"/><path d="M8.5 8.5h7M8.5 12.5h7M8.5 16.5h4"/></svg></span>
+        <h3>Strict Research Use</h3>
+        <p>Sold exclusively for in-vitro laboratory research. No dosing guidance. No therapeutic claims. No human-use framing.</p>
+      </article>
+      <article class="photo-card">
+        <img src="/assets/img/why/shipping.webp" alt="" loading="lazy" width="800" height="533">
+        <span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h10v10H3z"/><path d="M13 9h4.2l3.3 3.6V16H13z"/><circle cx="7" cy="17" r="1.8"/><circle cx="17" cy="17" r="1.8"/></svg></span>
+        <h3>Next-Day Shipping</h3>
+        <p>Order before 2pm ET, ships the next business day. Discreet packaging from a real US LLC.</p>
+      </article>
+      <article class="photo-card">
+        <img src="/assets/img/why/llc.webp" alt="" loading="lazy" width="800" height="533">
+        <span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V6l8-3v18M12 9l8 2.5V21M2.5 21h19"/><path d="M7.5 9h1.5M7.5 12.5h1.5M7.5 16h1.5M15.5 14h1.5M15.5 17.5h1.5"/></svg></span>
+        <h3>Real US LLC</h3>
+        <p>VRC Solutions LLC, a registered US business. Public mailing address. Tax accounts on file with the state.</p>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ── Featured catalog ────────────────────────────────────────────────── -->
-<section class="band band-sunk">
-  <div class="wrap">
-    <div class="head-block">
-      <h2>Catalog</h2>
-      <p class="lead">A deliberately narrow selection. Fewer compounds means each one gets verified properly.</p>
-    </div>
+<!-- Research use only -->
+<section class="shell sec sec-white">
+  <div class="notice-card">
+    <span class="eyebrow eyebrow-pill">For research use only</span>
+    <h2>All products are sold for laboratory research use only.</h2>
+    <p>They are not sold for human or animal use, are not intended to diagnose or treat any condition, and have not been evaluated by the FDA. We do not provide dosing guidance, reconstitution protocols or any human-use instruction.</p>
+    <a class="btn btn-outline" href="/research-use-only-policy/">Read the Full RUO Policy</a>
+  </div>
+</section>
 
-    <div class="cards">
-      <article class="card" data-product
+<!-- Common questions -->
+<section class="shell sec sec-dark">
+  <div class="inner-narrow">
+    <span class="eyebrow eyebrow-pill">Common questions</span>
+    <h2>What researchers ask before buying.</h2>
+    <span class="rule"></span>
+    <div class="qa-list">
+      <div class="qa">
+        <h3>How do I verify what I’m buying?</h3>
+        <p>Every batch’s independent third-party COA is published in our public COA library and linked from the product page. Purity and identity are verifiable before you order, without contacting us.</p>
+      </div>
+      <div class="qa">
+        <h3>What’s the refund policy?</h3>
+        <p>Lost-in-transit and damaged-in-transit shipments are refunded. We don’t refund based on whether a product produced a particular research result.</p>
+      </div>
+      <div class="qa">
+        <h3>Why don’t you sell most GLP-1s, SARMs, or syringes?</h3>
+        <p>Each adds disproportionate compliance risk for both customers and the business. We’ve made a deliberate decision to keep the catalog tight and discipline tight.</p>
+      </div>
+    </div>
+    <div class="btn-row" style="margin-top:40px">
+      <a class="btn btn-light" href="/faq/">See the Full FAQ</a>
+    </div>
+  </div>
+</section>
+
+<!-- Close -->
+<section class="shell sec cta-verify">
+  <div class="inner-narrow center">
+    <h2>Verify before you buy.</h2>
+    <span class="rule"></span>
+    <p>Every product third-party verified. Every COA public. Every order ships from a US LLC the next business day.</p>
+    <div class="btn-row">
+      <a class="btn btn-copper btn-lg" href="/shop/">Shop the Catalog</a>
+      <a class="btn btn-outline btn-lg" href="/coa-library/">Browse COAs →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Best sellers -->
+<section class="shell sec sec-dark">
+  <div class="inner">
+    <div class="sec-head center">
+      <h2>Best Sellers</h2>
+      <p class="lead">Our most-ordered research compounds</p>
+    </div>
+    <div class="pgrid">
+      <article class="pcard" data-product
                data-category="peptides"
-               data-name="BPC-157 10mg"
-               data-sku="BPC10"
-               data-compound="BPC-157 (Body Protective Compound-157)"
-               data-lot="AS-BPC10-0426"
-               data-price="39.99"
+               data-name="CJC+IPA Blend (No-DAC)"
+               data-sku="CP10"
+               data-compound="CJC-1295 No-DAC 5mg / Ipamorelin 5mg blend"
+               data-lot="PLACEHOLDER-CP10-LOT"
+               data-price="74.99"
                data-order="0">
-        <a class="card-media" href="/product/bpc-157-10mg/" tabindex="-1" aria-hidden="true">
-          <img src="/assets/img/products/bpc-157-10mg.svg" alt="" loading="lazy" width="320" height="400">
-          <span class="badge badge-verify card-flag"><span class="dot"></span>99.24%</span>
+        <a class="pcard-media" href="/product/cjcipa-blend-no-dac/" tabindex="-1" aria-hidden="true">
+          <img src="/assets/img/products/cjcipa-blend-no-dac.webp" alt="" loading="lazy" width="640" height="800">
         </a>
-        <div class="card-body">
-          <p class="card-cat">Peptides</p>
-          <h3 class="card-title"><a href="/product/bpc-157-10mg/">BPC-157 10mg</a></h3>
-          <p class="card-meta"><span class="mono">BPC10</span><span>10mg lyophilized</span></p>
-          <div class="card-foot"><span class="card-price">$39.99</span></div>
-        </div>
-        <div class="card-actions">
-          <button class="btn btn-primary btn-sm" type="button" data-add='{"sku":"BPC10","slug":"bpc-157-10mg","name":"BPC-157 10mg","price":39.99,"image":"/assets/img/products/bpc-157-10mg.svg"}'>Add to cart</button>
-          <a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_BPC10_AS-BPC10-0426.jpg" target="_blank" rel="noopener" aria-label="View Certificate of Analysis for BPC-157 10mg">COA</a>
+        <div class="pcard-body">
+          <span class="pill pill-green">≥99% purity · Lab verified</span>
+          <p class="pcard-cat">Peptides</p>
+          <h3 class="pcard-title"><a href="/product/cjcipa-blend-no-dac/">CJC+IPA Blend (No-DAC)</a></h3>
+          <p class="pcard-price">$74.99</p>
+          <div class="pcard-actions">
+            <button class="btn btn-copper btn-square btn-caps" type="button" data-add='{"sku":"CP10","slug":"cjcipa-blend-no-dac","name":"CJC+IPA Blend (No-DAC)","price":74.99,"image":"/assets/img/products/cjcipa-blend-no-dac.webp"}'>Add to cart</button>
+            <a class="btn btn-coa" href="https://janoshik.com/tests/121731-CJCIpa_55_Cocer_Peptides_KPSQDAP7FBG1" target="_blank" rel="noopener" aria-label="View Certificate of Analysis for CJC+IPA Blend (No-DAC)">COA</a>
+          </div>
         </div>
       </article>
-      <article class="card" data-product
-               data-category="peptides"
-               data-name="TB-500 10mg"
-               data-sku="TB10"
-               data-compound="TB-500 (Thymosin Beta-4 fragment)"
-               data-lot="PLACEHOLDER-TB10-LOT"
-               data-price="39.99"
-               data-order="1">
-        <a class="card-media" href="/product/tb-500-10mg/" tabindex="-1" aria-hidden="true">
-          <img src="/assets/img/products/tb-500-10mg.svg" alt="" loading="lazy" width="320" height="400">
-          <span class="badge badge-verify card-flag"><span class="dot"></span>≥99%</span>
-        </a>
-        <div class="card-body">
-          <p class="card-cat">Peptides</p>
-          <h3 class="card-title"><a href="/product/tb-500-10mg/">TB-500 10mg</a></h3>
-          <p class="card-meta"><span class="mono">TB10</span><span>10mg lyophilized</span></p>
-          <div class="card-foot"><span class="card-price">$39.99</span></div>
-        </div>
-        <div class="card-actions">
-          <button class="btn btn-primary btn-sm" type="button" data-add='{"sku":"TB10","slug":"tb-500-10mg","name":"TB-500 10mg","price":39.99,"image":"/assets/img/products/tb-500-10mg.svg"}'>Add to cart</button>
-          
-        </div>
-      </article>
-      <article class="card" data-product
-               data-category="blends"
-               data-name="BPC+TB500 Blend"
-               data-sku="BB10"
-               data-compound="BPC-157 10mg / TB-500 10mg blend"
-               data-lot="BTB52607-114M"
-               data-price="69.99"
-               data-order="2">
-        <a class="card-media" href="/product/bpc-tb500/" tabindex="-1" aria-hidden="true">
-          <img src="/assets/img/products/bpc-tb500.svg" alt="" loading="lazy" width="320" height="400">
-          <span class="badge badge-verify card-flag"><span class="dot"></span>≥99%</span>
-        </a>
-        <div class="card-body">
-          <p class="card-cat">Blends</p>
-          <h3 class="card-title"><a href="/product/bpc-tb500/">BPC+TB500 Blend</a></h3>
-          <p class="card-meta"><span class="mono">BB10</span><span>20mg lyophilized (10mg + 10mg)</span></p>
-          <div class="card-foot"><span class="card-price">$69.99</span></div>
-        </div>
-        <div class="card-actions">
-          <button class="btn btn-primary btn-sm" type="button" data-add='{"sku":"BB10","slug":"bpc-tb500","name":"BPC+TB500 Blend","price":69.99,"image":"/assets/img/products/bpc-tb500.svg"}'>Add to cart</button>
-          <a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_BB10_BTB52607-114M_v2-1.jpg" target="_blank" rel="noopener" aria-label="View Certificate of Analysis for BPC+TB500 Blend">COA</a>
-        </div>
-      </article>
-      <article class="card" data-product
-               data-category="peptides"
-               data-name="Tesamorelin 10mg"
-               data-sku="TSM10"
-               data-compound="Tesamorelin"
-               data-lot="TS10-0526-A"
-               data-price="79.99"
-               data-order="3">
-        <a class="card-media" href="/product/tesamorelin-10mg/" tabindex="-1" aria-hidden="true">
-          <img src="/assets/img/products/tesamorelin-10mg.svg" alt="" loading="lazy" width="320" height="400">
-          <span class="badge badge-verify card-flag"><span class="dot"></span>≥99%</span>
-        </a>
-        <div class="card-body">
-          <p class="card-cat">Peptides</p>
-          <h3 class="card-title"><a href="/product/tesamorelin-10mg/">Tesamorelin 10mg</a></h3>
-          <p class="card-meta"><span class="mono">TSM10</span><span>10mg lyophilized</span></p>
-          <div class="card-foot"><span class="card-price">$79.99</span></div>
-        </div>
-        <div class="card-actions">
-          <button class="btn btn-primary btn-sm" type="button" data-add='{"sku":"TSM10","slug":"tesamorelin-10mg","name":"Tesamorelin 10mg","price":79.99,"image":"/assets/img/products/tesamorelin-10mg.svg"}'>Add to cart</button>
-          <a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_TSM10_TS10-0526-A_v2-1.jpg" target="_blank" rel="noopener" aria-label="View Certificate of Analysis for Tesamorelin 10mg">COA</a>
-        </div>
-      </article>
-      <article class="card" data-product
-               data-category="peptides"
-               data-name="IGF-1 LR3 1mg"
-               data-sku="IG1"
-               data-compound="IGF-1 LR3 (Long R3 Insulin-like Growth Factor-1)"
-               data-lot="IGF01J7"
-               data-price="64.99"
-               data-order="4">
-        <a class="card-media" href="/product/igf-1-lr3-1mg/" tabindex="-1" aria-hidden="true">
-          <img src="/assets/img/products/igf-1-lr3-1mg.svg" alt="" loading="lazy" width="320" height="400">
-          <span class="badge badge-verify card-flag"><span class="dot"></span>≥99%</span>
-        </a>
-        <div class="card-body">
-          <p class="card-cat">Peptides</p>
-          <h3 class="card-title"><a href="/product/igf-1-lr3-1mg/">IGF-1 LR3 1mg</a></h3>
-          <p class="card-meta"><span class="mono">IG1</span><span>1mg lyophilized</span></p>
-          <div class="card-foot"><span class="card-price">$64.99</span></div>
-        </div>
-        <div class="card-actions">
-          <button class="btn btn-primary btn-sm" type="button" data-add='{"sku":"IG1","slug":"igf-1-lr3-1mg","name":"IGF-1 LR3 1mg","price":64.99,"image":"/assets/img/products/igf-1-lr3-1mg.svg"}'>Add to cart</button>
-          <a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/09/VRC_COA_IG1_IGF01J7_v2-1.jpg" target="_blank" rel="noopener" aria-label="View Certificate of Analysis for IGF-1 LR3 1mg">COA</a>
-        </div>
-      </article>
-      <article class="card" data-product
+      <article class="pcard" data-product
                data-category="peptides"
                data-name="GHK-Cu 50mg"
                data-sku="CU50"
                data-compound="GHK-Cu (Copper Tripeptide-1)"
                data-lot="PLACEHOLDER-CU50-LOT"
                data-price="34.99"
-               data-order="5">
-        <a class="card-media" href="/product/ghk-cu-50mg/" tabindex="-1" aria-hidden="true">
-          <img src="/assets/img/products/ghk-cu-50mg.svg" alt="" loading="lazy" width="320" height="400">
-          <span class="badge badge-verify card-flag"><span class="dot"></span>≥99%</span>
+               data-order="1">
+        <a class="pcard-media" href="/product/ghk-cu-50mg/" tabindex="-1" aria-hidden="true">
+          <img src="/assets/img/products/ghk-cu-50mg.webp" alt="" loading="lazy" width="640" height="800">
         </a>
-        <div class="card-body">
-          <p class="card-cat">Peptides</p>
-          <h3 class="card-title"><a href="/product/ghk-cu-50mg/">GHK-Cu 50mg</a></h3>
-          <p class="card-meta"><span class="mono">CU50</span><span>50mg lyophilized</span></p>
-          <div class="card-foot"><span class="card-price">$34.99</span></div>
+        <div class="pcard-body">
+          <span class="pill pill-green">≥99% purity · Lab verified</span>
+          <p class="pcard-cat">Peptides</p>
+          <h3 class="pcard-title"><a href="/product/ghk-cu-50mg/">GHK-Cu 50mg</a></h3>
+          <p class="pcard-price">$34.99</p>
+          <div class="pcard-actions">
+            <button class="btn btn-copper btn-square btn-caps" type="button" data-add='{"sku":"CU50","slug":"ghk-cu-50mg","name":"GHK-Cu 50mg","price":34.99,"image":"/assets/img/products/ghk-cu-50mg.webp"}'>Add to cart</button>
+            <a class="btn btn-coa" href="https://vrcsolutions.co/wp-content/uploads/2026/07/VRC_COA_GHKCu_50mg.jpg" target="_blank" rel="noopener" aria-label="View Certificate of Analysis for GHK-Cu 50mg">COA</a>
+          </div>
         </div>
-        <div class="card-actions">
-          <button class="btn btn-primary btn-sm" type="button" data-add='{"sku":"CU50","slug":"ghk-cu-50mg","name":"GHK-Cu 50mg","price":34.99,"image":"/assets/img/products/ghk-cu-50mg.svg"}'>Add to cart</button>
-          <a class="btn btn-verify btn-sm" href="https://vrcsolutions.co/wp-content/uploads/2026/07/VRC_COA_GHKCu_50mg.jpg" target="_blank" rel="noopener" aria-label="View Certificate of Analysis for GHK-Cu 50mg">COA</a>
+      </article>
+      <article class="pcard" data-product
+               data-category="peptides"
+               data-name="RT-10 10mg"
+               data-sku="RT10"
+               data-compound="RT-10"
+               data-lot="PLACEHOLDER-RT10-LOT"
+               data-price="74.99"
+               data-order="2">
+        <a class="pcard-media" href="/product/rt-10-10mg/" tabindex="-1" aria-hidden="true">
+          <img src="/assets/img/products/rt-10-10mg.webp" alt="" loading="lazy" width="640" height="800">
+        </a>
+        <div class="pcard-body">
+          <span class="pill pill-green">≥99% purity · Lab verified</span>
+          <p class="pcard-cat">Peptides</p>
+          <h3 class="pcard-title"><a href="/product/rt-10-10mg/">RT-10 10mg</a></h3>
+          <p class="pcard-price">$74.99</p>
+          <div class="pcard-actions">
+            <button class="btn btn-copper btn-square btn-caps" type="button" data-add='{"sku":"RT10","slug":"rt-10-10mg","name":"RT-10 10mg","price":74.99,"image":"/assets/img/products/rt-10-10mg.webp"}'>Add to cart</button>
+            <a class="btn btn-coa" href="https://verify.janoshik.com/tests/137638-reta10mg_Cocer_Peptides_MSARBWF3I3P9" target="_blank" rel="noopener" aria-label="View Certificate of Analysis for RT-10 10mg">COA</a>
+          </div>
+        </div>
+      </article>
+      <article class="pcard" data-product
+               data-category="peptides"
+               data-name="MOTS-C 10mg"
+               data-sku="MTC10"
+               data-compound="MOTS-c"
+               data-lot="PLACEHOLDER-MTC10-LOT"
+               data-price="37.99"
+               data-order="3">
+        <a class="pcard-media" href="/product/mots-c-10mg/" tabindex="-1" aria-hidden="true">
+          <img src="/assets/img/products/mots-c-10mg.webp" alt="" loading="lazy" width="640" height="800">
+        </a>
+        <div class="pcard-body">
+          <span class="pill pill-amber">≥99% purity · COA pending</span>
+          <p class="pcard-cat">Peptides</p>
+          <h3 class="pcard-title"><a href="/product/mots-c-10mg/">MOTS-C 10mg</a></h3>
+          <p class="pcard-price">$37.99</p>
+          <div class="pcard-actions">
+            <button class="btn btn-copper btn-square btn-caps" type="button" data-add='{"sku":"MTC10","slug":"mots-c-10mg","name":"MOTS-C 10mg","price":37.99,"image":"/assets/img/products/mots-c-10mg.webp"}'>Add to cart</button>
+            <span class="btn btn-coa is-pending" title="Certificate for the current lot not yet published">COA pending</span>
+          </div>
         </div>
       </article>
     </div>
-
-    <div class="btn-row" style="margin-top:var(--s-7)">
-      <a class="btn btn-outline" href="/shop/">See all 22 products</a>
-    </div>
-  </div>
-</section>
-
-<!-- ── Positioning ─────────────────────────────────────────────────────── -->
-<section class="band">
-  <div class="wrap split">
-    <div>
-      <h2>Two patterns we wanted to break</h2>
-      <p class="lead" style="margin-top:var(--s-4)">
-        The research compound industry runs on anonymous shells and hidden lab
-        reports. Both are solvable problems.
-      </p>
-      <div class="btn-row" style="margin-top:var(--s-6)">
-        <a class="btn btn-outline" href="/about/">How we operate</a>
-      </div>
-    </div>
-    <div class="prose">
-      <h3>The anonymous LLC</h3>
-      <p class="small muted" style="margin-top:var(--s-2)">
-        Most vendors operate from offshore mailbox addresses behind companies
-        with no named officers. When one shuts down, accounts, COA records and
-        refund options vanish with it. VRC Solutions LLC is a registered US
-        limited liability company with a public address and state tax accounts
-        on file.
-      </p>
-      <h3 style="margin-top:var(--s-6)">The hidden Certificate of Analysis</h3>
-      <p class="small muted" style="margin-top:var(--s-2)">
-        Plenty of sellers claim third-party testing, then ask you to email for
-        the report, or hide it behind a login, or show one certificate from a
-        batch years old. Ours are published before sale and linked from every
-        product page. No email required. No account required.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ── Process: a real sequence, so it gets numbered ───────────────────── -->
-<section class="band band-sunk">
-  <div class="wrap">
-    <div class="head-block">
-      <h2>Source, test, publish, ship</h2>
-      <p class="lead">Every batch follows the same four steps, in the same order, with no shortcuts.</p>
-    </div>
-    <div class="seq">
-      <div class="seq-step">
-        <h3>Source</h3>
-        <p>Research-grade material sourced from suppliers with documented quality standards and traceable production records.</p>
-      </div>
-      <div class="seq-step">
-        <h3>Test</h3>
-        <p>A sample from every production batch goes to an independent third-party laboratory for HPLC and mass spectrometry verification.</p>
-      </div>
-      <div class="seq-step">
-        <h3>Publish</h3>
-        <p>The Certificate of Analysis is added to the public COA library and linked from the product page before any vial ships.</p>
-      </div>
-      <div class="seq-step">
-        <h3>Ship</h3>
-        <p>US-based fulfillment, discreet packaging, tracked next-business-day dispatch on orders placed before 2pm ET.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── RUO ─────────────────────────────────────────────────────────────── -->
-<section class="band band-tight">
-  <div class="wrap">
-    <div class="ruo">
-      <h3>All products are sold for laboratory research use only</h3>
-      <p>
-        They are not sold for human or animal use, are not intended to diagnose,
-        treat, cure or prevent any condition, and have not been evaluated by the
-        US Food and Drug Administration. We do not provide dosing guidance,
-        reconstitution protocols or any human-use instruction.
-      </p>
-      <p><a href="/research-use-only-policy/">Read the full Research Use Only Policy</a></p>
-    </div>
-  </div>
-</section>
-
-<!-- ── FAQ excerpt ─────────────────────────────────────────────────────── -->
-<section class="band">
-  <div class="wrap">
-    <div class="head-block">
-      <h2>What researchers ask before buying</h2>
-    </div>
-    <div class="acc" style="max-width:var(--measure)">
-      <details>
-        <summary>How do I verify what I am buying?</summary>
-        <div class="acc-body">Every batch's independent third-party COA is published and linked directly from the product page. You can check purity and identity before you place an order, without contacting us.</div>
-      </details>
-      <details>
-        <summary>What is the refund policy?</summary>
-        <div class="acc-body">Shipments confirmed lost in transit or that arrive damaged are refunded. We do not refund based on whether a product produced a particular research result.</div>
-      </details>
-      <details>
-        <summary>Why don't you sell GLP-1s, SARMs or syringes?</summary>
-        <div class="acc-body">Each category adds disproportionate compliance risk for customers and for the business. Keeping the catalog tight is a deliberate choice, not a supply limitation.</div>
-      </details>
-      <details>
-        <summary>Do you ship internationally?</summary>
-        <div class="acc-body">No. We ship within the United States only.</div>
-      </details>
-    </div>
-    <div class="btn-row" style="margin-top:var(--s-6)">
-      <a class="btn btn-outline" href="/faq/">Read the full FAQ</a>
-    </div>
-  </div>
-</section>
-
-<!-- ── Close ───────────────────────────────────────────────────────────── -->
-<section class="band band-deep">
-  <div class="wrap">
-    <h2 style="max-width:18ch">Verify before you buy</h2>
-    <p class="lead" style="color:rgba(247,244,237,.8);margin-top:var(--s-4)">
-      Every product is third-party verified. Every COA is public. Every order
-      ships from a registered US LLC the next business day.
-    </p>
-    <div class="btn-row" style="margin-top:var(--s-6)">
-      <a class="btn btn-lg" href="/shop/" style="background:var(--paper);color:var(--brand)">Shop the catalog</a>
-      <a class="btn btn-lg btn-outline" href="/coa-library/" style="border-color:var(--paper);color:var(--paper)">Browse COAs</a>
+    <div class="btn-row center" style="margin-top:40px">
+      <a class="btn btn-light" href="/shop/">See all 23 products</a>
     </div>
   </div>
 </section>
 
 </main>
 
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <a class="brand" href="/" style="margin-bottom:var(--s-4)">
-          <span class="brand-mark" aria-hidden="true">VRC</span>
-          <span><span class="brand-name" style="color:var(--paper)">VRC Solutions</span></span>
-        </a>
-        <address>
-          VRC Solutions LLC<br>
-          9462 Brownsboro Rd, PMB 379<br>
-          Louisville, KY 40241
-        </address>
-        <div class="pay-row" aria-label="Accepted payment methods">
-          <span>Venmo</span><span>Cash App</span><span>BTC</span><span>ETH</span><span>USDC</span>
+<footer>
+  <div class="footer-main">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-word">VRC</div>
+          <div class="footer-tag">Verified Research Compounds</div>
+          <address>
+            VRC Solutions LLC<br>
+            9462 Brownsboro Rd, PMB 379<br>
+            Louisville, KY 40241
+          </address>
         </div>
-        <p class="xsmall" style="margin-top:var(--s-3);opacity:.7">Card payments available in select regions. Contact us to check yours.</p>
+
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul role="list">
+            <li><a href="/shop/">All products</a></li>
+            <li><a href="/shop/#peptides">Peptides</a></li>
+            <li><a href="/shop/#solvents">Research solvents</a></li>
+            <li><a href="/order-status/">Check an order</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Policies</h4>
+          <ul role="list">
+            <li><a href="/research-use-only-policy/">Research Use Only Policy</a></li>
+            <li><a href="/terms-conditions/">Terms of Service</a></li>
+            <li><a href="/refund-policy/">Refund Policy</a></li>
+            <li><a href="/privacy-policy/">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Verify &amp; contact</h4>
+          <ul role="list">
+            <li><a href="/coa-library/">COA Library</a></li>
+            <li><a href="/faq/">FAQ</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/learn/">Learn</a></li>
+          </ul>
+        </div>
       </div>
 
-      <div>
-        <h4>Catalog</h4>
-        <ul role="list">
-          <li><a href="/shop/">All products</a></li>
-          <li><a href="/shop/#peptides">Peptides</a></li>
-          <li><a href="/shop/#blends">Blends</a></li>
-          <li><a href="/shop/#solvents">Solvents</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4>Verify</h4>
-        <ul role="list">
-          <li><a href="/coa-library/">COA Library</a></li>
-          <li><a href="/coa-library/#lookup">Look up a lot number</a></li>
-          <li><a href="/about/">About VRC</a></li>
-          <li><a href="/learn/">Learn</a></li>
-          <li><a href="/faq/">FAQ</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4>Policies</h4>
-        <ul role="list">
-          <li><a href="/research-use-only-policy/">Research Use Only Policy</a></li>
-          <li><a href="/terms-conditions/">Terms of Service</a></li>
-          <li><a href="/refund-policy/">Refund Policy</a></li>
-          <li><a href="/privacy-policy/">Privacy Policy</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4>Contact</h4>
-        <ul role="list">
-          <li><a href="mailto:hello@vrcsolutions.co">hello@vrcsolutions.co</a></li>
-          <li><a href="mailto:orders@vrcsolutions.co">orders@vrcsolutions.co</a></li>
-          <li><a href="/order-status/">Check an order</a></li>
-          <li><a href="https://www.instagram.com/vrcsolutions/" rel="noopener">Instagram</a></li>
-          <li><a href="https://www.tiktok.com/@vrc.solutions" rel="noopener">TikTok</a></li>
-        </ul>
+      <div class="footer-legal">
+        <p><strong>For research use only.</strong> All products are sold exclusively for laboratory research use only. They are not intended for human or animal consumption, clinical use, or veterinary applications, and are not intended to diagnose, treat, cure, or prevent any disease.</p>
+        <p>VRC Solutions LLC is a chemical supplier. VRC Solutions LLC is not a compounding pharmacy or chemical compounding facility as defined under 503A of the Federal Food, Drug, and Cosmetic Act. VRC Solutions LLC is not an outsourcing facility as defined under 503B of the Federal Food, Drug, and Cosmetic Act.</p>
+        <p class="footer-copy">&copy; 2026 VRC Solutions LLC. All rights reserved.</p>
       </div>
     </div>
+  </div>
 
-    <div class="footer-legal">
-      <p><strong>For research use only.</strong> All products are sold exclusively for laboratory research use only. They are not intended for human or animal consumption, clinical use, or veterinary applications, and are not intended to diagnose, treat, cure, or prevent any disease.</p>
-      <p>VRC Solutions LLC is a chemical supplier. VRC Solutions LLC is not a compounding pharmacy or chemical compounding facility as defined under 503A of the Federal Food, Drug, and Cosmetic Act. VRC Solutions LLC is not an outsourcing facility as defined under 503B of the Federal Food, Drug, and Cosmetic Act.</p>
-      <p>&copy; 2026 VRC Solutions LLC. All rights reserved.</p>
+  <div class="footer-band">
+    <div class="wrap band-grid">
+      <div>
+        <h4>Follow us</h4>
+        <div class="social">
+          <a href="https://www.instagram.com/vrcsolutions/" rel="noopener"><span class="badge-ig" aria-hidden="true">IG</span>@vrcsolutions</a>
+          <a href="https://www.tiktok.com/@vrc.solutions" rel="noopener"><span class="badge-tt" aria-hidden="true">TT</span>@vrc.solutions</a>
+        </div>
+      </div>
+      <div>
+        <h4>Accepted payments</h4>
+        <div class="paylist" aria-label="Accepted payment methods">
+          <span class="pay-venmo">Venmo</span><span class="pay-cash">Cash App</span><span class="pay-crypto">Crypto (BTC · ETH · USDC)</span>
+        </div>
+        <p class="note">Card payments enabled for select regions. Contact us for details.</p>
+      </div>
     </div>
   </div>
 </footer>
@@ -718,8 +431,8 @@
 <div class="scrim" id="scrim" data-open="false"></div>
 <aside class="drawer" id="cart-drawer" data-open="false" aria-hidden="true" aria-label="Shopping cart">
   <div class="drawer-top">
-    <h2>Cart</h2>
-    <button class="btn btn-ghost btn-sm" type="button" data-cart-close aria-label="Close cart">Close</button>
+    <h2>Your cart</h2>
+    <button class="btn btn-ghost btn-sm" type="button" data-cart-close aria-label="Close cart">Close ✕</button>
   </div>
   <div class="drawer-body" id="cart-lines"></div>
   <div class="drawer-foot" id="cart-foot" hidden>
@@ -727,43 +440,43 @@
       <p></p>
       <div class="ship-bar"><div class="ship-fill"></div></div>
     </div>
-    <form id="promo-form" style="display:flex;gap:var(--s-2);margin-bottom:var(--s-4)">
+    <form class="promo" id="promo-form">
       <label class="sr-only" for="promo-input">Discount code</label>
       <input class="input" id="promo-input" placeholder="Discount code" autocomplete="off">
-      <button class="btn btn-outline btn-sm" type="submit">Apply</button>
-      <span class="hint" id="promo-msg" style="flex-basis:100%"></span>
+      <button class="btn btn-outline btn-sm btn-square" type="submit">Apply</button>
+      <span class="hint" id="promo-msg"></span>
     </form>
     <div class="totals" id="cart-totals"></div>
-    <a class="btn btn-primary btn-block btn-lg" href="/checkout/">Checkout</a>
-    <p class="note" style="margin-top:var(--s-3);text-align:center">Research use only. Ships within the United States.</p>
+    <a class="btn btn-copper btn-block btn-lg btn-square" href="/checkout/">Checkout</a>
+    <p class="note center" style="margin-top:10px">Research use only. Ships within the United States.</p>
   </div>
 </aside>
 
-<!-- RUO gate: overlays fully-rendered content, never replaces it -->
+<!-- Researcher verification: overlays fully rendered content, never replaces it -->
 <div class="gate" id="ruo-gate" data-open="false" role="dialog" aria-modal="true" aria-labelledby="gate-title">
   <div class="gate-card">
-    <span class="badge badge-flag"><span class="dot"></span>Research use only</span>
-    <h2 id="gate-title" style="margin-top:var(--s-4)">Confirm before you continue</h2>
-    <p>VRC Solutions supplies research compounds to researchers and laboratories. Confirm both statements to enter.</p>
+    <span class="gate-pill">Research use only</span>
+    <h2 id="gate-title">Researcher verification</h2>
+    <p>VRC Solutions supplies research compounds to qualified researchers and laboratories. Please confirm the statements below before continuing.</p>
     <form id="gate-form">
-      <div class="gate-checks">
+      <div class="checks">
         <label class="check">
           <input type="checkbox" required>
           <span>I am at least <strong>21 years of age</strong>.</span>
         </label>
         <label class="check">
           <input type="checkbox" required>
-          <span>I am purchasing for <strong>laboratory research use only</strong> — not for human or veterinary use, and not for diagnostic or therapeutic purposes.</span>
+          <span>I confirm I am purchasing for <strong>laboratory research use only</strong> — not for human or veterinary use, and not for diagnostic or therapeutic purposes.</span>
         </label>
       </div>
-      <button class="btn btn-primary btn-lg btn-block" type="submit" id="gate-enter" disabled>Enter site</button>
-      <a class="btn btn-ghost btn-block" href="https://www.google.com" rel="noopener" style="margin-top:var(--s-2)">Leave site</a>
+      <div class="gate-actions">
+        <button class="btn btn-enter" type="submit" id="gate-enter" disabled>Enter VRC Solutions →</button>
+        <a class="btn btn-exit" href="https://www.google.com" rel="noopener">Exit</a>
+      </div>
     </form>
-    <p class="note" style="margin-top:var(--s-4)">
-      Read the <a href="/research-use-only-policy/">Research Use Only Policy</a> and
-      <a href="/terms-conditions/">Terms of Service</a> before entering.
-    </p>
-    <p class="gate-foot">By continuing you affirm the statements above are true. VRC products are not for human or veterinary use, are not for use in diagnostic procedures, and have not been evaluated by the U.S. Food and Drug Administration.</p>
+    <p class="gate-fine">By proceeding you affirm the statements above are true. VRC products are not for human or veterinary use, not for use in diagnostic procedures, and have not been evaluated by the U.S. Food and Drug Administration.</p>
+    <p class="gate-links">Read the <a href="/research-use-only-policy/">Research Use Only Policy</a> and <a href="/terms-conditions/">Terms of Service</a>.</p>
+    <p class="gate-trust">HPLC + MS tested · COA library · U.S. LLC · Discreet shipping</p>
   </div>
 </div>
 

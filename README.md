@@ -67,7 +67,8 @@ src/layout.html         Shared shell: header, footer, cart drawer, RUO gate
 src/product.html        Product page template (rendered once per product)
 src/pages/*.html        Page bodies, with front matter (title, description, path, gate)
 public/                 BUILT OUTPUT. Deploy this; don't edit it by hand
-  assets/css|js|fonts   Styles, scripts, self-hosted fonts (OFL, licenses included)
+  assets/css|js|fonts   Styles, scripts, self-hosted Inter + IBM Plex Mono (OFL, licenses included)
+  assets/img            Product photos, homepage photos, icons
   _headers _redirects   Security headers; 301s from retired WordPress URLs
 backend/app/            FastAPI app: catalog, pricing, orders, contact, admin
 backend/app/integrations/  External services, placeholders (see below)
@@ -90,14 +91,26 @@ pages, `/terms-of-service/`) redirect; edit `LEGACY_REDIRECTS` in `build.py`.
   `cd backend && python -m app.seed`.
 - **Keep old certificates:** add entries to a product's `coa_history`; they
   appear as Archived rows in the COA library.
-- **Product photos:** drop `<slug>.webp` (or `.jpg`/`.png`) into
-  `public/assets/img/products/` and rebuild. Until then each product shows a
-  generated vial render.
+- **Product photos:** `public/assets/img/products/<slug>.webp`, taken from
+  the live store. Replace a file (or add `.jpg`/`.png`) and rebuild; a product
+  with no photo falls back to a generated vial render.
 - **Pages and copy:** `src/pages/*.html`. The top banner is in
   `src/layout.html`.
 - **Pricing rules** (free-shipping threshold, flat rate, promo code) live in
   `backend/app/config.py`, which is authoritative. Mirror changes in `CONFIG`
   in `public/assets/js/store.js` (the cart preview) and in the banner copy.
+
+## Design
+
+Layout, palette and section order follow the live vrcsolutions.co theme:
+cream page with framed 1200px sections alternating deep teal, beige, cream and
+white; copper actions; Inter headings. Tokens are in
+`public/assets/css/tokens.css` (`--teal #0F3433`, `--copper #B8794A`,
+`--cream #F7F4ED`, `--beige #EDE6D4`). Page templates reuse a small set of
+components in `public/assets/css/vrc.css`: `.shell.sec` sections, `.page-hero`,
+`.pcard` product cards, `.coa-table`, `.faq-item`, `.panel`. The homepage
+photo cards use Unsplash images (free licence), self-hosted in
+`public/assets/img/why/`.
 
 ## Backend and integrations — placeholders
 
@@ -151,17 +164,20 @@ An admin change to a product's COA updates the database only; mirror it in
 below is open.
 
 **Catalog data** (every figure on this site is a claim about a lab result):
-- [ ] Publish COAs for TB-500, MOTS-c, Selank, Semax, Glutathione, Bac Water, BioWater
+- [ ] Publish COAs for TB-500, MOTS-c, Selank, Semax, Glutathione, Bac Water 3ml/10ml, BioWater
+      (the live COA library now lists certificates for some of these; reconcile them)
 - [ ] Real lot numbers for the products showing "Not published"
 - [ ] Exact purity, method and test date from each certificate (unconfirmed products show only "≥99%")
-- [ ] Confirm SKUs TB10, BW10, KLW80 and the blend compositions (BB10, CP10, GLW70, KLW80)
+- [ ] Confirm the blend compositions (GLW70, KLW80)
 - [ ] Confirm molecular weights (TB-500 in particular: fragment vs full-length)
 
 **Content:**
-- [ ] Terms, refund and privacy policy text (verbatim from the old site or from counsel)
-- [ ] Legal review of the Research Use Only policy
-- [ ] Learn articles migrated into `src/pages/`
-- [ ] Product photos
+- [x] Terms, refund, privacy and RUO policy text, copied from the live site
+- [ ] Legal review of those four pages. The live Terms' "International Orders"
+      and "Customs Duties and VAT" sections were left out because checkout is
+      US-only; restore them if that changes
+- [x] Learn page migrated from the live site
+- [x] Product photos (from the live store)
 
 **Configuration:**
 - [ ] `ADMIN_TOKEN`, `IP_HASH_SALT`, `CORS_ORIGINS`

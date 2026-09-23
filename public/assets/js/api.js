@@ -32,8 +32,8 @@ async function readError(res) {
     return `${FIELD_LABELS[field] || 'A field'}: ${raw.charAt(0).toLowerCase()}${raw.slice(1)}`;
   }
   if (typeof detail === 'string') return detail;
-  // Non-JSON 404/405: no API behind this host (e.g. the GitHub Pages preview).
-  if (!('detail' in data) && (res.status === 404 || res.status === 405)) {
+  // Non-JSON 404/405/501: no API behind this host (e.g. the GitHub Pages preview).
+  if (!('detail' in data) && [404, 405, 501].includes(res.status)) {
     return "This site isn't connected to its server yet";
   }
   if (res.status === 429) return 'Too many attempts in a short time. Wait a minute and try again';
