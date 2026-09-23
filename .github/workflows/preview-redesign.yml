@@ -1,0 +1,19 @@
+# Pushing to the redesign branch republishes the GitHub Pages site, which
+# serves main at /newVRCsolutions/ and this branch at /newVRCsolutions/v2/.
+# The deploy itself runs from main's pages.yml (only main may deploy Pages).
+name: Publish redesign preview
+
+on:
+  push:
+    branches: [redesign]
+
+permissions:
+  actions: write
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh workflow run pages.yml --ref main --repo "$GITHUB_REPOSITORY"
+        env:
+          GH_TOKEN: ${{ github.token }}

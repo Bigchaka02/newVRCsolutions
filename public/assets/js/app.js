@@ -8,6 +8,7 @@ import {
   initLedger, initForms, initPromo,
 } from './ui.js';
 import { initCheckout, initOrderStatus } from './checkout.js';
+import { initFx } from './fx.js';
 
 function boot() {
   // Each initialiser no-ops when its markup is absent, so one bundle serves
@@ -22,6 +23,8 @@ function boot() {
   initPromo();
   initCheckout();
   initOrderStatus();
+  // Motion last, so it decorates markup the initialisers above have settled.
+  try { initFx(); } catch (err) { console.error('[fx]', err); }
 }
 
 if (document.readyState === 'loading') {
