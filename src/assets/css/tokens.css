@@ -112,8 +112,13 @@
   color-scheme: light;
 }
 
+/* The discount bar wraps to two lines below about 680px. */
+@media (max-width: 679px) {
+  :root { --topbar-h: 55px; }
+}
+
 @media (max-width: 959px) {
-  :root { --header-h: 68px; --topbar-h: 55px; }
+  :root { --header-h: 68px; }
 }
 
 /* Visitor paused animations (see motion.js). */

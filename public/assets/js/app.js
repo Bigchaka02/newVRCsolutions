@@ -1,9 +1,9 @@
 import{
 initNav,initHeader,initCart,initGate,initCatalog,
 initLedger,initForms,initPromo,
-}from './ui.js?v=d01efa99ea';
-import{initCheckout,initOrderStatus}from './checkout.js?v=d01efa99ea';
-import{initFx}from './fx.js?v=d01efa99ea';
+}from './ui.js?v=69971ed99c';
+import{initCheckout,initOrderStatus}from './checkout.js?v=69971ed99c';
+import{initFx}from './fx.js?v=69971ed99c';
 function boot(){
 initNav();
 initHeader();

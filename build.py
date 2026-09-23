@@ -311,14 +311,14 @@ def cutout(p: dict) -> str:
     return "/" + path.relative_to(OUT).as_posix() if path.exists() else ""
 
 
-def card(p: dict, order: int, showcase: bool = False, solid: bool = False) -> str:
-    """Product card. Uses the background-free cut-out from assets/img/cutouts/
-    when one exists: floating in a soft well on light sections, or on a glass
-    card when `showcase` is set (dark sections). `solid` gives the glass card
-    its own teal ground, so it looks the same on a light section (the shop)."""
+def card(p: dict, order: int, solid: bool = False) -> str:
+    """Product card: a dark glass card with the background-free cut-out vial
+    from assets/img/cutouts/ when one exists. On dark sections the section
+    shows through; `solid` gives the card its own teal ground for light
+    sections (the shop)."""
     cut = cutout(p)
     img_src = cut or p["_img"]
-    variant = (" pcard-show" + (" pcard-solid" if solid else "") if showcase or solid else " pcard-float") if cut else ""
+    variant = (" pcard-show" + (" pcard-solid" if solid else "")) if cut else ""
     payload = {"sku": p["sku"], "slug": p["slug"], "name": p["name"],
                "price": p["price"], "image": p["_img"]}
     coa = (f'<a class="btn btn-coa" href="{e(p["coa_url"])}" target="_blank" rel="noopener" '
@@ -614,7 +614,7 @@ def build_products() -> list[tuple[str, float]]:
                         else '<span class="muted">Out of stock</span>'),
             "P_IMAGE": image, "P_COA_BUTTON": coa_btn, "P_COA_PANEL": coa_panel,
             "P_COA_STATUS": coa_status, "P_SPECS": specs, "P_JSON": attr_json(payload),
-            "P_RELATED": "\n".join(card(q, i, showcase=True) for i, q in enumerate(related)),
+            "P_RELATED": "\n".join(card(q, i) for i, q in enumerate(related)),
         }.items():
             body = body.replace("{{" + key + "}}", value)
         body = substitute_tokens(body)
@@ -743,7 +743,7 @@ def main(strict: bool = False) -> None:
     TOKENS.update({
         "LEDGER_ROWS": "\n".join(current),
         "COA_LIBRARY_ROWS": "\n".join(current + archive),
-        "FEATURED_CARDS": "\n".join(card(p, i, showcase=True) for i, p in enumerate(bestsellers())),
+        "FEATURED_CARDS": "\n".join(card(p, i) for i, p in enumerate(bestsellers())),
         "ALL_CARDS": cards_html(sorted(PRODUCTS, key=lambda p: (not p.get("featured"), p["name"])), solid=True),
         "PRODUCT_COUNT": str(len(PRODUCTS)),
         "COUNT_PEPTIDES": str(sum(p["category"] == "peptides" for p in PRODUCTS)),

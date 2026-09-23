@@ -402,16 +402,5 @@ main { overflow-x: clip; }
 .pdp-media.pdp-stage img.vial { position: relative; inset: auto; width: 33%; height: auto; object-fit: contain; z-index: 2; }
 .pdp-trust li { background: rgba(255,255,255,.7); backdrop-filter: blur(6px); }
 
-/* Product cards on light sections: cut-out vial floating in a soft well.
-   Cards are links, so hover lifts and straightens the vial. */
-.pcard-float .pcard-media { background:
-  radial-gradient(55% 45% at 50% 52%, rgba(91,192,138,.16), transparent 70%),
-  radial-gradient(38% 7% at 50% 91%, rgba(15,52,51,.22), transparent 70%),
-  linear-gradient(180deg, #F6F4EE, #ECE8DE); }
-.pcard-float .pcard-media img { object-fit: contain; inset: 8% 14% 10%; width: 72%; height: 82%;
-  transform: rotate(-6deg); filter: drop-shadow(0 16px 18px rgba(15,52,51,.22));
-  transition: transform 700ms var(--spring), filter 600ms var(--ease); }
-.pcard-float:hover .pcard-media img { transform: translateY(-10px) rotate(0deg) scale(1.04);
-  filter: drop-shadow(0 26px 24px rgba(15,52,51,.28)); }
 .fx-fly img { object-fit: contain; background: #F1EFE8; }
 .line-media img { object-fit: contain; padding: 4px; }
