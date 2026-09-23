@@ -20,6 +20,7 @@ LEGACY_REDIRECTS and written to public/_redirects.
 
 from __future__ import annotations
 
+import hashlib
 import html
 import json
 import re
@@ -27,6 +28,8 @@ import shutil
 from datetime import date, datetime
 from pathlib import Path
 from urllib.parse import urlparse
+
+import minify
 
 ROOT = Path(__file__).parent
 SRC = ROOT / "src"
@@ -47,6 +50,10 @@ ROOT_LINK = re.compile(r'\b(href|src|action)="/(?!/)')
 
 FRONT_MATTER = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.S)
 IMG_DIR = OUT / "assets" / "img" / "products"
+
+# Readable styles and scripts live in src/assets/; build_assets() writes the
+# minified copies that pages load. Stylesheets are joined in this order.
+CSS_SOURCES = ("tokens.css", "vrc.css", "fx.css")
 
 # Old WordPress URLs with no one-to-one page on the new site. Everything else
 # keeps its original address. Both slash variants, because WordPress served
@@ -141,16 +148,11 @@ ICONS = {
     "GEM": svg('<path d="M7 4h10l4 5-9 11L3 9z"/><path d="M3 9h18M10 4 8.5 9 12 20l3.5-11L14 4"/>'),
     "FLASK": svg('<path d="M9 3h6M10 3v6L4.8 18.2A1.9 1.9 0 0 0 6.4 21h11.2a1.9 1.9 0 0 0 1.6-2.8L14 9V3"/><path d="M7 15h10"/>'),
     "DOC": svg('<rect x="5" y="3.5" width="14" height="17.5" rx="2"/><path d="M8.5 8.5h7M8.5 12.5h7M8.5 16.5h4"/>'),
-    "DOCCHECK": svg('<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="m9 14.5 2 2 4-4"/>'),
     "BUILDING": svg('<path d="M4 21V6l8-3v18M12 9l8 2.5V21M2.5 21h19"/>'
                     '<path d="M7.5 9h1.5M7.5 12.5h1.5M7.5 16h1.5M15.5 14h1.5M15.5 17.5h1.5"/>'),
-    "CLOCK": svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
-    "MAIL": svg('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>'),
-    "PIN": svg('<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>'),
     "CHECK": svg('<path d="m5 12.5 4.5 4.5L19 7.5"/>', "2"),
     "X": svg('<path d="M7 7l10 10M17 7 7 17"/>', "2"),
     "BAN": svg('<circle cx="12" cy="12" r="9"/><path d="m5.7 5.7 12.6 12.6"/>'),
-    "ARROW": svg('<path d="M5 12h14M13 6l6 6-6 6"/>', "2"),
 }
 
 
@@ -456,6 +458,31 @@ def faq_jsonld(body: str) -> dict | None:
 LAYOUT = (SRC / "layout.html").read_text(encoding="utf-8")
 PRODUCT_TPL = (SRC / "product.html").read_text(encoding="utf-8")
 TOKENS: dict[str, str] = {}
+ASSET_VERSION = ""
+
+
+def build_assets() -> str:
+    """Minify src/assets/ into public/assets/ and return a short content hash.
+
+    Pages request every file with ?v=<hash>, and the modules import each other
+    with it too, so a deploy never mixes old and new files from a cache."""
+    css = minify.css("\n".join((SRC / "assets" / "css" / name).read_text(encoding="utf-8")
+                               for name in CSS_SOURCES))
+    scripts = {f.name: minify.js(f.read_text(encoding="utf-8"))
+               for f in sorted((SRC / "assets" / "js").glob("*.js"))}
+    digest = hashlib.sha256(css.encode())
+    for name, code in scripts.items():
+        digest.update(name.encode() + code.encode())
+    version = digest.hexdigest()[:10]
+
+    for kind in ("css", "js"):
+        shutil.rmtree(OUT / "assets" / kind, ignore_errors=True)
+        (OUT / "assets" / kind).mkdir(parents=True)
+    (OUT / "assets" / "css" / "site.css").write_text(css, encoding="utf-8")
+    for name, code in scripts.items():
+        code = re.sub(r"""(from\s*'\./[\w-]+\.js)'""", rf"\1?v={version}'", code)
+        (OUT / "assets" / "js" / name).write_text(code, encoding="utf-8")
+    return version
 
 
 def wrap_page(*, title, desc, path, content, ogtype="website",
@@ -469,6 +496,7 @@ def wrap_page(*, title, desc, path, content, ogtype="website",
             .replace("{{OGTYPE}}", ogtype)
             .replace("{{GATE}}", "off" if gate == "off" else "on")
             .replace("{{YEAR}}", str(YEAR))
+            .replace("{{V}}", ASSET_VERSION)
             .replace("{{JSONLD}}", jsonld([ORGANISATION] + (extra_ld or [])))
             .replace("{{CONTENT}}", content))
     if SUBPATH:
@@ -481,7 +509,7 @@ def wrap_page(*, title, desc, path, content, ogtype="website",
         page = page.replace(
             '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">',
             '<meta name="robots" content="noindex, follow">')
-    return page
+    return minify.html(page)
 
 
 def substitute_tokens(body: str) -> str:
@@ -645,8 +673,9 @@ def build_meta_files(urls: list[tuple[str, float]]) -> None:
         "  Permissions-Policy: geolocation=(), microphone=(), camera=()\n"
         "  Strict-Transport-Security: max-age=31536000; includeSubDomains\n"
         f"  Content-Security-Policy: {content_security_policy()}\n\n"
-        "/assets/css/*\n  Cache-Control: public, max-age=3600, stale-while-revalidate=86400\n\n"
-        "/assets/js/*\n  Cache-Control: public, max-age=3600, stale-while-revalidate=86400\n\n"
+        # CSS and JS are requested with ?v=<content hash>, so they can be cached for good.
+        "/assets/css/*\n  Cache-Control: public, max-age=31536000, immutable\n\n"
+        "/assets/js/*\n  Cache-Control: public, max-age=31536000, immutable\n\n"
         "/assets/img/*\n  Cache-Control: public, max-age=2592000\n",
         encoding="utf-8")
 
@@ -701,7 +730,9 @@ def clean() -> None:
 
 
 def main(strict: bool = False) -> None:
+    global ASSET_VERSION
     clean()
+    ASSET_VERSION = build_assets()
     placeholders = resolve_images()
 
     current = [ledger_row(p) for p in PRODUCTS]

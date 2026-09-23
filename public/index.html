@@ -8,7 +8,6 @@
 <link rel="canonical" href="https://vrcsolutions.co/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="theme-color" content="#EDE6D4">
-
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VRC Solutions">
 <meta property="og:locale" content="en_US">
@@ -17,481 +16,440 @@
 <meta property="og:url" content="https://vrcsolutions.co/">
 <meta property="og:image" content="https://vrcsolutions.co/assets/img/og-default.png">
 <meta name="twitter:card" content="summary_large_image">
-
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-
 <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-
-<link rel="stylesheet" href="/assets/css/tokens.css">
-<link rel="stylesheet" href="/assets/css/vrc.css">
-<link rel="stylesheet" href="/assets/css/fx.css">
-
-<script type="module" src="/assets/js/app.js"></script>
+<link rel="stylesheet" href="/assets/css/site.css?v=3f42e75db9">
+<script type="module" src="/assets/js/app.js?v=3f42e75db9"></script>
+<link rel="modulepreload" href="/assets/js/ui.js?v=3f42e75db9">
+<link rel="modulepreload" href="/assets/js/store.js?v=3f42e75db9">
+<link rel="modulepreload" href="/assets/js/api.js?v=3f42e75db9">
+<link rel="modulepreload" href="/assets/js/checkout.js?v=3f42e75db9">
+<link rel="modulepreload" href="/assets/js/fx.js?v=3f42e75db9">
 <meta name="vrc-api" content="">
-<!-- PLACEHOLDER: analytics / pixel tags from the original site go here.
-     Also add each tag's host to content_security_policy() in build.py,
-     or the browser will block it. -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"VRC Solutions LLC","alternateName":"VRC Solutions","url":"https://vrcsolutions.co/","email":"hello@vrcsolutions.co","address":{"@type":"PostalAddress","streetAddress":"9462 Brownsboro Rd, PMB 379","addressLocality":"Louisville","addressRegion":"KY","postalCode":"40241","addressCountry":"US"},"sameAs":["https://www.instagram.com/vrcsolutions/","https://www.tiktok.com/@vrc.solutions"]}</script>
 </head>
 <body data-gate="on">
-
 <a class="skip" href="#main">Skip to content</a>
-
 <div class="topbar">
-  <a href="/shop/"><strong>NEW HERE?</strong> Get 15% off with code <strong>FIRST15</strong> · Free Bac Water included · Free shipping over $105 <span aria-hidden="true">→</span></a>
+<a href="/shop/"><strong>NEW HERE?</strong> Get 15% off with code <strong>FIRST15</strong> · Free Bac Water included · Free shipping over $105 <span aria-hidden="true">→</span></a>
 </div>
-
 <header class="site-header" id="site-header">
-  <div class="wrap header-in">
-    <a class="logo" href="/" aria-label="VRC Solutions, home">
-      <span class="logo-mark" aria-hidden="true"><span>V</span><span>R</span><span>C</span></span>
-      <span class="logo-text">
-        <span class="logo-name">VRC Solutions</span>
-        <span class="logo-tag">Verified · Research · Compounds</span>
-      </span>
-    </a>
-
-    <nav class="nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/shop/">Shop</a>
-      <a href="/coa-library/">COA Library</a>
-      <a href="/faq/">FAQ</a>
-      <a href="/contact/">Contact</a>
-      <a href="/learn/">Learn</a>
-    </nav>
-
-    <div class="header-tools">
-      <button class="tool-btn" type="button" data-search-open aria-label="Search products" aria-expanded="false" aria-controls="site-search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
-      </button>
-      <button class="tool-btn" type="button" data-cart-open aria-label="Open cart">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/><path d="M2.5 3h2.6l2.4 11.3a1.6 1.6 0 0 0 1.6 1.2h8.3a1.6 1.6 0 0 0 1.6-1.2L21 7H6"/></svg>
-        <span class="cart-count" data-cart-count data-empty="true">0</span>
-      </button>
-      <button class="tool-btn burger" type="button" id="burger" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      </button>
-    </div>
-  </div>
-
-  <form class="site-search" id="site-search" action="/shop/" method="get" role="search" hidden>
-    <div class="wrap">
-      <label class="sr-only" for="site-search-q">Search products</label>
-      <input class="input" id="site-search-q" name="q" type="search" placeholder="Search compounds, SKUs or lot numbers" autocomplete="off">
-      <button class="btn btn-copper btn-square" type="submit">Search</button>
-    </div>
-  </form>
-
-  <nav class="mobile-nav" id="mobile-nav" data-open="false" aria-label="Mobile">
-    <div class="wrap">
-      <ul role="list">
-        <li><a href="/">Home</a></li>
-        <li><a href="/shop/">Shop</a></li>
-        <li><a href="/coa-library/">COA Library</a></li>
-        <li><a href="/faq/">FAQ</a></li>
-        <li><a href="/contact/">Contact</a></li>
-        <li><a href="/learn/">Learn</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/order-status/">Check an order</a></li>
-      </ul>
-    </div>
-  </nav>
+<div class="wrap header-in">
+<a class="logo" href="/" aria-label="VRC Solutions, home">
+<span class="logo-mark" aria-hidden="true"><span>V</span><span>R</span><span>C</span></span>
+<span class="logo-text">
+<span class="logo-name">VRC Solutions</span>
+<span class="logo-tag">Verified · Research · Compounds</span>
+</span>
+</a>
+<nav class="nav" aria-label="Primary">
+<a href="/">Home</a>
+<a href="/shop/">Shop</a>
+<a href="/coa-library/">COA Library</a>
+<a href="/faq/">FAQ</a>
+<a href="/contact/">Contact</a>
+<a href="/learn/">Learn</a>
+</nav>
+<div class="header-tools">
+<button class="tool-btn" type="button" data-search-open aria-label="Search products" aria-expanded="false" aria-controls="site-search">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+</button>
+<button class="tool-btn" type="button" data-cart-open aria-label="Open cart">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/><path d="M2.5 3h2.6l2.4 11.3a1.6 1.6 0 0 0 1.6 1.2h8.3a1.6 1.6 0 0 0 1.6-1.2L21 7H6"/></svg>
+<span class="cart-count" data-cart-count data-empty="true">0</span>
+</button>
+<button class="tool-btn burger" type="button" id="burger" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+</button>
+</div>
+</div>
+<form class="site-search" id="site-search" action="/shop/" method="get" role="search" hidden>
+<div class="wrap">
+<label class="sr-only" for="site-search-q">Search products</label>
+<input class="input" id="site-search-q" name="q" type="search" placeholder="Search compounds, SKUs or lot numbers" autocomplete="off">
+<button class="btn btn-copper btn-square" type="submit">Search</button>
+</div>
+</form>
+<nav class="mobile-nav" id="mobile-nav" data-open="false" aria-label="Mobile">
+<div class="wrap">
+<ul role="list">
+<li><a href="/">Home</a></li>
+<li><a href="/shop/">Shop</a></li>
+<li><a href="/coa-library/">COA Library</a></li>
+<li><a href="/faq/">FAQ</a></li>
+<li><a href="/contact/">Contact</a></li>
+<li><a href="/learn/">Learn</a></li>
+<li><a href="/about/">About</a></li>
+<li><a href="/order-status/">Check an order</a></li>
+</ul>
+</div>
+</nav>
 </header>
-
 <main id="main">
-<!-- Hero: teal stage with a flowing glow, drifting particles and the
-     levitating vial. Canvas and glow are decoration; the copy is plain HTML. -->
 <section class="shell sec hero hero-v2 sec-dark fx-glow">
-  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
-  <canvas class="hero-particles" aria-hidden="true"></canvas>
-  <div class="inner">
-    <div class="hero-mark">
-      <span class="wordmark" aria-hidden="true">VRC</span>
-      <span class="wordmark-sub">Verified Research Compounds</span>
-    </div>
-
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <h1>Verified research compounds. <em>Public COAs.</em> No anonymous shells.</h1>
-        <p class="lead">Every batch independently tested by an independent third-party laboratory. Every Certificate of Analysis published before sale. Real US LLC, real operations.</p>
-        <div class="btn-row">
-          <a class="btn btn-copper btn-lg" href="/shop/">Shop Now</a>
-          <a class="btn btn-light btn-lg" href="/coa-library/">COA Library</a>
-          <a class="btn btn-light btn-lg" href="/research-use-only-policy/">RUO Policy</a>
-        </div>
-        <ul class="hero-facts" role="list">
-          <li><strong>23</strong> research compounds</li>
-          <li><strong>Next-day</strong> US shipping</li>
-          <li><strong>Public</strong> COA library</li>
-        </ul>
-      </div>
-
-      <div class="hero-stage">
-        <a class="vial-link" href="/product/bpc-tb500/" aria-label="View BPC+TB500, $69.99">
-          <span class="vial-halo" aria-hidden="true"></span>
-          <span class="vial-orbit" aria-hidden="true"></span>
-          <img class="vial" src="/assets/img/hero-vial-cut.webp" alt="VRC Solutions BPC+TB500 research vial" width="420" height="936" fetchpriority="high">
-          <span class="vial-shadow" aria-hidden="true"></span>
-          <span class="vial-tag">BPC+TB500 · <strong>$69.99</strong> <span aria-hidden="true">→</span></span>
-        </a>
-        <div class="callouts">
-          <div class="callout callout-1"><span class="callout-num">1</span><h3>For Research Use Only</h3><p>Handle in accordance with standard laboratory safety practices.</p></div>
-          <div class="callout callout-2"><span class="callout-num">2</span><h3>Purity ≥99%</h3><p>Backed by independent third-party lab testing. COAs linked from each product page.</p></div>
-          <div class="callout callout-3"><span class="callout-num">3</span><h3>Measured Accuracy</h3><p>Every vial labeled with exact lot number and verified mg content.</p></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="hero-bottom"></div>
+<div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+<canvas class="hero-particles" aria-hidden="true"></canvas>
+<div class="inner">
+<div class="hero-mark">
+<span class="wordmark" aria-hidden="true">VRC</span>
+<span class="wordmark-sub">Verified Research Compounds</span>
+</div>
+<div class="hero-grid">
+<div class="hero-copy">
+<h1>Verified research compounds. <em>Public COAs.</em> No anonymous shells.</h1>
+<p class="lead">Every batch independently tested by an independent third-party laboratory. Every Certificate of Analysis published before sale. Real US LLC, real operations.</p>
+<div class="btn-row">
+<a class="btn btn-copper btn-lg" href="/shop/">Shop Now</a>
+<a class="btn btn-light btn-lg" href="/coa-library/">COA Library</a>
+<a class="btn btn-light btn-lg" href="/research-use-only-policy/">RUO Policy</a>
+</div>
+<ul class="hero-facts" role="list">
+<li><strong>23</strong> research compounds</li>
+<li><strong>Next-day</strong> US shipping</li>
+<li><strong>Public</strong> COA library</li>
+</ul>
+</div>
+<div class="hero-stage">
+<a class="vial-link" href="/product/bpc-tb500/" aria-label="View BPC+TB500, $69.99">
+<span class="vial-halo" aria-hidden="true"></span>
+<span class="vial-orbit" aria-hidden="true"></span>
+<img class="vial" src="/assets/img/hero-vial-cut.webp" alt="VRC Solutions BPC+TB500 research vial" width="420" height="936" fetchpriority="high">
+<span class="vial-shadow" aria-hidden="true"></span>
+<span class="vial-tag">BPC+TB500 · <strong>$69.99</strong> <span aria-hidden="true">→</span></span>
+</a>
+<div class="callouts">
+<div class="callout callout-1"><span class="callout-num">1</span><h3>For Research Use Only</h3><p>Handle in accordance with standard laboratory safety practices.</p></div>
+<div class="callout callout-2"><span class="callout-num">2</span><h3>Purity ≥99%</h3><p>Backed by independent third-party lab testing. COAs linked from each product page.</p></div>
+<div class="callout callout-3"><span class="callout-num">3</span><h3>Measured Accuracy</h3><p>Every vial labeled with exact lot number and verified mg content.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="hero-bottom"></div>
 </section>
-
-<!-- Trust band -->
 <section class="shell sec sec-beige">
-  <div class="inner features">
-    <div class="feature">
-      <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h10v10H3z"/><path d="M13 9h4.2l3.3 3.6V16H13z"/><circle cx="7" cy="17" r="1.8"/><circle cx="17" cy="17" r="1.8"/></svg></div>
-      <h3>US-Based Fulfillment</h3>
-      <p>Domestic quality control, packaging &amp; next-day US shipping. Tracked from our facility to your door.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2 5 6v5.3c0 4.4 3 8 7 9.5 4-1.5 7-5.1 7-9.5V6z"/><path d="m9 12.2 2.2 2.2 4-4.3"/></svg></div>
-      <h3>Third-Party Verified</h3>
-      <p>Every batch tested by an independent third-party laboratory. Public COA library, no login required.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 20.5 7.5v9L12 21l-8.5-4.5v-9z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg></div>
-      <h3>Discreet Packaging</h3>
-      <p>No brand markings on the outside. Return address is our mailing PMB only.</p>
-    </div>
-    <div class="feature">
-      <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10l4 5-9 11L3 9z"/><path d="M3 9h18M10 4 8.5 9 12 20l3.5-11L14 4"/></svg></div>
-      <h3>Purity ≥99%</h3>
-      <p>Strict cutoff. Anything below specification is rejected before inventory.</p>
-    </div>
-  </div>
+<div class="inner features">
+<div class="feature">
+<div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h10v10H3z"/><path d="M13 9h4.2l3.3 3.6V16H13z"/><circle cx="7" cy="17" r="1.8"/><circle cx="17" cy="17" r="1.8"/></svg></div>
+<h3>US-Based Fulfillment</h3>
+<p>Domestic quality control, packaging &amp; next-day US shipping. Tracked from our facility to your door.</p>
+</div>
+<div class="feature">
+<div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2 5 6v5.3c0 4.4 3 8 7 9.5 4-1.5 7-5.1 7-9.5V6z"/><path d="m9 12.2 2.2 2.2 4-4.3"/></svg></div>
+<h3>Third-Party Verified</h3>
+<p>Every batch tested by an independent third-party laboratory. Public COA library, no login required.</p>
+</div>
+<div class="feature">
+<div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 20.5 7.5v9L12 21l-8.5-4.5v-9z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg></div>
+<h3>Discreet Packaging</h3>
+<p>No brand markings on the outside. Return address is our mailing PMB only.</p>
+</div>
+<div class="feature">
+<div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10l4 5-9 11L3 9z"/><path d="M3 9h18M10 4 8.5 9 12 20l3.5-11L14 4"/></svg></div>
+<h3>Purity ≥99%</h3>
+<p>Strict cutoff. Anything below specification is rejected before inventory.</p>
+</div>
+</div>
 </section>
-
-<!-- Why VRC -->
 <section class="shell sec sec-dark">
-  <div class="inner why-grid">
-    <div class="why-copy">
-      <span class="eyebrow eyebrow-pill">Why VRC</span>
-      <h2>Built for researchers who want to verify before they buy. US-based operations with independent third-party verification on every batch.</h2>
-      <span class="rule"></span>
-      <p>No anonymous brands. No hidden lab reports. No quiet efficacy claims. Just compounds that pass independent verification, sold from a US LLC with a public address.</p>
-      <a class="btn btn-copper btn-lg" href="/about/">Learn More</a>
-    </div>
-
-    <div class="photo-cards">
-      <article class="photo-card">
-        <img src="/assets/img/why/testing.webp" alt="" loading="lazy" width="900" height="600">
-        <span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6L4.8 18.2A1.9 1.9 0 0 0 6.4 21h11.2a1.9 1.9 0 0 0 1.6-2.8L14 9V3"/><path d="M7 15h10"/></svg></span>
-        <h3>Independent Testing</h3>
-        <p>Every batch goes to an independent third-party laboratory before it reaches inventory. Identity, purity, contamination — all on file before sale.</p>
-      </article>
-      <article class="photo-card">
-        <img src="/assets/img/why/research.webp" alt="" loading="lazy" width="900" height="600">
-        <span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17.5" rx="2"/><path d="M8.5 8.5h7M8.5 12.5h7M8.5 16.5h4"/></svg></span>
-        <h3>Strict Research Use</h3>
-        <p>Sold exclusively for in-vitro laboratory research. No dosing guidance. No therapeutic claims. No human-use framing.</p>
-      </article>
-      <article class="photo-card">
-        <img src="/assets/img/why/shipping.webp" alt="" loading="lazy" width="800" height="533">
-        <span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h10v10H3z"/><path d="M13 9h4.2l3.3 3.6V16H13z"/><circle cx="7" cy="17" r="1.8"/><circle cx="17" cy="17" r="1.8"/></svg></span>
-        <h3>Next-Day Shipping</h3>
-        <p>Order before 2pm ET, ships the next business day. Discreet packaging from a real US LLC.</p>
-      </article>
-      <article class="photo-card">
-        <img src="/assets/img/why/llc.webp" alt="" loading="lazy" width="800" height="533">
-        <span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V6l8-3v18M12 9l8 2.5V21M2.5 21h19"/><path d="M7.5 9h1.5M7.5 12.5h1.5M7.5 16h1.5M15.5 14h1.5M15.5 17.5h1.5"/></svg></span>
-        <h3>Real US LLC</h3>
-        <p>VRC Solutions LLC, a registered US business. Public mailing address. Tax accounts on file with the state.</p>
-      </article>
-    </div>
-  </div>
+<div class="inner why-grid">
+<div class="why-copy">
+<span class="eyebrow eyebrow-pill">Why VRC</span>
+<h2>Built for researchers who want to verify before they buy. US-based operations with independent third-party verification on every batch.</h2>
+<span class="rule"></span>
+<p>No anonymous brands. No hidden lab reports. No quiet efficacy claims. Just compounds that pass independent verification, sold from a US LLC with a public address.</p>
+<a class="btn btn-copper btn-lg" href="/about/">Learn More</a>
+</div>
+<div class="photo-cards">
+<article class="photo-card">
+<img src="/assets/img/why/testing.webp" alt="" loading="lazy" width="900" height="600">
+<span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6L4.8 18.2A1.9 1.9 0 0 0 6.4 21h11.2a1.9 1.9 0 0 0 1.6-2.8L14 9V3"/><path d="M7 15h10"/></svg></span>
+<h3>Independent Testing</h3>
+<p>Every batch goes to an independent third-party laboratory before it reaches inventory. Identity, purity, contamination — all on file before sale.</p>
+</article>
+<article class="photo-card">
+<img src="/assets/img/why/research.webp" alt="" loading="lazy" width="900" height="600">
+<span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17.5" rx="2"/><path d="M8.5 8.5h7M8.5 12.5h7M8.5 16.5h4"/></svg></span>
+<h3>Strict Research Use</h3>
+<p>Sold exclusively for in-vitro laboratory research. No dosing guidance. No therapeutic claims. No human-use framing.</p>
+</article>
+<article class="photo-card">
+<img src="/assets/img/why/shipping.webp" alt="" loading="lazy" width="800" height="533">
+<span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h10v10H3z"/><path d="M13 9h4.2l3.3 3.6V16H13z"/><circle cx="7" cy="17" r="1.8"/><circle cx="17" cy="17" r="1.8"/></svg></span>
+<h3>Next-Day Shipping</h3>
+<p>Order before 2pm ET, ships the next business day. Discreet packaging from a real US LLC.</p>
+</article>
+<article class="photo-card">
+<img src="/assets/img/why/llc.webp" alt="" loading="lazy" width="800" height="533">
+<span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V6l8-3v18M12 9l8 2.5V21M2.5 21h19"/><path d="M7.5 9h1.5M7.5 12.5h1.5M7.5 16h1.5M15.5 14h1.5M15.5 17.5h1.5"/></svg></span>
+<h3>Real US LLC</h3>
+<p>VRC Solutions LLC, a registered US business. Public mailing address. Tax accounts on file with the state.</p>
+</article>
+</div>
+</div>
 </section>
-
-<!-- Research use only -->
 <section class="shell sec sec-white">
-  <div class="notice-card">
-    <span class="eyebrow eyebrow-pill">For research use only</span>
-    <h2>All products are sold for laboratory research use only.</h2>
-    <p>They are not sold for human or animal use, are not intended to diagnose or treat any condition, and have not been evaluated by the FDA. We do not provide dosing guidance, reconstitution protocols or any human-use instruction.</p>
-    <a class="btn btn-outline" href="/research-use-only-policy/">Read the Full RUO Policy</a>
-  </div>
+<div class="notice-card">
+<span class="eyebrow eyebrow-pill">For research use only</span>
+<h2>All products are sold for laboratory research use only.</h2>
+<p>They are not sold for human or animal use, are not intended to diagnose or treat any condition, and have not been evaluated by the FDA. We do not provide dosing guidance, reconstitution protocols or any human-use instruction.</p>
+<a class="btn btn-outline" href="/research-use-only-policy/">Read the Full RUO Policy</a>
+</div>
 </section>
-
-<!-- Common questions -->
 <section class="shell sec sec-dark">
-  <div class="inner-narrow">
-    <span class="eyebrow eyebrow-pill">Common questions</span>
-    <h2>What researchers ask before buying.</h2>
-    <span class="rule"></span>
-    <div class="qa-list">
-      <div class="qa">
-        <h3>How do I verify what I’m buying?</h3>
-        <p>Every batch’s independent third-party COA is published in our public COA library and linked from the product page. Purity and identity are verifiable before you order, without contacting us.</p>
-      </div>
-      <div class="qa">
-        <h3>What’s the refund policy?</h3>
-        <p>Lost-in-transit and damaged-in-transit shipments are refunded. We don’t refund based on whether a product produced a particular research result.</p>
-      </div>
-      <div class="qa">
-        <h3>Why don’t you sell most GLP-1s, SARMs, or syringes?</h3>
-        <p>Each adds disproportionate compliance risk for both customers and the business. We’ve made a deliberate decision to keep the catalog tight and discipline tight.</p>
-      </div>
-    </div>
-    <div class="btn-row" style="margin-top:40px">
-      <a class="btn btn-light" href="/faq/">See the Full FAQ</a>
-    </div>
-  </div>
+<div class="inner-narrow">
+<span class="eyebrow eyebrow-pill">Common questions</span>
+<h2>What researchers ask before buying.</h2>
+<span class="rule"></span>
+<div class="qa-list">
+<div class="qa">
+<h3>How do I verify what I’m buying?</h3>
+<p>Every batch’s independent third-party COA is published in our public COA library and linked from the product page. Purity and identity are verifiable before you order, without contacting us.</p>
+</div>
+<div class="qa">
+<h3>What’s the refund policy?</h3>
+<p>Lost-in-transit and damaged-in-transit shipments are refunded. We don’t refund based on whether a product produced a particular research result.</p>
+</div>
+<div class="qa">
+<h3>Why don’t you sell most GLP-1s, SARMs, or syringes?</h3>
+<p>Each adds disproportionate compliance risk for both customers and the business. We’ve made a deliberate decision to keep the catalog tight and discipline tight.</p>
+</div>
+</div>
+<div class="btn-row" style="margin-top:40px">
+<a class="btn btn-light" href="/faq/">See the Full FAQ</a>
+</div>
+</div>
 </section>
-
-<!-- Close -->
 <section class="shell sec cta-verify">
-  <div class="inner-narrow center">
-    <h2>Verify before you buy.</h2>
-    <span class="rule"></span>
-    <p>Every product third-party verified. Every COA public. Every order ships from a US LLC the next business day.</p>
-    <div class="btn-row">
-      <a class="btn btn-copper btn-lg" href="/shop/">Shop the Catalog</a>
-      <a class="btn btn-outline btn-lg" href="/coa-library/">Browse COAs →</a>
-    </div>
-  </div>
+<div class="inner-narrow center">
+<h2>Verify before you buy.</h2>
+<span class="rule"></span>
+<p>Every product third-party verified. Every COA public. Every order ships from a US LLC the next business day.</p>
+<div class="btn-row">
+<a class="btn btn-copper btn-lg" href="/shop/">Shop the Catalog</a>
+<a class="btn btn-outline btn-lg" href="/coa-library/">Browse COAs →</a>
+</div>
+</div>
 </section>
-
-<!-- Best sellers -->
 <section class="shell sec sec-dark">
-  <div class="inner">
-    <div class="sec-head center">
-      <h2>Best Sellers</h2>
-      <p class="lead">Our most-ordered research compounds</p>
-    </div>
-    <div class="pgrid">
-      <article class="pcard pcard-show" data-product
-               data-category="peptides"
-               data-name="CJC+IPA Blend (No-DAC)"
-               data-sku="CP10"
-               data-compound="CJC-1295 No-DAC 5mg / Ipamorelin 5mg blend"
-               data-lot="PLACEHOLDER-CP10-LOT"
-               data-price="74.99"
-               data-order="0">
-        <a class="pcard-media" href="/product/cjcipa-blend-no-dac/" tabindex="-1" aria-hidden="true">
-          <img src="/assets/img/cutouts/cjcipa-blend-no-dac.webp" alt="" loading="lazy" width="640" height="800">
-        </a>
-        <div class="pcard-body">
-          <span class="pill pill-green">≥99% purity · Lab verified</span>
-          <p class="pcard-cat">Peptides</p>
-          <h3 class="pcard-title"><a href="/product/cjcipa-blend-no-dac/">CJC+IPA Blend (No-DAC)</a></h3>
-          <p class="pcard-price">$74.99</p>
-          <div class="pcard-actions">
-            <button class="btn btn-copper btn-square btn-caps" type="button" data-add='{"sku":"CP10","slug":"cjcipa-blend-no-dac","name":"CJC+IPA Blend (No-DAC)","price":74.99,"image":"/assets/img/products/cjcipa-blend-no-dac.webp"}'>Add to cart</button>
-            <a class="btn btn-coa" href="https://janoshik.com/tests/121731-CJCIpa_55_Cocer_Peptides_KPSQDAP7FBG1" target="_blank" rel="noopener" aria-label="View Certificate of Analysis for CJC+IPA Blend (No-DAC)">COA</a>
-          </div>
-        </div>
-      </article>
-      <article class="pcard pcard-show" data-product
-               data-category="peptides"
-               data-name="GHK-Cu 50mg"
-               data-sku="CU50"
-               data-compound="GHK-Cu (Copper Tripeptide-1)"
-               data-lot="PLACEHOLDER-CU50-LOT"
-               data-price="34.99"
-               data-order="1">
-        <a class="pcard-media" href="/product/ghk-cu-50mg/" tabindex="-1" aria-hidden="true">
-          <img src="/assets/img/cutouts/ghk-cu-50mg.webp" alt="" loading="lazy" width="640" height="800">
-        </a>
-        <div class="pcard-body">
-          <span class="pill pill-green">≥99% purity · Lab verified</span>
-          <p class="pcard-cat">Peptides</p>
-          <h3 class="pcard-title"><a href="/product/ghk-cu-50mg/">GHK-Cu 50mg</a></h3>
-          <p class="pcard-price">$34.99</p>
-          <div class="pcard-actions">
-            <button class="btn btn-copper btn-square btn-caps" type="button" data-add='{"sku":"CU50","slug":"ghk-cu-50mg","name":"GHK-Cu 50mg","price":34.99,"image":"/assets/img/products/ghk-cu-50mg.webp"}'>Add to cart</button>
-            <a class="btn btn-coa" href="https://vrcsolutions.co/wp-content/uploads/2026/07/VRC_COA_GHKCu_50mg.jpg" target="_blank" rel="noopener" aria-label="View Certificate of Analysis for GHK-Cu 50mg">COA</a>
-          </div>
-        </div>
-      </article>
-      <article class="pcard pcard-show" data-product
-               data-category="peptides"
-               data-name="RT-10 10mg"
-               data-sku="RT10"
-               data-compound="RT-10"
-               data-lot="PLACEHOLDER-RT10-LOT"
-               data-price="74.99"
-               data-order="2">
-        <a class="pcard-media" href="/product/rt-10-10mg/" tabindex="-1" aria-hidden="true">
-          <img src="/assets/img/cutouts/rt-10-10mg.webp" alt="" loading="lazy" width="640" height="800">
-        </a>
-        <div class="pcard-body">
-          <span class="pill pill-green">≥99% purity · Lab verified</span>
-          <p class="pcard-cat">Peptides</p>
-          <h3 class="pcard-title"><a href="/product/rt-10-10mg/">RT-10 10mg</a></h3>
-          <p class="pcard-price">$74.99</p>
-          <div class="pcard-actions">
-            <button class="btn btn-copper btn-square btn-caps" type="button" data-add='{"sku":"RT10","slug":"rt-10-10mg","name":"RT-10 10mg","price":74.99,"image":"/assets/img/products/rt-10-10mg.webp"}'>Add to cart</button>
-            <a class="btn btn-coa" href="https://verify.janoshik.com/tests/137638-reta10mg_Cocer_Peptides_MSARBWF3I3P9" target="_blank" rel="noopener" aria-label="View Certificate of Analysis for RT-10 10mg">COA</a>
-          </div>
-        </div>
-      </article>
-      <article class="pcard pcard-show" data-product
-               data-category="peptides"
-               data-name="MOTS-C 10mg"
-               data-sku="MTC10"
-               data-compound="MOTS-c"
-               data-lot="PLACEHOLDER-MTC10-LOT"
-               data-price="37.99"
-               data-order="3">
-        <a class="pcard-media" href="/product/mots-c-10mg/" tabindex="-1" aria-hidden="true">
-          <img src="/assets/img/cutouts/mots-c-10mg.webp" alt="" loading="lazy" width="640" height="800">
-        </a>
-        <div class="pcard-body">
-          <span class="pill pill-amber">≥99% purity · COA pending</span>
-          <p class="pcard-cat">Peptides</p>
-          <h3 class="pcard-title"><a href="/product/mots-c-10mg/">MOTS-C 10mg</a></h3>
-          <p class="pcard-price">$37.99</p>
-          <div class="pcard-actions">
-            <button class="btn btn-copper btn-square btn-caps" type="button" data-add='{"sku":"MTC10","slug":"mots-c-10mg","name":"MOTS-C 10mg","price":37.99,"image":"/assets/img/products/mots-c-10mg.webp"}'>Add to cart</button>
-            <span class="btn btn-coa is-pending" title="Certificate for the current lot not yet published">COA pending</span>
-          </div>
-        </div>
-      </article>
-    </div>
-    <div class="btn-row center" style="margin-top:40px">
-      <a class="btn btn-light" href="/shop/">See all 23 products</a>
-    </div>
-  </div>
+<div class="inner">
+<div class="sec-head center">
+<h2>Best Sellers</h2>
+<p class="lead">Our most-ordered research compounds</p>
+</div>
+<div class="pgrid">
+<article class="pcard pcard-show" data-product
+data-category="peptides"
+data-name="CJC+IPA Blend (No-DAC)"
+data-sku="CP10"
+data-compound="CJC-1295 No-DAC 5mg / Ipamorelin 5mg blend"
+data-lot="PLACEHOLDER-CP10-LOT"
+data-price="74.99"
+data-order="0">
+<a class="pcard-media" href="/product/cjcipa-blend-no-dac/" tabindex="-1" aria-hidden="true">
+<img src="/assets/img/cutouts/cjcipa-blend-no-dac.webp" alt="" loading="lazy" width="640" height="800">
+</a>
+<div class="pcard-body">
+<span class="pill pill-green">≥99% purity · Lab verified</span>
+<p class="pcard-cat">Peptides</p>
+<h3 class="pcard-title"><a href="/product/cjcipa-blend-no-dac/">CJC+IPA Blend (No-DAC)</a></h3>
+<p class="pcard-price">$74.99</p>
+<div class="pcard-actions">
+<button class="btn btn-copper btn-square btn-caps" type="button" data-add='{"sku":"CP10","slug":"cjcipa-blend-no-dac","name":"CJC+IPA Blend (No-DAC)","price":74.99,"image":"/assets/img/products/cjcipa-blend-no-dac.webp"}'>Add to cart</button>
+<a class="btn btn-coa" href="https://janoshik.com/tests/121731-CJCIpa_55_Cocer_Peptides_KPSQDAP7FBG1" target="_blank" rel="noopener" aria-label="View Certificate of Analysis for CJC+IPA Blend (No-DAC)">COA</a>
+</div>
+</div>
+</article>
+<article class="pcard pcard-show" data-product
+data-category="peptides"
+data-name="GHK-Cu 50mg"
+data-sku="CU50"
+data-compound="GHK-Cu (Copper Tripeptide-1)"
+data-lot="PLACEHOLDER-CU50-LOT"
+data-price="34.99"
+data-order="1">
+<a class="pcard-media" href="/product/ghk-cu-50mg/" tabindex="-1" aria-hidden="true">
+<img src="/assets/img/cutouts/ghk-cu-50mg.webp" alt="" loading="lazy" width="640" height="800">
+</a>
+<div class="pcard-body">
+<span class="pill pill-green">≥99% purity · Lab verified</span>
+<p class="pcard-cat">Peptides</p>
+<h3 class="pcard-title"><a href="/product/ghk-cu-50mg/">GHK-Cu 50mg</a></h3>
+<p class="pcard-price">$34.99</p>
+<div class="pcard-actions">
+<button class="btn btn-copper btn-square btn-caps" type="button" data-add='{"sku":"CU50","slug":"ghk-cu-50mg","name":"GHK-Cu 50mg","price":34.99,"image":"/assets/img/products/ghk-cu-50mg.webp"}'>Add to cart</button>
+<a class="btn btn-coa" href="https://vrcsolutions.co/wp-content/uploads/2026/07/VRC_COA_GHKCu_50mg.jpg" target="_blank" rel="noopener" aria-label="View Certificate of Analysis for GHK-Cu 50mg">COA</a>
+</div>
+</div>
+</article>
+<article class="pcard pcard-show" data-product
+data-category="peptides"
+data-name="RT-10 10mg"
+data-sku="RT10"
+data-compound="RT-10"
+data-lot="PLACEHOLDER-RT10-LOT"
+data-price="74.99"
+data-order="2">
+<a class="pcard-media" href="/product/rt-10-10mg/" tabindex="-1" aria-hidden="true">
+<img src="/assets/img/cutouts/rt-10-10mg.webp" alt="" loading="lazy" width="640" height="800">
+</a>
+<div class="pcard-body">
+<span class="pill pill-green">≥99% purity · Lab verified</span>
+<p class="pcard-cat">Peptides</p>
+<h3 class="pcard-title"><a href="/product/rt-10-10mg/">RT-10 10mg</a></h3>
+<p class="pcard-price">$74.99</p>
+<div class="pcard-actions">
+<button class="btn btn-copper btn-square btn-caps" type="button" data-add='{"sku":"RT10","slug":"rt-10-10mg","name":"RT-10 10mg","price":74.99,"image":"/assets/img/products/rt-10-10mg.webp"}'>Add to cart</button>
+<a class="btn btn-coa" href="https://verify.janoshik.com/tests/137638-reta10mg_Cocer_Peptides_MSARBWF3I3P9" target="_blank" rel="noopener" aria-label="View Certificate of Analysis for RT-10 10mg">COA</a>
+</div>
+</div>
+</article>
+<article class="pcard pcard-show" data-product
+data-category="peptides"
+data-name="MOTS-C 10mg"
+data-sku="MTC10"
+data-compound="MOTS-c"
+data-lot="PLACEHOLDER-MTC10-LOT"
+data-price="37.99"
+data-order="3">
+<a class="pcard-media" href="/product/mots-c-10mg/" tabindex="-1" aria-hidden="true">
+<img src="/assets/img/cutouts/mots-c-10mg.webp" alt="" loading="lazy" width="640" height="800">
+</a>
+<div class="pcard-body">
+<span class="pill pill-amber">≥99% purity · COA pending</span>
+<p class="pcard-cat">Peptides</p>
+<h3 class="pcard-title"><a href="/product/mots-c-10mg/">MOTS-C 10mg</a></h3>
+<p class="pcard-price">$37.99</p>
+<div class="pcard-actions">
+<button class="btn btn-copper btn-square btn-caps" type="button" data-add='{"sku":"MTC10","slug":"mots-c-10mg","name":"MOTS-C 10mg","price":37.99,"image":"/assets/img/products/mots-c-10mg.webp"}'>Add to cart</button>
+<span class="btn btn-coa is-pending" title="Certificate for the current lot not yet published">COA pending</span>
+</div>
+</div>
+</article>
+</div>
+<div class="btn-row center" style="margin-top:40px">
+<a class="btn btn-light" href="/shop/">See all 23 products</a>
+</div>
+</div>
 </section>
-
 </main>
-
 <footer>
-  <div class="footer-main">
-    <div class="wrap">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-word">VRC</div>
-          <div class="footer-tag">Verified Research Compounds</div>
-          <address>
-            VRC Solutions LLC<br>
-            9462 Brownsboro Rd, PMB 379<br>
-            Louisville, KY 40241
-          </address>
-        </div>
-
-        <div class="footer-col">
-          <h4>Shop</h4>
-          <ul role="list">
-            <li><a href="/shop/">All products</a></li>
-            <li><a href="/shop/#peptides">Peptides</a></li>
-            <li><a href="/shop/#solvents">Research solvents</a></li>
-            <li><a href="/order-status/">Check an order</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Policies</h4>
-          <ul role="list">
-            <li><a href="/research-use-only-policy/">Research Use Only Policy</a></li>
-            <li><a href="/terms-conditions/">Terms of Service</a></li>
-            <li><a href="/refund-policy/">Refund Policy</a></li>
-            <li><a href="/privacy-policy/">Privacy Policy</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Verify &amp; contact</h4>
-          <ul role="list">
-            <li><a href="/coa-library/">COA Library</a></li>
-            <li><a href="/faq/">FAQ</a></li>
-            <li><a href="/contact/">Contact</a></li>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/learn/">Learn</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-legal">
-        <p><strong>For research use only.</strong> All products are sold exclusively for laboratory research use only. They are not intended for human or animal consumption, clinical use, or veterinary applications, and are not intended to diagnose, treat, cure, or prevent any disease.</p>
-        <p>VRC Solutions LLC is a chemical supplier. VRC Solutions LLC is not a compounding pharmacy or chemical compounding facility as defined under 503A of the Federal Food, Drug, and Cosmetic Act. VRC Solutions LLC is not an outsourcing facility as defined under 503B of the Federal Food, Drug, and Cosmetic Act.</p>
-        <p class="footer-copy">&copy; 2026 VRC Solutions LLC. All rights reserved.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer-band">
-    <div class="wrap band-grid">
-      <div>
-        <h4>Follow us</h4>
-        <div class="social">
-          <a href="https://www.instagram.com/vrcsolutions/" rel="noopener"><span class="badge-ig" aria-hidden="true">IG</span>@vrcsolutions</a>
-          <a href="https://www.tiktok.com/@vrc.solutions" rel="noopener"><span class="badge-tt" aria-hidden="true">TT</span>@vrc.solutions</a>
-        </div>
-      </div>
-      <div>
-        <h4>Accepted payments</h4>
-        <div class="paylist" aria-label="Accepted payment methods">
-          <span class="pay-venmo">Venmo</span><span class="pay-cash">Cash App</span><span class="pay-crypto">Crypto (BTC · ETH · USDC)</span>
-        </div>
-        <p class="note">Card payments enabled for select regions. Contact us for details.</p>
-      </div>
-    </div>
-  </div>
+<div class="footer-main">
+<div class="wrap">
+<div class="footer-grid">
+<div class="footer-brand">
+<div class="footer-word">VRC</div>
+<div class="footer-tag">Verified Research Compounds</div>
+<address>
+VRC Solutions LLC<br>
+9462 Brownsboro Rd, PMB 379<br>
+Louisville, KY 40241
+</address>
+</div>
+<div class="footer-col">
+<h4>Shop</h4>
+<ul role="list">
+<li><a href="/shop/">All products</a></li>
+<li><a href="/shop/#peptides">Peptides</a></li>
+<li><a href="/shop/#solvents">Research solvents</a></li>
+<li><a href="/order-status/">Check an order</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Policies</h4>
+<ul role="list">
+<li><a href="/research-use-only-policy/">Research Use Only Policy</a></li>
+<li><a href="/terms-conditions/">Terms of Service</a></li>
+<li><a href="/refund-policy/">Refund Policy</a></li>
+<li><a href="/privacy-policy/">Privacy Policy</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Verify &amp; contact</h4>
+<ul role="list">
+<li><a href="/coa-library/">COA Library</a></li>
+<li><a href="/faq/">FAQ</a></li>
+<li><a href="/contact/">Contact</a></li>
+<li><a href="/about/">About</a></li>
+<li><a href="/learn/">Learn</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-legal">
+<p><strong>For research use only.</strong> All products are sold exclusively for laboratory research use only. They are not intended for human or animal consumption, clinical use, or veterinary applications, and are not intended to diagnose, treat, cure, or prevent any disease.</p>
+<p>VRC Solutions LLC is a chemical supplier. VRC Solutions LLC is not a compounding pharmacy or chemical compounding facility as defined under 503A of the Federal Food, Drug, and Cosmetic Act. VRC Solutions LLC is not an outsourcing facility as defined under 503B of the Federal Food, Drug, and Cosmetic Act.</p>
+<p class="footer-copy">&copy; 2026 VRC Solutions LLC. All rights reserved.</p>
+</div>
+</div>
+</div>
+<div class="footer-band">
+<div class="wrap band-grid">
+<div>
+<h4>Follow us</h4>
+<div class="social">
+<a href="https://www.instagram.com/vrcsolutions/" rel="noopener"><span class="badge-ig" aria-hidden="true">IG</span>@vrcsolutions</a>
+<a href="https://www.tiktok.com/@vrc.solutions" rel="noopener"><span class="badge-tt" aria-hidden="true">TT</span>@vrc.solutions</a>
+</div>
+</div>
+<div>
+<h4>Accepted payments</h4>
+<div class="paylist" aria-label="Accepted payment methods">
+<span class="pay-venmo">Venmo</span><span class="pay-cash">Cash App</span><span class="pay-crypto">Crypto (BTC · ETH · USDC)</span>
+</div>
+<p class="note">Card payments enabled for select regions. Contact us for details.</p>
+</div>
+</div>
+</div>
 </footer>
-
-<!-- Cart drawer -->
 <div class="scrim" id="scrim" data-open="false"></div>
 <aside class="drawer" id="cart-drawer" data-open="false" aria-hidden="true" aria-label="Shopping cart">
-  <div class="drawer-top">
-    <h2>Your cart</h2>
-    <button class="btn btn-ghost btn-sm" type="button" data-cart-close aria-label="Close cart">Close ✕</button>
-  </div>
-  <div class="drawer-body" id="cart-lines"></div>
-  <div class="drawer-foot" id="cart-foot" hidden>
-    <div class="ship-meter" id="ship-meter">
-      <p></p>
-      <div class="ship-bar"><div class="ship-fill"></div></div>
-    </div>
-    <form class="promo" id="promo-form">
-      <label class="sr-only" for="promo-input">Discount code</label>
-      <input class="input" id="promo-input" placeholder="Discount code" autocomplete="off">
-      <button class="btn btn-outline btn-sm btn-square" type="submit">Apply</button>
-      <span class="hint" id="promo-msg"></span>
-    </form>
-    <div class="totals" id="cart-totals"></div>
-    <a class="btn btn-copper btn-block btn-lg btn-square" href="/checkout/">Checkout</a>
-    <p class="note center" style="margin-top:10px">Research use only. Ships within the United States.</p>
-  </div>
-</aside>
-
-<!-- Researcher verification: overlays fully rendered content, never replaces it -->
-<div class="gate" id="ruo-gate" data-open="false" role="dialog" aria-modal="true" aria-labelledby="gate-title">
-  <div class="gate-card">
-    <span class="gate-pill">Research use only</span>
-    <h2 id="gate-title">Researcher verification</h2>
-    <p>VRC Solutions supplies research compounds to qualified researchers and laboratories. Please confirm the statements below before continuing.</p>
-    <form id="gate-form">
-      <div class="checks">
-        <label class="check">
-          <input type="checkbox" required>
-          <span>I am at least <strong>21 years of age</strong>.</span>
-        </label>
-        <label class="check">
-          <input type="checkbox" required>
-          <span>I confirm I am purchasing for <strong>laboratory research use only</strong> — not for human or veterinary use, and not for diagnostic or therapeutic purposes.</span>
-        </label>
-      </div>
-      <div class="gate-actions">
-        <button class="btn btn-enter" type="submit" id="gate-enter" disabled>Enter VRC Solutions →</button>
-        <a class="btn btn-exit" href="https://www.google.com" rel="noopener">Exit</a>
-      </div>
-    </form>
-    <p class="gate-fine">By proceeding you affirm the statements above are true. VRC products are not for human or veterinary use, not for use in diagnostic procedures, and have not been evaluated by the U.S. Food and Drug Administration.</p>
-    <p class="gate-links">Read the <a href="/research-use-only-policy/">Research Use Only Policy</a> and <a href="/terms-conditions/">Terms of Service</a>.</p>
-    <p class="gate-trust">HPLC + MS tested · COA library · U.S. LLC · Discreet shipping</p>
-  </div>
+<div class="drawer-top">
+<h2>Your cart</h2>
+<button class="btn btn-ghost btn-sm" type="button" data-cart-close aria-label="Close cart">Close ✕</button>
 </div>
-
+<div class="drawer-body" id="cart-lines"></div>
+<div class="drawer-foot" id="cart-foot" hidden>
+<div class="ship-meter" id="ship-meter">
+<p></p>
+<div class="ship-bar"><div class="ship-fill"></div></div>
+</div>
+<form class="promo" id="promo-form">
+<label class="sr-only" for="promo-input">Discount code</label>
+<input class="input" id="promo-input" placeholder="Discount code" autocomplete="off">
+<button class="btn btn-outline btn-sm btn-square" type="submit">Apply</button>
+<span class="hint" id="promo-msg"></span>
+</form>
+<div class="totals" id="cart-totals"></div>
+<a class="btn btn-copper btn-block btn-lg btn-square" href="/checkout/">Checkout</a>
+<p class="note center" style="margin-top:10px">Research use only. Ships within the United States.</p>
+</div>
+</aside>
+<div class="gate" id="ruo-gate" data-open="false" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+<div class="gate-card">
+<span class="gate-pill">Research use only</span>
+<h2 id="gate-title">Researcher verification</h2>
+<p>VRC Solutions supplies research compounds to qualified researchers and laboratories. Please confirm the statements below before continuing.</p>
+<form id="gate-form">
+<div class="checks">
+<label class="check">
+<input type="checkbox" required>
+<span>I am at least <strong>21 years of age</strong>.</span>
+</label>
+<label class="check">
+<input type="checkbox" required>
+<span>I confirm I am purchasing for <strong>laboratory research use only</strong> — not for human or veterinary use, and not for diagnostic or therapeutic purposes.</span>
+</label>
+</div>
+<div class="gate-actions">
+<button class="btn btn-enter" type="submit" id="gate-enter" disabled>Enter VRC Solutions →</button>
+<a class="btn btn-exit" href="https://www.google.com" rel="noopener">Exit</a>
+</div>
+</form>
+<p class="gate-fine">By proceeding you affirm the statements above are true. VRC products are not for human or veterinary use, not for use in diagnostic procedures, and have not been evaluated by the U.S. Food and Drug Administration.</p>
+<p class="gate-links">Read the <a href="/research-use-only-policy/">Research Use Only Policy</a> and <a href="/terms-conditions/">Terms of Service</a>.</p>
+<p class="gate-trust">HPLC + MS tested · COA library · U.S. LLC · Discreet shipping</p>
+</div>
+</div>
 </body>
 </html>

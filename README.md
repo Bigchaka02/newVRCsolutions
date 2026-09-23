@@ -63,11 +63,14 @@ to run a store, so use it for previews only.
 ```
 data/products.json      Single source of truth: catalog, lots, COA links, site info
 build.py                Generates public/ from data/ and src/  (--strict before launch)
+minify.py               Dependency-free CSS/JS/HTML minifiers used by build.py
 src/layout.html         Shared shell: header, footer, cart drawer, RUO gate
 src/product.html        Product page template (rendered once per product)
 src/pages/*.html        Page bodies, with front matter (title, description, path, gate)
+src/assets/css|js       Readable styles and scripts; edit these, not public/assets/css|js
 public/                 BUILT OUTPUT. Deploy this; don't edit it by hand
-  assets/css|js|fonts   Styles, scripts, self-hosted Inter + IBM Plex Mono (OFL, licenses included)
+  assets/css|js         Minified: one site.css, plus the JS modules (loaded with ?v=<hash>)
+  assets/fonts          Self-hosted Inter + IBM Plex Mono (OFL, licenses included)
   assets/img            Product photos, homepage photos, icons
   _headers _redirects   Security headers; 301s from retired WordPress URLs
 backend/app/            FastAPI app: catalog, pricing, orders, contact, admin
@@ -77,7 +80,9 @@ Dockerfile              One-container deploy
 ```
 
 `public/` is committed so the repo deploys without a build step, but it is
-generated: edit `data/` and `src/`, then run `python3 build.py`.
+generated: edit `data/` and `src/`, then run `python3 build.py`. The build
+joins and minifies the stylesheets, minifies each script and the HTML, and
+stamps asset URLs with a content hash so browsers can cache them for good.
 
 URLs match the old site exactly (`/shop/`, `/faq/`, `/product/<slug>/`), so
 search rankings carry over. Retired URLs (`/cart/`, `/my-account/`, category
@@ -98,23 +103,23 @@ pages, `/terms-of-service/`) redirect; edit `LEGACY_REDIRECTS` in `build.py`.
   `src/layout.html`.
 - **Pricing rules** (free-shipping threshold, flat rate, promo code) live in
   `backend/app/config.py`, which is authoritative. Mirror changes in `CONFIG`
-  in `public/assets/js/store.js` (the cart preview) and in the banner copy.
+  in `src/assets/js/store.js` (the cart preview) and in the banner copy.
 
 ## Design
 
 Layout, palette and section order follow the live vrcsolutions.co theme:
 cream page with framed 1200px sections alternating deep teal, beige, cream and
 white; copper actions; Inter headings. Tokens are in
-`public/assets/css/tokens.css` (`--teal #0F3433`, `--copper #B8794A`,
+`src/assets/css/tokens.css` (`--teal #0F3433`, `--copper #B8794A`,
 `--cream #F7F4ED`, `--beige #EDE6D4`). Page templates reuse a small set of
-components in `public/assets/css/vrc.css`: `.shell.sec` sections, `.page-hero`,
+components in `src/assets/css/vrc.css`: `.shell.sec` sections, `.page-hero`,
 `.pcard` product cards, `.coa-table`, `.faq-item`, `.panel`. The homepage
 photo cards use Unsplash images (free licence), self-hosted in
 `public/assets/img/why/`.
 
 ### v2 visual layer (redesign branch)
 
-`public/assets/css/fx.css` and `public/assets/js/fx.js` sit on top of the
+`src/assets/css/fx.css` and `src/assets/js/fx.js` sit on top of the
 base design. Sections with the `fx-glow` class (home hero, page headers, the
 product photo stage) get a drifting glow and a particle canvas that pauses
 off-screen. Product cards and product pages use background-free vials from
