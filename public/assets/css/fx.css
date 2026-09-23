@@ -55,7 +55,7 @@
 
 /* Flowing glow: three blurred lights drifting under a teal veil. */
 .aurora { position: absolute; inset: -20%; z-index: -2; filter: blur(70px) saturate(1.2); pointer-events: none; }
-.aurora span { position: absolute; border-radius: 50%; mix-blend-mode: screen; opacity: .85; }
+.aurora span { position: absolute; border-radius: 50%; mix-blend-mode: screen; opacity: .51; }
 .aurora span:nth-child(1) { width: 55%; height: 55%; left: 38%; top: 22%;
   background: radial-gradient(circle, rgba(47,143,74,.75), transparent 65%); animation: fx-drift-a 18s ease-in-out infinite alternate; }
 .aurora span:nth-child(2) { width: 50%; height: 60%; left: 5%; top: 35%;
@@ -164,8 +164,8 @@
 
 /* Dark sections below the hero carry a faint static glow for continuity */
 .sec-dark:not(.hero-v2):not(.page-hero) { background-image:
-  radial-gradient(60% 50% at 85% 10%, rgba(47,143,74,.22), transparent 70%),
-  radial-gradient(50% 45% at 10% 95%, rgba(28,120,104,.25), transparent 70%); }
+  radial-gradient(60% 50% at 85% 10%, rgba(47,143,74,.13), transparent 70%),
+  radial-gradient(50% 45% at 10% 95%, rgba(28,120,104,.15), transparent 70%); }
 
 /* Product cards: clickable, so they lift and the photo zooms */
 .pcard { transition: transform 350ms var(--ease), box-shadow 350ms var(--ease), border-color 350ms; }
