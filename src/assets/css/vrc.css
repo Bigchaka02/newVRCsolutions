@@ -460,7 +460,6 @@ main { flex: 1 0 auto; }
   content: ""; position: absolute; inset: 0; z-index: -1;
   background: linear-gradient(180deg, rgba(15, 52, 51, 0.45) 0%, rgba(15, 52, 51, 0.82) 45%, rgba(15, 52, 51, 0.96) 100%);
 }
-.photo-card:hover img { transform: scale(1.05); }
 .photo-card .ring {
   width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid var(--copper-bright);
   color: var(--copper-bright); display: grid; place-items: center; margin-bottom: 16px;

@@ -115,6 +115,5 @@
   :root { --header-h: 68px; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  :root { --t-fast: 1ms; --t-mid: 1ms; }
-}
+/* Visitor paused animations (see motion.js). */
+:root[data-motion="off"] { --t-fast: 1ms; --t-mid: 1ms; }

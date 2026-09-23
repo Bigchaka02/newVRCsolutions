@@ -119,13 +119,27 @@ photo cards use Unsplash images (free licence), self-hosted in
 
 ### v2 visual layer (redesign branch)
 
-`src/assets/css/fx.css` and `src/assets/js/fx.js` sit on top of the
-base design. Sections with the `fx-glow` class (home hero, page headers, the
-product photo stage) get a drifting glow and a particle canvas that pauses
-off-screen. Product cards and product pages use background-free vials from
+`src/assets/css/fx.css`, `src/assets/js/fx.js` and `src/assets/js/motion.js`
+sit on top of the base design.
+
+- **Glow stages.** Sections with the `fx-glow` class (home hero, page headers,
+  the product photo stage) get a drifting glow and a particle field with depth
+  that shifts with the pointer and pauses off-screen. Each has a pause button.
+- **Page transitions.** Pages fade between each other, and a product's vial
+  morphs from the card you clicked into its product page (View Transitions,
+  Chrome/Edge/Safari; other browsers simply load the page).
+- **Clickable things respond, nothing else does.** Product cards tilt toward
+  the mouse with a glare and a lit edge, big buttons lean toward the cursor,
+  shop filters glide the cards to their new places. Everything else fades in
+  once on scroll, with a little scroll depth on the hero and photo cards.
+- **Motion levels** (`<html data-motion>`, set by `motion.js` before first
+  paint): `full` by default; `calm` when the visitor's system asks for reduced
+  motion (Windows "Animation effects" off, macOS "Reduce motion"): the same
+  effects, slower and smaller, with no tilting or sliding; `off` once the
+  visitor presses pause, remembered in their browser.
+
+Product cards and product pages use background-free vials from
 `public/assets/img/cutouts/<slug>.webp` when one exists, else the photo.
-Hover effects are reserved for clickable things; everything else fades in
-once on scroll. All motion is off for visitors who prefer reduced motion.
 
 ## Backend and integrations — placeholders
 

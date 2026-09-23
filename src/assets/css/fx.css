@@ -1,15 +1,50 @@
 /* ==========================================================================
    VRC Solutions — v2 visual layer
    Same page structure and palette as vrc.css. Rules of thumb:
-   - Ambient motion lives in the hero only (flowing glow, particles,
-     levitating vial). Everything else stays still once it has arrived.
+   - Ambient motion lives on the dark glow stages (home hero, page headers,
+     product photo stage): flowing glow, particles, levitating vials.
    - Hover feedback only on things that are clickable: buttons, product
      cards, the hero vial link, COA links.
-   - Content is visible without JS; reduced-motion switches motion off.
+   - Motion level comes from <html data-motion> (see motion.js):
+       full  everything; calm  (system asks for reduced motion) the same
+       effects, slower and smaller, nothing sliding across the screen;
+       off   the visitor paused animations with the button on each stage.
+   - Content is visible without JS.
    ========================================================================== */
 
+:root {
+  /* Springs sampled from a damped spring (stiffness 170/260, damping 20/16). */
+  --spring: cubic-bezier(.2, .9, .3, 1.05);
+  --spring-bounce: cubic-bezier(.3, 1.4, .5, 1);
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+  --ease-drawer: cubic-bezier(.32, .72, 0, 1);
+}
+@supports (transition-timing-function: linear(0, 1)) {
+  :root {
+    --spring: linear(0, 0.007 1.5%, 0.026 3%, 0.059 4.8%, 0.105 6.6%, 0.206 10%, 0.546 20.2%, 0.643 23.6%,
+      0.726 26.9%, 0.794 30%, 0.853 33.2%, 0.901 36.5%, 0.939 39.9%, 0.971 43.6%, 0.995 47.6%, 1.011 52.1%,
+      1.02 57.1%, 1.022 66.4%, 1);
+    --spring-bounce: linear(0, 0.009 1.1%, 0.037 2.3%, 0.08 3.5%, 0.145 4.9%, 0.284 7.2%, 0.591 11.9%, 0.722 14%,
+      0.839 16%, 0.935 18%, 1.013 20%, 1.074 22%, 1.12 24.1%, 1.149 26.1%, 1.165 29.1%, 1.155 32.5%, 1.13 35.6%,
+      1.017 46.7%, 0.991 50.9%, 0.976 55.1%, 0.974 62%, 1.003 82.4%, 1);
+  }
+}
+
+/* ---------- page-to-page transitions ------------------------------------
+   The header stays put, the page fades up, and a product's vial morphs
+   from the card you clicked into its product page (motion.js names it). */
 @view-transition { navigation: auto; }
-::view-transition-old(root), ::view-transition-new(root) { animation-duration: 240ms; }
+.site-header { view-transition-name: site-header; }
+::view-transition-old(root) { animation: 160ms var(--ease-out) both fx-fade-out; }
+::view-transition-new(root) { animation: 380ms var(--ease-out) both fx-page-in; }
+html[data-motion="calm"]::view-transition-new(root) { animation-name: fx-fade-in; }
+::view-transition-group(product-vial) { animation-duration: 620ms; animation-timing-function: var(--spring); z-index: 60; }
+::view-transition-old(product-vial), ::view-transition-new(product-vial) { height: 100%; object-fit: contain; }
+[data-motion="full"] .pdp-stage img.vial { view-transition-name: product-vial; }
+/* Shop filtering: cards glide to their new places (ui.js names them). */
+html.vt-grid::view-transition-group(*) { animation-duration: 520ms; animation-timing-function: var(--spring); }
+html.vt-grid::view-transition-old(root) { display: none; }
+html.vt-grid::view-transition-new(root) { animation: none; }
 
 /* ---------- scroll progress + back to top -------------------------------- */
 .fx-progress {
@@ -19,21 +54,31 @@
 }
 .fx-top { position: fixed; right: 18px; bottom: 18px; z-index: 55; width: 48px; height: 48px; border-radius: 50%;
   border: 0; background: var(--teal); color: var(--cream); display: grid; place-items: center; box-shadow: var(--shadow-2);
-  opacity: 0; transform: translateY(14px); pointer-events: none; transition: opacity 300ms, transform 300ms var(--ease), background 200ms; }
+  opacity: 0; transform: translateY(14px) scale(.9); pointer-events: none;
+  transition: opacity 300ms, transform 500ms var(--spring), background 200ms; }
 .fx-top.is-on { opacity: 1; transform: none; pointer-events: auto; }
 .fx-top:hover { background: var(--copper); }
+.fx-top:active { transform: scale(.94); }
 .fx-top svg.ring { position: absolute; inset: 0; width: 48px; height: 48px; transform: rotate(-90deg); }
 .fx-top svg.ring circle { fill: none; stroke: var(--copper-bright); stroke-width: 3; stroke-dasharray: 138.2; stroke-dashoffset: calc(138.2 - 138.2 * var(--p, 0)); }
-.fx-top svg.arrow { width: 18px; height: 18px; }
+.fx-top svg.arrow { width: 18px; height: 18px; transition: transform 300ms var(--ease-out); }
+.fx-top:hover svg.arrow { transform: translateY(-3px); }
 
 /* ---------- header: frosted, tightens on scroll -------------------------- */
 .site-header { backdrop-filter: saturate(1.2) blur(12px); background: rgba(237, 230, 212, .9); }
 .header-in { transition: height var(--t-mid); }
 .site-header[data-scrolled="true"] .header-in { height: calc(var(--header-h) - 12px); }
 .cart-count.fx-pop { animation: fx-pop 520ms var(--ease); }
+.tool-btn { transition: background var(--t-fast), color var(--t-fast), transform 400ms var(--spring); }
+.tool-btn:active { transform: scale(.9); }
+.site-search:not([hidden]), .mobile-nav[data-open="true"] { animation: fx-drop 320ms var(--ease-out); }
 
 /* ---------- buttons (clickable, so they get feedback) --------------------- */
-.btn { position: relative; overflow: hidden; isolation: isolate; }
+.btn { position: relative; overflow: hidden; isolation: isolate;
+  transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast), box-shadow 250ms var(--ease-out),
+              transform 250ms var(--ease-out), translate 650ms var(--spring); }
+.btn.is-magnet { transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast), box-shadow 250ms var(--ease-out),
+              transform 250ms var(--ease-out), translate 160ms var(--ease-out); }
 .btn-copper::before, .btn-enter::before {
   content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; z-index: -1;
   background: linear-gradient(100deg, transparent, rgba(255,255,255,.4), transparent);
@@ -42,12 +87,26 @@
 .btn-copper:hover::before, .btn-enter:hover:not(:disabled)::before { left: 130%; }
 .btn-copper:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(184,121,74,.45); }
 .btn-light:hover, .btn-outline:hover { transform: translateY(-2px); }
+.btn:active:not(:disabled) { transform: scale(.97); transition-duration: 90ms; }
 .fx-ripple { position: absolute; border-radius: 50%; pointer-events: none; z-index: -1;
   background: rgba(255,255,255,.45); transform: scale(0); animation: fx-ripple 600ms ease-out forwards; }
 .btn-outline .fx-ripple, .btn-light .fx-ripple, .btn-coa .fx-ripple, .chip .fx-ripple { background: rgba(184,121,74,.28); }
+.chip { position: relative; overflow: hidden; isolation: isolate; }
+.chip:active { transform: scale(.95); }
+
+/* ---------- pause control on every glow stage (WCAG 2.2.2) --------------- */
+.fx-pause { position: absolute; z-index: 4; right: 14px; bottom: 14px; width: 38px; height: 38px; border-radius: 50%;
+  display: grid; place-items: center; color: var(--on-dark); cursor: pointer;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); backdrop-filter: blur(10px);
+  opacity: .72; transition: opacity 200ms, background 200ms, transform 400ms var(--spring); }
+.fx-pause:hover, .fx-pause:focus-visible { opacity: 1; background: rgba(255,255,255,.16); }
+.fx-pause:active { transform: scale(.9); }
+.fx-pause svg { width: 14px; height: 14px; }
+.fx-pause .i-play, [data-motion="off"] .fx-pause .i-pause { display: none; }
+[data-motion="off"] .fx-pause .i-play { display: block; }
 
 /* ==========================================================================
-   HOME HERO
+   GLOW STAGES
    ========================================================================== */
 
 .hero-v2 { animation: fx-waves 40s linear infinite; }
@@ -87,21 +146,29 @@
   background: linear-gradient(90deg, #E2B891, #F7F4ED 60%, #8FD9AE); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero-facts { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 30px; color: var(--mint); font-size: var(--fs-sm); }
 .hero-facts li { display: flex; align-items: center; gap: 8px; }
-.hero-facts li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #5BC08A; box-shadow: 0 0 0 4px rgba(91,192,138,.18); }
-.hero-facts strong { color: var(--on-dark); }
+.hero-facts li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #5BC08A;
+  box-shadow: 0 0 0 4px rgba(91,192,138,.18); }
+.hero-facts strong { color: var(--on-dark); font-variant-numeric: tabular-nums; }
 @media (max-width: 959px) { .hero-facts { justify-content: center; } }
 
-/* The stage: levitating, angled vial with halo, orbit and floor shadow. */
+/* The stage: levitating, angled vial with halo, orbit, light rays and floor shadow. */
 .hero-stage { position: relative; display: grid; place-items: center; min-height: 460px; perspective: 1000px; }
+.hero-stage::before { /* slow-turning light rays behind the vial */
+  content: ""; position: absolute; z-index: 0; width: min(130%, 720px); aspect-ratio: 1; left: 50%; top: 46%; translate: -50% -50%;
+  pointer-events: none; opacity: .75;
+  background: repeating-conic-gradient(from 0deg, rgba(143,217,174,.13) 0deg 5deg, transparent 5deg 20deg);
+  -webkit-mask: radial-gradient(closest-side, #000 18%, transparent 72%); mask: radial-gradient(closest-side, #000 18%, transparent 72%);
+  animation: fx-spin 90s linear infinite; }
 .vial-link { position: relative; display: grid; place-items: center; width: min(62vw, 250px); aspect-ratio: 420 / 936;
   text-decoration: none; transform-style: preserve-3d;
-  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 500ms var(--ease); }
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 900ms var(--spring); }
+.vial-link.is-tilting { transition: transform 200ms var(--ease-out); }
 .vial { position: relative; z-index: 2; width: 100%; height: auto;
   animation: fx-levitate 6.5s ease-in-out infinite;
   filter: drop-shadow(0 30px 40px rgba(0,0,0,.35)) drop-shadow(0 0 30px rgba(91,192,138,.18)); }
 .vial-halo { position: absolute; z-index: 0; width: 190%; aspect-ratio: 1; left: 50%; top: 46%; translate: -50% -50%;
   background: radial-gradient(circle, rgba(91,192,138,.42) 0%, rgba(47,143,74,.18) 35%, transparent 65%);
-  animation: fx-breathe 6.5s ease-in-out infinite; }
+  animation: fx-breathe 6.5s ease-in-out infinite; transition: opacity 400ms; }
 .vial-orbit { position: absolute; z-index: 1; width: 170%; aspect-ratio: 1; left: 50%; top: 46%; translate: -50% -50%;
   border-radius: 50%; border: 1px solid rgba(172,201,193,.22);
   transform: rotateX(72deg); animation: fx-orbit 14s linear infinite; }
@@ -113,9 +180,11 @@
 .vial-tag { position: absolute; z-index: 3; bottom: -18%; left: 50%; translate: -50% 0; white-space: nowrap;
   padding: 9px 18px; border-radius: var(--r-pill); font-size: var(--fs-xs); color: var(--on-dark);
   background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); backdrop-filter: blur(10px);
-  transition: background 250ms, border-color 250ms, transform 250ms var(--ease); }
+  transition: background 250ms, border-color 250ms, transform 450ms var(--spring); }
 .vial-tag strong { color: #E2B891; }
+.vial-tag [aria-hidden] { display: inline-block; transition: transform 300ms var(--ease-out); }
 .vial-link:hover .vial-tag, .vial-link:focus-visible .vial-tag { background: var(--copper); border-color: var(--copper); transform: translateY(-3px); }
+.vial-link:hover .vial-tag [aria-hidden] { transform: translateX(4px); }
 .vial-link:hover .vial-tag strong { color: #fff; }
 .vial-link:hover .vial-halo { background: radial-gradient(circle, rgba(91,192,138,.6) 0%, rgba(47,143,74,.25) 35%, transparent 65%); }
 
@@ -144,6 +213,14 @@
 .fx-word { display: inline-block; opacity: 0; transform: translateY(.55em); filter: blur(8px);
   animation: fx-word .9s var(--ease) forwards; animation-delay: calc(var(--i) * 65ms + 120ms); }
 
+/* Scrolling away from a stage: its contents drift apart for depth. */
+@supports (animation-timeline: view()) {
+  [data-motion="full"] .hero-v2 .hero-stage { animation: fx-stage-away linear both; animation-timeline: view(); animation-range: exit -10% exit 90%; }
+  [data-motion="full"] .hero-v2 .hero-copy,
+  [data-motion="full"] .page-hero > .inner-narrow { animation: fx-copy-away linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+  [data-motion="full"] .photo-card img { scale: 1.14; animation: fx-parallax linear both; animation-timeline: view(); animation-range: cover; }
+}
+
 /* ==========================================================================
    REST OF THE SITE: arrive once on scroll, then stay still
    ========================================================================== */
@@ -161,7 +238,7 @@
   box-shadow: 0 10px 30px rgba(15,52,51,.06); }
 .sec-beige .feature-icon { background: radial-gradient(circle at 30% 25%, #fff, rgba(255,255,255,.4)); box-shadow: 0 8px 20px rgba(184,121,74,.18); }
 
-/* Why VRC: photo cards get depth, not hover tricks */
+/* Why VRC: photo cards get depth from scrolling, not hover tricks (they are not links). */
 .photo-card { box-shadow: 0 24px 50px rgba(0,0,0,.3); }
 .photo-card .ring { background: rgba(15,52,51,.55); backdrop-filter: blur(6px); }
 
@@ -170,13 +247,27 @@
   radial-gradient(60% 50% at 85% 10%, rgba(47,143,74,.13), transparent 70%),
   radial-gradient(50% 45% at 10% 95%, rgba(28,120,104,.15), transparent 70%); }
 
-/* Product cards: clickable, so they lift and the photo zooms */
-.pcard { transition: transform 350ms var(--ease), box-shadow 350ms var(--ease), border-color 350ms; }
-.pcard:hover { transform: translateY(-6px); box-shadow: 0 26px 50px rgba(8,30,29,.28); border-color: #E2D9C5; }
+/* ---------- product cards --------------------------------------------------
+   Clickable, so they respond: lift, the vial rises, and with a mouse the
+   card tilts toward the cursor with a glare and a lit edge that follow it
+   (fx.js feeds --rx/--ry/--mx/--my). */
+.pcard { position: relative;
+  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--lift, 0px));
+  transition: transform 800ms var(--spring), box-shadow 350ms var(--ease), border-color 350ms; }
+.pcard.is-tilting { transition: transform 150ms var(--ease-out), box-shadow 350ms var(--ease), border-color 350ms; }
+.pcard:hover { --lift: -6px; box-shadow: 0 26px 50px rgba(8,30,29,.28); border-color: #E2D9C5; }
+.pcard::before, .pcard::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+  opacity: 0; transition: opacity 350ms var(--ease-out); z-index: 3; }
+.pcard::before { /* lit edge */
+  padding: 1.5px; background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 0%), rgba(208,160,122,.95), transparent 65%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
+.pcard::after { /* glare */
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,.22), transparent 55%); }
+.pcard.is-tilting::before, .pcard.is-tilting::after { opacity: 1; }
 .pcard.fx-enter { animation: fx-card-in 500ms var(--ease) both; animation-delay: calc(var(--i, 0) * 35ms); }
 .coa-btn { transition: transform 250ms var(--ease), background 250ms, box-shadow 250ms; }
 .coa-btn:hover { transform: translateX(3px); box-shadow: 0 6px 14px rgba(184,121,74,.35); }
-.chip:active { transform: scale(.95); }
 
 /* Add-to-cart feedback: product flies to the cart, sparks, badge pops */
 .fx-fly { position: fixed; z-index: 150; width: 64px; height: 80px; border-radius: 10px; overflow: hidden; pointer-events: none;
@@ -187,11 +278,22 @@
 .btn.fx-added { background: var(--green-vivid) !important; border-color: var(--green-vivid) !important; }
 
 .gate-card { animation: fx-gate 560ms cubic-bezier(.2,1.25,.4,1) both; }
+
+/* Cart drawer: the drawer curve opens smoothly, closing is quicker. */
+.drawer { transition: transform 300ms var(--ease-out), visibility 0s linear 300ms; }
+.drawer[data-open="true"] { transition: transform 520ms var(--ease-drawer), visibility 0s; }
 .drawer[data-open="true"] .line { animation: fx-card-in 420ms var(--ease) both; }
-.ship-fill { position: relative; overflow: hidden; }
+.drawer[data-open="true"] .line:nth-child(2) { animation-delay: 50ms; }
+.drawer[data-open="true"] .line:nth-child(3) { animation-delay: 100ms; }
+.drawer[data-open="true"] .line:nth-child(n+4) { animation-delay: 150ms; }
+.scrim { transition: opacity 400ms var(--ease-out); }
+.ship-fill { position: relative; overflow: hidden; transition: width 700ms var(--spring); }
 .ship-fill::after { content: ""; position: absolute; inset: 0;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent); animation: fx-sweep 1.8s linear infinite; }
-.toast { display: flex; align-items: center; gap: 10px; }
+
+/* Toast pops up on a spring and leaves quickly. */
+.toast { display: flex; align-items: center; gap: 10px; transition: transform 250ms var(--ease-out); }
+.toast[data-open="true"] { transition: transform 700ms var(--spring-bounce); }
 .toast::before { content: "✓"; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
   background: var(--copper); color: #fff; font-size: .75rem; }
 
@@ -199,9 +301,11 @@ main { overflow-x: clip; }
 
 /* ---------- keyframes ---------------------------------------------------- */
 @keyframes fx-levitate { 0%, 100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-22px) rotate(-5.5deg); } }
+@keyframes fx-levitate-calm { 0%, 100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-7px) rotate(-7deg); } }
 @keyframes fx-shadow { 0%, 100% { transform: scale(1); opacity: .9; } 50% { transform: scale(.72); opacity: .5; } }
 @keyframes fx-breathe { 0%, 100% { opacity: .8; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
 @keyframes fx-orbit { from { transform: rotateX(72deg) rotateZ(0); } to { transform: rotateX(72deg) rotateZ(360deg); } }
+@keyframes fx-spin { to { rotate: 360deg; } }
 @keyframes fx-drift-a { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(-18%, 12%) scale(1.25); } }
 @keyframes fx-drift-b { 0% { transform: translate(0,0) scale(1.1); } 100% { transform: translate(22%, -14%) scale(.9); } }
 @keyframes fx-drift-c { 0% { transform: translate(0,0) scale(.9); } 100% { transform: translate(-30%, -20%) scale(1.2); } }
@@ -215,14 +319,33 @@ main { overflow-x: clip; }
 @keyframes fx-spark { to { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; } }
 @keyframes fx-gate { from { opacity: 0; transform: translateY(24px) scale(.95); } to { opacity: 1; transform: none; } }
 @keyframes fx-sweep { 0% { transform: translateX(-100%); } 60%, 100% { transform: translateX(100%); } }
+@keyframes fx-drop { from { opacity: 0; transform: translateY(-8px); } }
+@keyframes fx-fade-in { from { opacity: 0; } }
+@keyframes fx-fade-out { to { opacity: 0; } }
+@keyframes fx-page-in { from { opacity: 0; transform: translateY(14px); } }
+@keyframes fx-stage-away { to { translate: 0 90px; opacity: .25; } }
+@keyframes fx-copy-away { to { translate: 0 -40px; opacity: 0; } }
+@keyframes fx-parallax { from { translate: 0 -6%; } to { translate: 0 6%; } }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-  .fx-word { opacity: 1; transform: none; filter: none; }
-  .fx-ready [data-reveal], .fx-ready .rule { opacity: 1 !important; transform: none !important; }
-  .vial { transform: rotate(-8deg); }
-  .fx-progress, .fx-spark, .fx-fly, .hero-particles { display: none; }
-}
+/* ---------- calm: the system asks for reduced motion -----------------------
+   Same effects, but slower and smaller; entrances fade instead of moving. */
+[data-motion="calm"] .aurora span { animation-duration: 60s; }
+[data-motion="calm"] .vial { animation: fx-levitate-calm 10s ease-in-out infinite; }
+[data-motion="calm"] .vial-halo, [data-motion="calm"] .vial-shadow { animation-duration: 10s; }
+[data-motion="calm"] .vial-orbit { animation-duration: 40s; }
+[data-motion="calm"] .hero-stage::before { animation-duration: 240s; }
+[data-motion="calm"] .wordmark { animation-duration: 20s; }
+[data-motion="calm"] .fx-word { transform: none; filter: none; animation-duration: .6s; }
+[data-motion="calm"] .fx-ready [data-reveal] { transform: none; }
+[data-motion="calm"] .pcard:hover { --lift: -3px; }
+[data-motion="calm"] .fx-fly { display: none; }
+
+/* ---------- off: the visitor paused animations ------------------------- */
+[data-motion="off"] *, [data-motion="off"] *::before, [data-motion="off"] *::after { animation: none !important; transition: none !important; }
+[data-motion="off"] .fx-word { opacity: 1; transform: none; filter: none; }
+[data-motion="off"] .fx-ready [data-reveal], [data-motion="off"] .fx-ready .rule { opacity: 1 !important; transform: none !important; }
+[data-motion="off"] .vial { transform: rotate(-8deg); }
+[data-motion="off"] .fx-progress, [data-motion="off"] .fx-spark, [data-motion="off"] .fx-fly { display: none; }
 
 @media (max-width: 959px) {
   .vial-link { width: min(44vw, 190px); }
@@ -237,12 +360,13 @@ main { overflow-x: clip; }
 .pcard-show { background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
   border: 1px solid rgba(255,255,255,.13); backdrop-filter: blur(8px); }
 .pcard-show:hover { border-color: rgba(226,184,145,.5); box-shadow: 0 30px 60px rgba(0,0,0,.35), 0 0 0 1px rgba(226,184,145,.2); }
+.pcard-show::after { background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), rgba(143,217,174,.16), transparent 55%); }
 .pcard-show .pcard-media { background:
   radial-gradient(60% 45% at 50% 55%, rgba(91,192,138,.35), transparent 70%),
   radial-gradient(40% 8% at 50% 92%, rgba(0,0,0,.45), transparent 70%); overflow: visible; }
 .pcard-show .pcard-media img { object-fit: contain; inset: 8% 14% 10%; width: 72%; height: 82%;
   transform: rotate(-6deg); filter: drop-shadow(0 18px 22px rgba(0,0,0,.4));
-  transition: transform 600ms var(--ease), filter 600ms var(--ease); }
+  transition: transform 700ms var(--spring), filter 600ms var(--ease); }
 .pcard-show:hover .pcard-media img { transform: translateY(-12px) rotate(0deg) scale(1.04);
   filter: drop-shadow(0 30px 30px rgba(0,0,0,.45)) drop-shadow(0 0 24px rgba(91,192,138,.35)); }
 .sec-dark .pcard-show a:not(.btn), .pcard-show .pcard-title { color: var(--on-dark); }
@@ -277,7 +401,7 @@ main { overflow-x: clip; }
   linear-gradient(180deg, #F6F4EE, #ECE8DE); }
 .pcard-float .pcard-media img { object-fit: contain; inset: 8% 14% 10%; width: 72%; height: 82%;
   transform: rotate(-6deg); filter: drop-shadow(0 16px 18px rgba(15,52,51,.22));
-  transition: transform 600ms var(--ease), filter 600ms var(--ease); }
+  transition: transform 700ms var(--spring), filter 600ms var(--ease); }
 .pcard-float:hover .pcard-media img { transform: translateY(-10px) rotate(0deg) scale(1.04);
   filter: drop-shadow(0 26px 24px rgba(15,52,51,.28)); }
 .fx-fly img { object-fit: contain; background: #F1EFE8; }

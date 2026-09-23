@@ -1,5 +1,5 @@
-import * as cart from './store.js?v=3f42e75db9';
-import{api}from './api.js?v=3f42e75db9';
+import * as cart from './store.js?v=f0e160244f';
+import{api}from './api.js?v=f0e160244f';
 export const ROOT=new URL('../../',import.meta.url).pathname.replace(/\/$/,'');
 const $=(sel,root=document)=>root.querySelector(sel);
 const $$=(sel,root=document)=>Array.from(root.querySelectorAll(sel));
@@ -247,6 +247,20 @@ keepalive:true,
 }).catch(()=>{});
 });
 }
+function glide(cards,update){
+if(!document.startViewTransition||document.documentElement.dataset.motion!=='full'){update();return;}
+const shown=cards.filter((c)=>!c.hidden);
+shown.forEach((c)=>{c.style.viewTransitionName=`pc-${c.dataset.sku.replace(/[^\w-]/g,'')}`;});
+document.documentElement.classList.add('vt-grid');
+const vt=document.startViewTransition(()=>{
+update();
+cards.forEach((c)=>{c.style.viewTransitionName=c.hidden?'':`pc-${c.dataset.sku.replace(/[^\w-]/g,'')}`;});
+});
+vt.finished.finally(()=>{
+cards.forEach((c)=>{c.style.viewTransitionName='';});
+document.documentElement.classList.remove('vt-grid');
+});
+}
 export function initCatalog(){
 const root=$('#catalog');
 if(!root)return;
@@ -296,13 +310,13 @@ history.replaceState(null,'',category==='all'?location.pathname:`#${category}`);
 }
 apply();
 };
-chips.forEach((chip)=>chip.addEventListener('click',()=>select(chip.dataset.filter,true)));
+chips.forEach((chip)=>chip.addEventListener('click',()=>glide(cards,()=>select(chip.dataset.filter,true))));
 window.addEventListener('hashchange',()=>select(location.hash.slice(1)||'all',false));
 if(location.hash)select(location.hash.slice(1),false);
 const preset=new URLSearchParams(location.search).get('q');
 if(preset&&search)search.value=preset;
 search?.addEventListener('input',debounce(apply,120));
-sort?.addEventListener('change',()=>{reorder(sort.value);apply();});
+sort?.addEventListener('change',()=>glide(cards,()=>{reorder(sort.value);apply();}));
 apply();
 }
 export function initLedger(){

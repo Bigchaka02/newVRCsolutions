@@ -1,8 +1,8 @@
 /* ==========================================================================
    ui.js — interactive components.
-   Every behaviour here is a response to a user action. There is no
-   scroll-triggered animation: content is visible in the HTML from the start,
-   which keeps the page usable without JS and avoids layout shift.
+   Every behaviour here is a response to a user action. Content is visible
+   in the HTML from the start, which keeps the page usable without JS and
+   avoids layout shift; scroll and ambient motion live in fx.js.
    ========================================================================== */
 
 import * as cart from './store.js';
@@ -319,6 +319,24 @@ export function initGate() {
 /* Filters the products already present in the HTML. No refetch, no
    pagination, no layout shift — the markup is the source of truth. */
 
+// Run a grid change as a view transition, so cards glide to their new
+// places instead of jumping. Each card needs its own name for the length of
+// the transition. Skipped where unsupported or when motion is reduced.
+function glide(cards, update) {
+  if (!document.startViewTransition || document.documentElement.dataset.motion !== 'full') { update(); return; }
+  const shown = cards.filter((c) => !c.hidden);
+  shown.forEach((c) => { c.style.viewTransitionName = `pc-${c.dataset.sku.replace(/[^\w-]/g, '')}`; });
+  document.documentElement.classList.add('vt-grid');
+  const vt = document.startViewTransition(() => {
+    update();
+    cards.forEach((c) => { c.style.viewTransitionName = c.hidden ? '' : `pc-${c.dataset.sku.replace(/[^\w-]/g, '')}`; });
+  });
+  vt.finished.finally(() => {
+    cards.forEach((c) => { c.style.viewTransitionName = ''; });
+    document.documentElement.classList.remove('vt-grid');
+  });
+}
+
 export function initCatalog() {
   const root = $('#catalog');
   if (!root) return;
@@ -376,7 +394,7 @@ export function initCatalog() {
     apply();
   };
 
-  chips.forEach((chip) => chip.addEventListener('click', () => select(chip.dataset.filter, true)));
+  chips.forEach((chip) => chip.addEventListener('click', () => glide(cards, () => select(chip.dataset.filter, true))));
   window.addEventListener('hashchange', () => select(location.hash.slice(1) || 'all', false));
   if (location.hash) select(location.hash.slice(1), false);
 
@@ -384,7 +402,7 @@ export function initCatalog() {
   if (preset && search) search.value = preset;
 
   search?.addEventListener('input', debounce(apply, 120));
-  sort?.addEventListener('change', () => { reorder(sort.value); apply(); });
+  sort?.addEventListener('change', () => glide(cards, () => { reorder(sort.value); apply(); }));
 
   apply();
 }
