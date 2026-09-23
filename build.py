@@ -300,14 +300,22 @@ def ledger_row(p: dict, record: dict | None = None, archived: bool = False) -> s
           </tr>"""
 
 
-def card(p: dict, order: int) -> str:
+CUTOUT_DIR = OUT / "assets" / "img" / "cutouts"
+
+
+def card(p: dict, order: int, showcase: bool = False) -> str:
+    """Product card. `showcase` (homepage best sellers) swaps the photo for a
+    background-free cut-out when one exists in assets/img/cutouts/."""
+    cutout = CUTOUT_DIR / f"{p['slug']}.webp"
+    showcase = showcase and cutout.exists()
+    img_src = "/" + cutout.relative_to(OUT).as_posix() if showcase else p["_img"]
     payload = {"sku": p["sku"], "slug": p["slug"], "name": p["name"],
                "price": p["price"], "image": p["_img"]}
     coa = (f'<a class="btn btn-coa" href="{e(p["coa_url"])}" target="_blank" rel="noopener" '
            f'aria-label="View Certificate of Analysis for {e(p["name"])}">COA</a>'
            if p.get("coa_url") else
            '<span class="btn btn-coa is-pending" title="Certificate for the current lot not yet published">COA pending</span>')
-    return f"""      <article class="pcard" data-product
+    return f"""      <article class="pcard{' pcard-show' if showcase else ''}" data-product
                data-category="{e(p['category'])}"
                data-name="{e(p['name'])}"
                data-sku="{e(p['sku'])}"
@@ -316,7 +324,7 @@ def card(p: dict, order: int) -> str:
                data-price="{p['price']}"
                data-order="{order}">
         <a class="pcard-media" href="/product/{e(p['slug'])}/" tabindex="-1" aria-hidden="true">
-          <img src="{e(p['_img'])}" alt="" loading="lazy" width="640" height="800">
+          <img src="{e(img_src)}" alt="" loading="lazy" width="640" height="800">
         </a>
         <div class="pcard-body">
           {verify_pill(p)}
@@ -694,7 +702,7 @@ def main(strict: bool = False) -> None:
     TOKENS.update({
         "LEDGER_ROWS": "\n".join(current),
         "COA_LIBRARY_ROWS": "\n".join(current + archive),
-        "FEATURED_CARDS": cards_html(bestsellers()),
+        "FEATURED_CARDS": "\n".join(card(p, i, showcase=True) for i, p in enumerate(bestsellers())),
         "ALL_CARDS": cards_html(sorted(PRODUCTS, key=lambda p: (not p.get("featured"), p["name"]))),
         "PRODUCT_COUNT": str(len(PRODUCTS)),
         "COUNT_PEPTIDES": str(sum(p["category"] == "peptides" for p in PRODUCTS)),

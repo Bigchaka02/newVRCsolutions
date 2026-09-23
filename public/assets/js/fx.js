@@ -1,7 +1,7 @@
 /* ==========================================================================
-   fx.js — motion layer. Pure decoration on top of ui.js: every effect is
-   optional, content is already in the HTML, and nothing runs for visitors
-   who ask for reduced motion.
+   fx.js — v2 visual layer. Ambient motion only in the home hero
+   (particles, levitating vial); elsewhere, feedback only on things you
+   can click. Content is already in the HTML; reduced motion turns it off.
    ========================================================================== */
 
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -50,7 +50,7 @@ const REVEAL = [
 ];
 
 function initReveal() {
-  const els = [...new Set($$(REVEAL.join(',')))].filter((el) => !el.closest('.drawer, .gate'));
+  const els = [...new Set($$(REVEAL.join(',')))].filter((el) => !el.closest('.drawer, .gate, .hero-v2'));
   if (!('IntersectionObserver' in window) || !els.length) return;
 
   // Stagger siblings that share a parent.
@@ -61,8 +61,6 @@ function initReveal() {
     el.style.setProperty('--d', String(Math.min(n, 6)));
     if (!el.hasAttribute('data-reveal')) el.setAttribute('data-reveal', '');
   });
-  $$('.why-copy').forEach((el) => el.setAttribute('data-reveal', 'left'));
-  $$('.photo-cards .photo-card').forEach((el) => el.setAttribute('data-reveal', 'right'));
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -91,78 +89,113 @@ function initReveal() {
 
 function splitWords(el) {
   if (!el || el.dataset.split) return;
-  const words = el.textContent.trim().split(/\s+/);
   el.dataset.split = '1';
-  el.setAttribute('aria-label', el.textContent.trim());
-  el.innerHTML = words
-    .map((w, i) => `<span class="fx-word" aria-hidden="true" style="--i:${i}">${w.replace(/[&<>"]/g, (c) => `&#${c.charCodeAt(0)};`)}</span>`)
-    .join(' ');
+  el.setAttribute('aria-label', el.textContent.trim().replace(/\s+/g, ' '));
+  let i = 0;
+  const wrap = (text) => text.split(/(\s+)/).map((part) => {
+    if (!part.trim()) return document.createTextNode(part);
+    const w = document.createElement('span');
+    w.className = 'fx-word';
+    w.setAttribute('aria-hidden', 'true');
+    w.style.setProperty('--i', String(i++));
+    w.textContent = part;
+    return w;
+  });
+  [...el.childNodes].forEach((node) => {
+    if (node.nodeType === 3) node.replaceWith(...wrap(node.textContent));
+    else if (node.nodeType === 1) [...node.childNodes].forEach((c) => c.nodeType === 3 && c.replaceWith(...wrap(c.textContent)));
+  });
 }
 
-/* ---------- hero: cursor glow + parallax vial --------------------------- */
+/* ---------- hero: particle field ---------------------------------------- */
 
-function initHero() {
-  const hero = document.querySelector('.hero');
-  if (!hero || !finePointer) return;
-  const photo = hero.querySelector('.hero-photo');
-  hero.addEventListener('pointermove', (e) => {
+function initParticles() {
+  const hero = document.querySelector('.hero-v2');
+  const canvas = hero?.querySelector('.hero-particles');
+  if (!canvas || !canvas.getContext) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  const COLORS = ['143,217,174', '172,201,193', '226,184,145', '91,192,138'];
+  let w = 0, h = 0, parts = [], raf = 0, running = false;
+  const mouse = { x: -9999, y: -9999 };
+
+  const sprite = {};
+  COLORS.forEach((c) => {           // pre-rendered glow dots: cheap to draw
+    const s = document.createElement('canvas'); s.width = s.height = 32;
+    const g = s.getContext('2d'); const grd = g.createRadialGradient(16, 16, 0, 16, 16, 16);
+    grd.addColorStop(0, `rgba(${c},1)`); grd.addColorStop(0.25, `rgba(${c},.55)`); grd.addColorStop(1, `rgba(${c},0)`);
+    g.fillStyle = grd; g.fillRect(0, 0, 32, 32); sprite[c] = s;
+  });
+
+  const spawn = (anywhere) => ({
+    x: Math.random() * w, y: anywhere ? Math.random() * h : h + 20,
+    r: 3 + Math.random() * 9, vy: -(0.15 + Math.random() * 0.45), vx: 0,
+    sway: Math.random() * Math.PI * 2, c: COLORS[Math.floor(Math.random() * COLORS.length)],
+    tw: Math.random() * Math.PI * 2,
+  });
+
+  const resize = () => {
     const r = hero.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width;
-    const y = (e.clientY - r.top) / r.height;
-    hero.style.setProperty('--mx', `${(x * 100).toFixed(1)}%`);
-    hero.style.setProperty('--my', `${(y * 100).toFixed(1)}%`);
-    if (photo) {
-      photo.style.setProperty('--px', `${((x - 0.5) * -18).toFixed(1)}px`);
-      photo.style.setProperty('--py', `${((y - 0.5) * -14).toFixed(1)}px`);
+    w = r.width; h = r.height;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round(Math.min(110, (w * h) / 11000));
+    parts = Array.from({ length: n }, () => spawn(true));
+  };
+
+  const frame = (t) => {
+    ctx.clearRect(0, 0, w, h);
+    ctx.globalCompositeOperation = 'lighter';
+    for (const p of parts) {
+      p.sway += 0.01; p.tw += 0.03;
+      p.x += Math.sin(p.sway) * 0.25 + p.vx; p.y += p.vy; p.vx *= 0.94;
+      const dx = p.x - mouse.x, dy = p.y - mouse.y, d2 = dx * dx + dy * dy;
+      if (d2 < 14000) { const f = (1 - d2 / 14000) * 0.9; p.vx += (dx / Math.sqrt(d2 + 1)) * f; p.y += (dy / Math.sqrt(d2 + 1)) * f; }
+      if (p.y < -20 || p.x < -30 || p.x > w + 30) Object.assign(p, spawn(false));
+      ctx.globalAlpha = 0.35 + 0.35 * Math.sin(p.tw);
+      ctx.drawImage(sprite[p.c], p.x - p.r, p.y - p.r, p.r * 2, p.r * 2);
     }
-  });
-  hero.addEventListener('pointerleave', () => {
-    photo?.style.setProperty('--px', '0px');
-    photo?.style.setProperty('--py', '0px');
-  });
+    // faint links between close particles: a "molecular" mesh
+    ctx.globalCompositeOperation = 'source-over'; ctx.lineWidth = 0.6;
+    for (let i = 0; i < parts.length; i++) for (let j = i + 1; j < parts.length; j++) {
+      const a = parts[i], b = parts[j], dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy;
+      if (d2 < 9000) { ctx.globalAlpha = (1 - d2 / 9000) * 0.18; ctx.strokeStyle = 'rgb(172,201,193)';
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+    }
+    ctx.globalAlpha = 1;
+    raf = requestAnimationFrame(frame);
+  };
+  const start = () => { if (!running) { running = true; raf = requestAnimationFrame(frame); } };
+  const stop = () => { running = false; cancelAnimationFrame(raf); };
+
+  resize();
+  addEventListener('resize', () => { clearTimeout(resize.t); resize.t = setTimeout(resize, 150); });
+  hero.addEventListener('pointermove', (e) => { const r = hero.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
+  hero.addEventListener('pointerleave', () => { mouse.x = mouse.y = -9999; });
+  // Only animate while the hero is on screen and the tab is visible.
+  new IntersectionObserver(([e]) => (e.isIntersecting ? start() : stop())).observe(hero);
+  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
 }
 
-/* ---------- cards: 3D tilt + spotlight ----------------------------------- */
+/* ---------- hero: the vial turns toward the pointer (it is a link) ------ */
 
-function initTilt() {
-  if (!finePointer) return;
-  const cards = $$('.pcard, .photo-card, .num-card, .info-card, .dont-card');
-  cards.forEach((card) => {
-    card.setAttribute('data-tilt', '');
-    card.classList.add('fx-spot');
-    const max = card.classList.contains('photo-card') ? 6 : 5;
-    card.addEventListener('pointermove', (e) => {
-      const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width;
-      const y = (e.clientY - r.top) / r.height;
-      card.classList.add('is-tilting');
-      card.style.transform =
-        `perspective(900px) rotateX(${((0.5 - y) * max).toFixed(2)}deg) rotateY(${((x - 0.5) * max).toFixed(2)}deg) translateY(-4px)`;
-      card.style.setProperty('--sx', `${(x * 100).toFixed(1)}%`);
-      card.style.setProperty('--sy', `${(y * 100).toFixed(1)}%`);
-    });
-    card.addEventListener('pointerleave', () => {
-      card.classList.remove('is-tilting');
-      card.style.transform = '';
-    });
+function initVial() {
+  const stage = document.querySelector('.hero-stage');
+  const link = stage?.querySelector('.vial-link');
+  if (!link || !finePointer) return;
+  stage.addEventListener('pointermove', (e) => {
+    const r = stage.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    link.style.setProperty('--ry', `${(x * 22).toFixed(1)}deg`);
+    link.style.setProperty('--rx', `${(-y * 12).toFixed(1)}deg`);
   });
+  stage.addEventListener('pointerleave', () => { link.style.setProperty('--ry', '0deg'); link.style.setProperty('--rx', '0deg'); });
 }
 
-/* ---------- buttons: magnetic pull + ripple ----------------------------- */
+/* ---------- buttons: ripple on press ----------------------------------- */
 
 function initButtons() {
-  if (finePointer) {
-    $$('.btn-lg, .tool-btn, .gate-actions .btn').forEach((btn) => {
-      btn.addEventListener('pointermove', (e) => {
-        const r = btn.getBoundingClientRect();
-        const dx = e.clientX - (r.left + r.width / 2);
-        const dy = e.clientY - (r.top + r.height / 2);
-        btn.style.transform = `translate(${(dx * 0.18).toFixed(1)}px, ${(dy * 0.28).toFixed(1)}px)`;
-      });
-      btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
-    });
-  }
-
   document.addEventListener('pointerdown', (e) => {
     const btn = e.target.closest('.btn, .chip');
     if (!btn || btn.disabled) return;
@@ -258,22 +291,15 @@ function initShopFx() {
   document.getElementById('catalog-search')?.addEventListener('input', replay);
 }
 
-/* ---------- animated borders ------------------------------------------- */
-
-function initBorders() {
-  $$('.notice-card, .coa-card, .gate-card').forEach((el) => el.classList.add('fx-border'));
-}
-
 export function initFx() {
   if (reduced) return;
   initProgress();
   splitWords(document.querySelector('.hero-copy h1'));
   splitWords(document.querySelector('.page-hero h1'));
   initReveal();
-  initHero();
-  initTilt();
+  initParticles();
+  initVial();
   initButtons();
   initCartFx();
   initShopFx();
-  initBorders();
 }

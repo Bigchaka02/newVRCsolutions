@@ -100,8 +100,11 @@
 </header>
 
 <main id="main">
-<!-- Hero: the live site's framed teal panel, VRC wordmark, vial and callouts -->
-<section class="shell sec hero sec-dark">
+<!-- Hero: teal stage with a flowing glow, drifting particles and the
+     levitating vial. Canvas and glow are decoration; the copy is plain HTML. -->
+<section class="shell sec hero hero-v2 sec-dark">
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+  <canvas class="hero-particles" aria-hidden="true"></canvas>
   <div class="inner">
     <div class="hero-mark">
       <span class="wordmark" aria-hidden="true">VRC</span>
@@ -110,19 +113,28 @@
 
     <div class="hero-grid">
       <div class="hero-copy">
-        <h1>Verified research compounds. Public COAs. No anonymous shells.</h1>
+        <h1>Verified research compounds. <em>Public COAs.</em> No anonymous shells.</h1>
         <p class="lead">Every batch independently tested by an independent third-party laboratory. Every Certificate of Analysis published before sale. Real US LLC, real operations.</p>
         <div class="btn-row">
           <a class="btn btn-copper btn-lg" href="/shop/">Shop Now</a>
           <a class="btn btn-light btn-lg" href="/coa-library/">COA Library</a>
           <a class="btn btn-light btn-lg" href="/research-use-only-policy/">RUO Policy</a>
         </div>
+        <ul class="hero-facts" role="list">
+          <li><strong>23</strong> research compounds</li>
+          <li><strong>Next-day</strong> US shipping</li>
+          <li><strong>Public</strong> COA library</li>
+        </ul>
       </div>
 
-      <div class="hero-visual">
-        <div class="hero-photo">
-          <img src="/assets/img/hero-vial.webp" alt="VRC Solutions BPC+TB500 research vial" width="720" height="900" fetchpriority="high">
-        </div>
+      <div class="hero-stage">
+        <a class="vial-link" href="/product/bpc-tb500/" aria-label="View BPC+TB500, $69.99">
+          <span class="vial-halo" aria-hidden="true"></span>
+          <span class="vial-orbit" aria-hidden="true"></span>
+          <img class="vial" src="/assets/img/hero-vial-cut.webp" alt="VRC Solutions BPC+TB500 research vial" width="420" height="936" fetchpriority="high">
+          <span class="vial-shadow" aria-hidden="true"></span>
+          <span class="vial-tag">BPC+TB500 · <strong>$69.99</strong> <span aria-hidden="true">→</span></span>
+        </a>
         <div class="callouts">
           <div class="callout callout-1"><span class="callout-num">1</span><h3>For Research Use Only</h3><p>Handle in accordance with standard laboratory safety practices.</p></div>
           <div class="callout callout-2"><span class="callout-num">2</span><h3>Purity ≥99%</h3><p>Backed by independent third-party lab testing. COAs linked from each product page.</p></div>
@@ -257,7 +269,7 @@
       <p class="lead">Our most-ordered research compounds</p>
     </div>
     <div class="pgrid">
-      <article class="pcard" data-product
+      <article class="pcard pcard-show" data-product
                data-category="peptides"
                data-name="CJC+IPA Blend (No-DAC)"
                data-sku="CP10"
@@ -266,7 +278,7 @@
                data-price="74.99"
                data-order="0">
         <a class="pcard-media" href="/product/cjcipa-blend-no-dac/" tabindex="-1" aria-hidden="true">
-          <img src="/assets/img/products/cjcipa-blend-no-dac.webp" alt="" loading="lazy" width="640" height="800">
+          <img src="/assets/img/cutouts/cjcipa-blend-no-dac.webp" alt="" loading="lazy" width="640" height="800">
         </a>
         <div class="pcard-body">
           <span class="pill pill-green">≥99% purity · Lab verified</span>
@@ -279,7 +291,7 @@
           </div>
         </div>
       </article>
-      <article class="pcard" data-product
+      <article class="pcard pcard-show" data-product
                data-category="peptides"
                data-name="GHK-Cu 50mg"
                data-sku="CU50"
@@ -288,7 +300,7 @@
                data-price="34.99"
                data-order="1">
         <a class="pcard-media" href="/product/ghk-cu-50mg/" tabindex="-1" aria-hidden="true">
-          <img src="/assets/img/products/ghk-cu-50mg.webp" alt="" loading="lazy" width="640" height="800">
+          <img src="/assets/img/cutouts/ghk-cu-50mg.webp" alt="" loading="lazy" width="640" height="800">
         </a>
         <div class="pcard-body">
           <span class="pill pill-green">≥99% purity · Lab verified</span>
@@ -301,7 +313,7 @@
           </div>
         </div>
       </article>
-      <article class="pcard" data-product
+      <article class="pcard pcard-show" data-product
                data-category="peptides"
                data-name="RT-10 10mg"
                data-sku="RT10"
@@ -310,7 +322,7 @@
                data-price="74.99"
                data-order="2">
         <a class="pcard-media" href="/product/rt-10-10mg/" tabindex="-1" aria-hidden="true">
-          <img src="/assets/img/products/rt-10-10mg.webp" alt="" loading="lazy" width="640" height="800">
+          <img src="/assets/img/cutouts/rt-10-10mg.webp" alt="" loading="lazy" width="640" height="800">
         </a>
         <div class="pcard-body">
           <span class="pill pill-green">≥99% purity · Lab verified</span>
@@ -323,7 +335,7 @@
           </div>
         </div>
       </article>
-      <article class="pcard" data-product
+      <article class="pcard pcard-show" data-product
                data-category="peptides"
                data-name="MOTS-C 10mg"
                data-sku="MTC10"
@@ -332,7 +344,7 @@
                data-price="37.99"
                data-order="3">
         <a class="pcard-media" href="/product/mots-c-10mg/" tabindex="-1" aria-hidden="true">
-          <img src="/assets/img/products/mots-c-10mg.webp" alt="" loading="lazy" width="640" height="800">
+          <img src="/assets/img/cutouts/mots-c-10mg.webp" alt="" loading="lazy" width="640" height="800">
         </a>
         <div class="pcard-body">
           <span class="pill pill-amber">≥99% purity · COA pending</span>
