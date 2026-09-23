@@ -1,5 +1,5 @@
-import * as cart from './store.js?v=f0e160244f';
-import{api}from './api.js?v=f0e160244f';
+import * as cart from './store.js?v=d01efa99ea';
+import{api}from './api.js?v=d01efa99ea';
 export const ROOT=new URL('../../',import.meta.url).pathname.replace(/\/$/,'');
 const $=(sel,root=document)=>root.querySelector(sel);
 const $$=(sel,root=document)=>Array.from(root.querySelectorAll(sel));
@@ -54,6 +54,12 @@ export function initHeader(){
 const header=$('#site-header');
 const toggle=$('[data-search-open]');
 const panel=$('#site-search');
+const bar=$('.topbar');
+if(bar&&'ResizeObserver' in window){
+new ResizeObserver(()=>{
+document.documentElement.style.setProperty('--topbar-h',`${bar.offsetHeight}px`);
+}).observe(bar);
+}
 if(header){
 const mark=()=>{header.dataset.scrolled=String(window.scrollY>8);};
 window.addEventListener('scroll',mark,{passive:true});

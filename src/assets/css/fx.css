@@ -34,6 +34,7 @@
    The header stays put, the page fades up, and a product's vial morphs
    from the card you clicked into its product page (motion.js names it). */
 @view-transition { navigation: auto; }
+.topbar { view-transition-name: topbar; }
 .site-header { view-transition-name: site-header; }
 ::view-transition-old(root) { animation: 160ms var(--ease-out) both fx-fade-out; }
 ::view-transition-new(root) { animation: 380ms var(--ease-out) both fx-page-in; }
@@ -376,6 +377,14 @@ main { overflow-x: clip; }
 .pcard-show .btn-coa { background: transparent; border-color: rgba(255,255,255,.25); color: var(--on-dark); }
 .pcard-show a.btn-coa:hover { background: rgba(255,255,255,.1); border-color: #8FD9AE; color: #8FD9AE; }
 .pcard-show .btn-coa.is-pending { color: rgba(247,244,237,.5); background: transparent; }
+/* Shop: the same cards on the cream page, so each carries the home section's
+   teal and faint green glow itself. */
+.pcard-solid { backdrop-filter: none; box-shadow: 0 14px 34px rgba(15,52,51,.16);
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02)),
+    radial-gradient(90% 55% at 85% 0%, rgba(47,143,74,.2), transparent 70%),
+    radial-gradient(80% 50% at 10% 100%, rgba(28,120,104,.22), transparent 70%), var(--teal); }
+.pcard-solid a:not(.btn) { color: var(--on-dark); }
+.pcard-solid a:not(.btn):hover { color: #E2B891; }
 
 
 /* ==========================================================================

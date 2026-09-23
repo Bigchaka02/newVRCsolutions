@@ -98,6 +98,7 @@
   --narrow: 880px;    /* reading width                             */
 
   --header-h: 84px;
+  --topbar-h: 38px;   /* measured and updated by ui.js; this is the one-line height */
 
   --ease: cubic-bezier(0.32, 0.72, 0.28, 1);
   --t-fast: 140ms var(--ease);
@@ -112,7 +113,7 @@
 }
 
 @media (max-width: 959px) {
-  :root { --header-h: 68px; }
+  :root { --header-h: 68px; --topbar-h: 55px; }
 }
 
 /* Visitor paused animations (see motion.js). */

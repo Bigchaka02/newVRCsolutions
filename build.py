@@ -311,13 +311,14 @@ def cutout(p: dict) -> str:
     return "/" + path.relative_to(OUT).as_posix() if path.exists() else ""
 
 
-def card(p: dict, order: int, showcase: bool = False) -> str:
+def card(p: dict, order: int, showcase: bool = False, solid: bool = False) -> str:
     """Product card. Uses the background-free cut-out from assets/img/cutouts/
     when one exists: floating in a soft well on light sections, or on a glass
-    card when `showcase` is set (dark sections)."""
+    card when `showcase` is set (dark sections). `solid` gives the glass card
+    its own teal ground, so it looks the same on a light section (the shop)."""
     cut = cutout(p)
     img_src = cut or p["_img"]
-    variant = (" pcard-show" if showcase else " pcard-float") if cut else ""
+    variant = (" pcard-show" + (" pcard-solid" if solid else "") if showcase or solid else " pcard-float") if cut else ""
     payload = {"sku": p["sku"], "slug": p["slug"], "name": p["name"],
                "price": p["price"], "image": p["_img"]}
     coa = (f'<a class="btn btn-coa" href="{e(p["coa_url"])}" target="_blank" rel="noopener" '
@@ -355,8 +356,8 @@ def bestsellers() -> list[dict]:
     return picks or [p for p in PRODUCTS if p.get("featured")][:4]
 
 
-def cards_html(items: list[dict]) -> str:
-    return "\n".join(card(p, i) for i, p in enumerate(items))
+def cards_html(items: list[dict], solid: bool = False) -> str:
+    return "\n".join(card(p, i, solid=solid) for i, p in enumerate(items))
 
 
 # --------------------------------------------------------------------------
@@ -743,7 +744,7 @@ def main(strict: bool = False) -> None:
         "LEDGER_ROWS": "\n".join(current),
         "COA_LIBRARY_ROWS": "\n".join(current + archive),
         "FEATURED_CARDS": "\n".join(card(p, i, showcase=True) for i, p in enumerate(bestsellers())),
-        "ALL_CARDS": cards_html(sorted(PRODUCTS, key=lambda p: (not p.get("featured"), p["name"]))),
+        "ALL_CARDS": cards_html(sorted(PRODUCTS, key=lambda p: (not p.get("featured"), p["name"])), solid=True),
         "PRODUCT_COUNT": str(len(PRODUCTS)),
         "COUNT_PEPTIDES": str(sum(p["category"] == "peptides" for p in PRODUCTS)),
         "COUNT_SOLVENTS": str(sum(p["category"] == "solvents" for p in PRODUCTS)),

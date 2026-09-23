@@ -13,7 +13,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-h) + 16px);
+  scroll-padding-top: calc(var(--topbar-h) + var(--header-h) + 16px);
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
@@ -254,7 +254,9 @@ main { flex: 1 0 auto; }
 
 /* ---------- 8. Announcement bar + header -------------------------------- */
 
-.topbar { background: var(--green-bar); color: #fff; font-size: var(--fs-xs); font-weight: 600; text-align: center; }
+/* The discount bar stays on screen; the header sticks just below it. */
+.topbar { position: sticky; top: 0; z-index: calc(var(--z-header) + 1);
+  background: var(--green-bar); color: #fff; font-size: var(--fs-xs); font-weight: 600; text-align: center; }
 .topbar a {
   display: block; padding: 10px 16px; color: #fff; text-decoration: none; line-height: 1.4;
 }
@@ -262,7 +264,7 @@ main { flex: 1 0 auto; }
 .topbar strong { font-weight: 800; }
 
 .site-header {
-  position: sticky; top: 0; z-index: var(--z-header);
+  position: sticky; top: var(--topbar-h); z-index: var(--z-header);
   border-bottom: 1px solid rgba(15, 52, 51, 0.1);
   transition: box-shadow var(--t-mid);
 }
@@ -521,6 +523,7 @@ main { flex: 1 0 auto; }
 /* ---------- 18. Shop ----------------------------------------------------- */
 
 .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 26px 0 30px; }
+.sr-only + .chips { margin-top: 0; }  /* shop: the chips open the page */
 .chip {
   display: inline-flex; align-items: center; gap: 8px; padding: 9px 20px;
   border-radius: var(--r-pill); border: 1px solid var(--line-strong); background: var(--white);
@@ -610,7 +613,7 @@ main { flex: 1 0 auto; }
 .copy-block h3:first-child { margin-top: 0; }
 .copy-block p { margin-top: 8px; font-size: var(--fs-sm); color: var(--ink-2); }
 
-.coa-card { position: sticky; top: calc(var(--header-h) + 20px); }
+.coa-card { position: sticky; top: calc(var(--topbar-h) + var(--header-h) + 20px); }
 .coa-card .coa-status { margin-top: 12px; }
 .coa-card .specs { margin-top: 12px; }
 .coa-card .btn { margin-top: 20px; }
@@ -774,7 +777,7 @@ address { font-style: normal; }
 .form-section + .form-section { padding-top: 22px; margin-top: 22px; border-top: 1px solid #EFEBE1; }
 .row-3 { display: grid; gap: 12px; grid-template-columns: 1fr; }
 @media (min-width: 560px) { .row-3 { grid-template-columns: 2fr 1fr 1fr; } }
-.summary-card { position: sticky; top: calc(var(--header-h) + 20px); }
+.summary-card { position: sticky; top: calc(var(--topbar-h) + var(--header-h) + 20px); }
 
 .ruo-box {
   padding: 20px 22px; border-radius: var(--r-md); background: var(--amber-wash);

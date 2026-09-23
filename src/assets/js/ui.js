@@ -81,6 +81,15 @@ export function initHeader() {
   const toggle = $('[data-search-open]');
   const panel = $('#site-search');
 
+  // The discount bar sticks above the header; its height changes when its
+  // text wraps, so the header and scroll offsets follow the real height.
+  const bar = $('.topbar');
+  if (bar && 'ResizeObserver' in window) {
+    new ResizeObserver(() => {
+      document.documentElement.style.setProperty('--topbar-h', `${bar.offsetHeight}px`);
+    }).observe(bar);
+  }
+
   if (header) {
     const mark = () => { header.dataset.scrolled = String(window.scrollY > 8); };
     window.addEventListener('scroll', mark, { passive: true });
