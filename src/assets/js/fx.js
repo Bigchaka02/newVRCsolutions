@@ -168,7 +168,8 @@ function initCountUp() {
 
 /* ---------- glow stages: flowing aurora + particle field ----------------
    Every .fx-glow section (home hero, page headers, product photo stage)
-   gets the drifting lights, a particle canvas and a pause button. Markup
+   gets the drifting lights, a particle canvas and (except the home hero)
+   a pause button. Markup
    may already carry the lights and canvas (the home hero does). Particles
    sit at different depths: near ones are bigger, faster and shift more
    when the pointer moves, which reads as 3D. */
@@ -186,7 +187,7 @@ function initGlow(stage) {
     canvas.className = 'hero-particles'; canvas.setAttribute('aria-hidden', 'true');
     stage.querySelector(':scope > .aurora').after(canvas);
   }
-  addPause(stage);
+  if (!stage.classList.contains('hero-v2')) addPause(stage);   // the home hero stays clean
   if (!canvas.getContext) return;
   const ctx = canvas.getContext('2d');
   const dpr = Math.min(devicePixelRatio || 1, 2);

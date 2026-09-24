@@ -136,7 +136,7 @@ canvas=document.createElement('canvas');
 canvas.className='hero-particles';canvas.setAttribute('aria-hidden','true');
 stage.querySelector(':scope > .aurora').after(canvas);
 }
-addPause(stage);
+if(!stage.classList.contains('hero-v2'))addPause(stage);
 if(!canvas.getContext)return;
 const ctx=canvas.getContext('2d');
 const dpr=Math.min(devicePixelRatio||1,2);
