@@ -9,6 +9,9 @@ WooCommerce with a pre-rendered static site and a small Python API.
 > analytics) are placeholders until the original backend and data are
 > supplied. Nothing here should go live before the checklist at the bottom is
 > done, and `python3 build.py --strict` passes.
+>
+> **Taking this project over?** Read [`HANDOFF.md`](HANDOFF.md) first: the
+> front-end/backend contract, every placeholder, unconfirmed data, and gotchas.
 
 ---
 
