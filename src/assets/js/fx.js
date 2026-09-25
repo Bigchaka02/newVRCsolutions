@@ -6,45 +6,12 @@
    The motion level is on <html data-motion> (set by motion.js):
      full  everything
      calm  the system asks for reduced motion: slower, smaller, no tilting
-     off   the visitor pressed pause: everything holds still
    ========================================================================== */
 
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 const html = document.documentElement;
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-const systemCalm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const mode = () => html.dataset.motion || 'full';
-
-/* ---------- pause / play ------------------------------------------------ */
-
-function setMode(next) {
-  html.dataset.motion = next;
-  try {
-    if (next === 'off') localStorage.setItem('vrc.motion', 'off');
-    else localStorage.removeItem('vrc.motion');
-  } catch { /* private mode: the choice lasts for this page only */ }
-  $$('.fx-pause').forEach(syncPause);
-  window.dispatchEvent(new CustomEvent('vrc:motion'));
-}
-
-function syncPause(btn) {
-  const off = mode() === 'off';
-  btn.setAttribute('aria-pressed', String(off));
-  btn.setAttribute('aria-label', off ? 'Play background animations' : 'Pause background animations');
-  btn.title = off ? 'Play animations' : 'Pause animations';
-}
-
-function addPause(stage) {
-  const btn = document.createElement('button');
-  btn.type = 'button';
-  btn.className = 'fx-pause';
-  btn.innerHTML =
-    '<svg class="i-pause" viewBox="0 0 14 14" aria-hidden="true"><rect x="2.5" y="2" width="3" height="10" rx="1" fill="currentColor"/><rect x="8.5" y="2" width="3" height="10" rx="1" fill="currentColor"/></svg>' +
-    '<svg class="i-play" viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 2.2v9.6a.8.8 0 0 0 1.2.7l7.6-4.8a.8.8 0 0 0 0-1.4L4.7 1.5a.8.8 0 0 0-1.2.7z" fill="currentColor"/></svg>';
-  btn.addEventListener('click', () => setMode(mode() === 'off' ? (systemCalm ? 'calm' : 'full') : 'off'));
-  syncPause(btn);
-  stage.appendChild(btn);
-}
 
 /* ---------- scroll progress + back to top -------------------------------- */
 
@@ -151,7 +118,6 @@ function splitWords(el) {
 /* ---------- home hero: the numbers count up once ------------------------ */
 
 function initCountUp() {
-  if (mode() === 'off') return;
   $$('.hero-facts strong').forEach((el) => {
     const target = Number(el.textContent);
     if (!Number.isInteger(target) || target < 2) return;
@@ -168,8 +134,7 @@ function initCountUp() {
 
 /* ---------- glow stages: flowing aurora + particle field ----------------
    Every .fx-glow section (home hero, page headers, product photo stage)
-   gets the drifting lights, a particle canvas and (except the home hero)
-   a pause button. Markup
+   gets the drifting lights and a particle canvas. Markup
    may already carry the lights and canvas (the home hero does). Particles
    sit at different depths: near ones are bigger, faster and shift more
    when the pointer moves, which reads as 3D. */
@@ -187,7 +152,6 @@ function initGlow(stage) {
     canvas.className = 'hero-particles'; canvas.setAttribute('aria-hidden', 'true');
     stage.querySelector(':scope > .aurora').after(canvas);
   }
-  if (!stage.classList.contains('hero-v2')) addPause(stage);   // the home hero stays clean
   if (!canvas.getContext) return;
   const ctx = canvas.getContext('2d');
   const dpr = Math.min(devicePixelRatio || 1, 2);
@@ -223,7 +187,7 @@ function initGlow(stage) {
     if (!running) draw(0);
   };
 
-  // speed 0 draws a still frame (paused), 0.4 is calm, 1 is full motion.
+  // speed 0 draws a still frame, 0.4 is calm, 1 is full motion.
   const draw = (speed) => {
     ctx.clearRect(0, 0, w, h);
     ctx.globalCompositeOperation = 'lighter';
@@ -250,7 +214,7 @@ function initGlow(stage) {
 
   const frame = () => { draw(mode() === 'calm' ? 0.4 : 1); raf = requestAnimationFrame(frame); };
   const start = () => {
-    if (!running && visible && !document.hidden && mode() !== 'off') { running = true; raf = requestAnimationFrame(frame); }
+    if (!running && visible && !document.hidden) { running = true; raf = requestAnimationFrame(frame); }
   };
   const stop = () => { running = false; cancelAnimationFrame(raf); };
 
@@ -267,7 +231,6 @@ function initGlow(stage) {
   // Only animate while the stage is on screen and the tab is visible.
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? start() : stop(); }).observe(stage);
   document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
-  addEventListener('vrc:motion', () => { if (mode() === 'off') { stop(); draw(0); } else start(); });
 }
 
 /* ---------- hero: the vial turns toward the pointer (it is a link) ------ */
@@ -350,7 +313,7 @@ function initMagnet() {
 function initButtons() {
   document.addEventListener('pointerdown', (e) => {
     const btn = e.target.closest('.btn, .chip');
-    if (!btn || btn.disabled || mode() === 'off') return;
+    if (!btn || btn.disabled) return;
     const r = btn.getBoundingClientRect();
     const size = Math.max(r.width, r.height);
     const dot = document.createElement('span');
@@ -393,7 +356,6 @@ function initCartFx() {
     btn.classList.add('fx-added');
     btn.textContent = 'Added ✓';
     setTimeout(() => { btn.classList.remove('fx-added'); btn.textContent = label; }, 1300);
-    if (mode() === 'off') return;
 
     setTimeout(() => {
       document.querySelectorAll('[data-cart-count]').forEach((c) => {

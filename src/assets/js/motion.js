@@ -5,7 +5,6 @@
         full  the default
         calm  the visitor's system asks for reduced motion. Effects stay, but
               slower and smaller, and nothing slides across the screen.
-        off   the visitor pressed a pause button (remembered per browser).
    2. Page-to-page transitions: when you open a product, its vial image
       morphs from the card you clicked into the product page, and back.
       These handlers must be registered before the new page first renders,
@@ -13,10 +12,10 @@
    ========================================================================== */
 (function () {
   var root = document.documentElement;
-  var stored = null;
-  try { stored = localStorage.getItem('vrc.motion'); } catch (e) { /* private mode */ }
   var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  root.dataset.motion = stored === 'off' ? 'off' : (calm ? 'calm' : 'full');
+  root.dataset.motion = calm ? 'calm' : 'full';
+  // An earlier version had a pause button that saved 'off' here; forget it.
+  try { localStorage.removeItem('vrc.motion'); } catch (e) { /* private mode */ }
 
   var NAME = 'product-vial';
   var slug = function (url) {
@@ -50,9 +49,7 @@
 
   addEventListener('pageswap', function (e) {
     var vt = e.viewTransition;
-    if (!vt) return;
-    if (root.dataset.motion === 'off') { vt.skipTransition(); return; }
-    if (root.dataset.motion !== 'full' || !e.activation) return;
+    if (!vt || root.dataset.motion !== 'full' || !e.activation) return;
     var to = slug(e.activation.entry.url);
     var from = slug(location.href);
     var el = imageFor(to) || imageFor(from);
@@ -61,9 +58,7 @@
 
   addEventListener('pagereveal', function (e) {
     var vt = e.viewTransition;
-    if (!vt) return;
-    if (root.dataset.motion === 'off') { vt.skipTransition(); return; }
-    if (root.dataset.motion !== 'full' || !window.navigation || !navigation.activation || !navigation.activation.from) return;
+    if (!vt || root.dataset.motion !== 'full' || !window.navigation || !navigation.activation || !navigation.activation.from) return;
     var from = slug(navigation.activation.from.url);
     var here = slug(location.href);
     var el = imageFor(here) || imageFor(from);

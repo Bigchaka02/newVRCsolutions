@@ -1,34 +1,7 @@
 const $$=(sel,root=document)=>Array.from(root.querySelectorAll(sel));
 const html=document.documentElement;
 const finePointer=window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-const systemCalm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const mode=()=>html.dataset.motion||'full';
-function setMode(next){
-html.dataset.motion=next;
-try{
-if(next==='off')localStorage.setItem('vrc.motion','off');
-else localStorage.removeItem('vrc.motion');
-}catch{}
-$$('.fx-pause').forEach(syncPause);
-window.dispatchEvent(new CustomEvent('vrc:motion'));
-}
-function syncPause(btn){
-const off=mode()==='off';
-btn.setAttribute('aria-pressed',String(off));
-btn.setAttribute('aria-label',off?'Play background animations':'Pause background animations');
-btn.title=off?'Play animations':'Pause animations';
-}
-function addPause(stage){
-const btn=document.createElement('button');
-btn.type='button';
-btn.className='fx-pause';
-btn.innerHTML=
-'<svg class="i-pause" viewBox="0 0 14 14" aria-hidden="true"><rect x="2.5" y="2" width="3" height="10" rx="1" fill="currentColor"/><rect x="8.5" y="2" width="3" height="10" rx="1" fill="currentColor"/></svg>' +
-'<svg class="i-play" viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 2.2v9.6a.8.8 0 0 0 1.2.7l7.6-4.8a.8.8 0 0 0 0-1.4L4.7 1.5a.8.8 0 0 0-1.2.7z" fill="currentColor"/></svg>';
-btn.addEventListener('click',()=>setMode(mode()==='off'?(systemCalm?'calm':'full'):'off'));
-syncPause(btn);
-stage.appendChild(btn);
-}
 function initProgress(){
 const bar=document.createElement('div');
 bar.className='fx-progress';
@@ -109,7 +82,6 @@ else if(node.nodeType===1)[...node.childNodes].forEach((c)=>c.nodeType===3&&c.re
 });
 }
 function initCountUp(){
-if(mode()==='off')return;
 $$('.hero-facts strong').forEach((el)=>{
 const target=Number(el.textContent);
 if(!Number.isInteger(target)||target<2)return;
@@ -136,7 +108,6 @@ canvas=document.createElement('canvas');
 canvas.className='hero-particles';canvas.setAttribute('aria-hidden','true');
 stage.querySelector(':scope > .aurora').after(canvas);
 }
-if(!stage.classList.contains('hero-v2'))addPause(stage);
 if(!canvas.getContext)return;
 const ctx=canvas.getContext('2d');
 const dpr=Math.min(devicePixelRatio||1,2);
@@ -192,7 +163,7 @@ ctx.globalAlpha=1;
 };
 const frame=()=>{draw(mode()==='calm'?0.4:1);raf=requestAnimationFrame(frame);};
 const start=()=>{
-if(!running&&visible&&!document.hidden&&mode()!=='off'){running=true;raf=requestAnimationFrame(frame);}
+if(!running&&visible&&!document.hidden){running=true;raf=requestAnimationFrame(frame);}
 };
 const stop=()=>{running=false;cancelAnimationFrame(raf);};
 resize();
@@ -207,7 +178,6 @@ shift.tx=(0.5 - mouse.x / r.width)* 46;shift.ty=(0.5 - mouse.y / r.height)* 30;
 stage.addEventListener('pointerleave',()=>{mouse.x=mouse.y=-9999;shift.tx=shift.ty=0;});
 new IntersectionObserver(([e])=>{visible=e.isIntersecting;visible?start():stop();}).observe(stage);
 document.addEventListener('visibilitychange',()=>(document.hidden?stop():start()));
-addEventListener('vrc:motion',()=>{if(mode()==='off'){stop();draw(0);}else start();});
 }
 function initVial(){
 const stage=document.querySelector('.hero-stage');
@@ -278,7 +248,7 @@ if(btn&&!btn.contains(e.relatedTarget)){btn.classList.remove('is-magnet');btn.st
 function initButtons(){
 document.addEventListener('pointerdown',(e)=>{
 const btn=e.target.closest('.btn, .chip');
-if(!btn||btn.disabled||mode()==='off')return;
+if(!btn||btn.disabled)return;
 const r=btn.getBoundingClientRect();
 const size=Math.max(r.width,r.height);
 const dot=document.createElement('span');
@@ -315,7 +285,6 @@ const label=btn.textContent;
 btn.classList.add('fx-added');
 btn.textContent='Added ✓';
 setTimeout(()=>{btn.classList.remove('fx-added');btn.textContent=label;},1300);
-if(mode()==='off')return;
 setTimeout(()=>{
 document.querySelectorAll('[data-cart-count]').forEach((c)=>{
 c.classList.remove('fx-pop');void c.offsetWidth;c.classList.add('fx-pop');

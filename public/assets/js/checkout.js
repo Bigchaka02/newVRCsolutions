@@ -1,6 +1,6 @@
-import * as cart from './store.js?v=32f492f979';
-import{api}from './api.js?v=32f492f979';
-import{esc,toast,ROOT}from './ui.js?v=32f492f979';
+import * as cart from './store.js?v=55d0e9b26f';
+import{api}from './api.js?v=55d0e9b26f';
+import{esc,toast,ROOT}from './ui.js?v=55d0e9b26f';
 const $=(sel,root=document)=>root.querySelector(sel);
 const LAST_ORDER='vrc.last-order.v1';
 function lineRows(items){

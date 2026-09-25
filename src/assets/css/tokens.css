@@ -121,5 +121,3 @@
   :root { --header-h: 68px; }
 }
 
-/* Visitor paused animations (see motion.js). */
-:root[data-motion="off"] { --t-fast: 1ms; --t-mid: 1ms; }

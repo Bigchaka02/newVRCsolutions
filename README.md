@@ -124,7 +124,7 @@ sit on top of the base design.
 
 - **Glow stages.** Sections with the `fx-glow` class (home hero, page headers,
   the product photo stage) get a drifting glow and a particle field with depth
-  that shifts with the pointer and pauses off-screen. Each has a pause button.
+  that shifts with the pointer and pauses off-screen.
 - **Page transitions.** Pages fade between each other, and a product's vial
   morphs from the card you clicked into its product page (View Transitions,
   Chrome/Edge/Safari; other browsers simply load the page).
@@ -135,8 +135,7 @@ sit on top of the base design.
 - **Motion levels** (`<html data-motion>`, set by `motion.js` before first
   paint): `full` by default; `calm` when the visitor's system asks for reduced
   motion (Windows "Animation effects" off, macOS "Reduce motion"): the same
-  effects, slower and smaller, with no tilting or sliding; `off` once the
-  visitor presses pause, remembered in their browser.
+  effects, slower and smaller, with no tilting or sliding.
 
 Product cards and product pages use background-free vials from
 `public/assets/img/cutouts/<slug>.webp` when one exists, else the photo.

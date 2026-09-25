@@ -1,9 +1,8 @@
 (function(){
 var root=document.documentElement;
-var stored=null;
-try{stored=localStorage.getItem('vrc.motion');}catch(e){}
 var calm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-root.dataset.motion=stored==='off'?'off':(calm?'calm':'full');
+root.dataset.motion=calm?'calm':'full';
+try{localStorage.removeItem('vrc.motion');}catch(e){}
 var NAME='product-vial';
 var slug=function(url){
 var m=/\/product\/([^/]+)\/?$/.exec(new URL(url,location.href).pathname);
@@ -32,9 +31,7 @@ transition.finished.finally(function(){el.style.viewTransitionName='';});
 };
 addEventListener('pageswap',function(e){
 var vt=e.viewTransition;
-if(!vt)return;
-if(root.dataset.motion==='off'){vt.skipTransition();return;}
-if(root.dataset.motion!=='full'||!e.activation)return;
+if(!vt||root.dataset.motion!=='full'||!e.activation)return;
 var to=slug(e.activation.entry.url);
 var from=slug(location.href);
 var el=imageFor(to)||imageFor(from);
@@ -42,9 +39,7 @@ if(el)tag(el,vt);
 });
 addEventListener('pagereveal',function(e){
 var vt=e.viewTransition;
-if(!vt)return;
-if(root.dataset.motion==='off'){vt.skipTransition();return;}
-if(root.dataset.motion!=='full'||!window.navigation||!navigation.activation||!navigation.activation.from)return;
+if(!vt||root.dataset.motion!=='full'||!window.navigation||!navigation.activation||!navigation.activation.from)return;
 var from=slug(navigation.activation.from.url);
 var here=slug(location.href);
 var el=imageFor(here)||imageFor(from);

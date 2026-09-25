@@ -7,8 +7,7 @@
      cards, the hero vial link, COA links.
    - Motion level comes from <html data-motion> (see motion.js):
        full  everything; calm  (system asks for reduced motion) the same
-       effects, slower and smaller, nothing sliding across the screen;
-       off   the visitor paused animations with the button on each stage.
+       effects, slower and smaller, nothing sliding across the screen.
    - Content is visible without JS.
    ========================================================================== */
 
@@ -94,17 +93,6 @@ html.vt-grid::view-transition-new(root) { animation: none; }
 .btn-outline .fx-ripple, .btn-light .fx-ripple, .btn-coa .fx-ripple, .chip .fx-ripple { background: rgba(184,121,74,.28); }
 .chip { position: relative; overflow: hidden; isolation: isolate; }
 .chip:active { transform: scale(.95); }
-
-/* ---------- pause control on every glow stage (WCAG 2.2.2) --------------- */
-.fx-pause { position: absolute; z-index: 4; right: 14px; bottom: 14px; width: 38px; height: 38px; border-radius: 50%;
-  display: grid; place-items: center; color: var(--on-dark); cursor: pointer;
-  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); backdrop-filter: blur(10px);
-  opacity: .72; transition: opacity 200ms, background 200ms, transform 400ms var(--spring); }
-.fx-pause:hover, .fx-pause:focus-visible { opacity: 1; background: rgba(255,255,255,.16); }
-.fx-pause:active { transform: scale(.9); }
-.fx-pause svg { width: 14px; height: 14px; }
-.fx-pause .i-play, [data-motion="off"] .fx-pause .i-pause { display: none; }
-[data-motion="off"] .fx-pause .i-play { display: block; }
 
 /* ==========================================================================
    GLOW STAGES
@@ -340,13 +328,6 @@ main { overflow-x: clip; }
 [data-motion="calm"] .fx-ready [data-reveal] { transform: none; }
 [data-motion="calm"] .pcard:hover { --lift: -3px; }
 [data-motion="calm"] .fx-fly { display: none; }
-
-/* ---------- off: the visitor paused animations ------------------------- */
-[data-motion="off"] *, [data-motion="off"] *::before, [data-motion="off"] *::after { animation: none !important; transition: none !important; }
-[data-motion="off"] .fx-word { opacity: 1; transform: none; filter: none; }
-[data-motion="off"] .fx-ready [data-reveal], [data-motion="off"] .fx-ready .rule { opacity: 1 !important; transform: none !important; }
-[data-motion="off"] .vial { transform: rotate(-8deg); }
-[data-motion="off"] .fx-progress, [data-motion="off"] .fx-spark, [data-motion="off"] .fx-fly { display: none; }
 
 @media (max-width: 959px) {
   .vial-link { width: min(44vw, 190px); }
